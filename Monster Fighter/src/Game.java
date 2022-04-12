@@ -61,9 +61,16 @@ public class Game {
 		this.gameOver = gameOver;
 	}
 
+	public void setCurrentDay(int currentDay) {
+		this.currentDay = currentDay;
+	}
 	
 	public int getCurrentDay() {
 		return currentDay;
+	}
+	
+	public void setDaysRemaining(int daysRemaining) {
+		this.daysRemaining = daysRemaining;
 	}
 	
 	public int getDaysRemaining() {

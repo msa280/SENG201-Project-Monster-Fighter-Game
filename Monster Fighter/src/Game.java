@@ -19,6 +19,8 @@ public class Game {
 	private int gameLength = 5;
 	private double gameDifficulty = 0.0;
 	private boolean gameOver = false;
+	private int currentDay;
+	private int daysRemaining;
 	
 	
 	public String getPlayerName() 
@@ -59,7 +61,15 @@ public class Game {
 		this.gameOver = gameOver;
 	}
 
-
+	
+	public int getCurrentDay() {
+		return currentDay;
+	}
+	
+	public int getDaysRemaining() {
+		return daysRemaining;
+	}
+	
 
 	public boolean check_name(boolean num_or_special_char, boolean name_check_passed, int name_length, String scanned_name) 
 	{

@@ -3,12 +3,12 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Monster.Monster;
-import Monster.Cavernfreak;
-import Monster.Hollowtree;
-import Monster.Soilscreamer;
-import Monster.Venomhound;
-import Monster.Mornpest;
+import monsters.Cavernfreak;
+import monsters.Hollowtree;
+import monsters.Monster;
+import monsters.Mornpest;
+import monsters.Soilscreamer;
+import monsters.Venomhound;
 
 
 
@@ -18,7 +18,7 @@ public class Player {
 	private int playerGold = 0;
 	//private HashMap<String, String> playerInventory = new HashMap<String, String>(); 
 	private ArrayList<Monster> playersTeam = new ArrayList<Monster>();
-	private Monster startingMonsters[] = new Monster[5];
+	private Monster startingMonsters[] = new Monster[4];
 	private int currentDay;
 	private int daysRemaining;
 	
@@ -48,6 +48,11 @@ public class Player {
 		return this.daysRemaining;
 	}
 	
+	public int get_playersTeam_length()
+	{
+		return this.playersTeam.size();
+	}
+	
 	
 	
 	
@@ -55,7 +60,8 @@ public class Player {
 	{
 		while (option_correct == false)
 		{
-			System.out.print("1. Rename\n");
+			System.out.print("\nChoose a naming method for your monster: \n");
+			System.out.print("\n1. Rename\n");
 			System.out.print("2. Default Name\n");
 			System.out.print("0. Go Back\n");
 
@@ -64,7 +70,7 @@ public class Player {
 				selection = scan_input.nextInt();
 				if (selection == 1)
 				{
-					System.out.print("Monster bought!\n");
+					System.out.print("\nMonster bought!\n");
 					this.playersTeam.add(monster);
 					monster.ask_MonsterName();
 					System.out.printf("%s has been added to the team.\n", monster.getMonsterName());
@@ -73,7 +79,7 @@ public class Player {
 				} 
 				else if (selection == 2)
 				{
-					System.out.print("Monster bought!\n");
+					System.out.print("\nMonster bought!\n");
 					this.playersTeam.add(monster);
 					System.out.printf("%s has been added to the team.\n", monster.getMonsterName());
 					bought = true;
@@ -167,14 +173,19 @@ public class Player {
 			monster = startingMonsters[3];
 			monsterBought = verify_monsterPurchase(monster);
 		}
-		else
+		else if (option_number == 5)
 		{
 			monster = startingMonsters[4];
 			monsterBought = verify_monsterPurchase(monster);
 		}
+		else
+		{
+			monsterBought = false;
+		}
 	
 		return monsterBought;
 	}
+	
 	
 	
 	
@@ -194,7 +205,7 @@ public class Player {
 		while (monster_selected == false)
 		{
 			System.out.print("\nPick a staring monster: \n");
-			System.out.print("1. Cavernfreak\n");
+			System.out.print("\n1. Cavernfreak\n");
 			System.out.print("2. Hollowtree\n");
 			System.out.print("3. Mornpest\n");
 			System.out.print("4. Soilscreamer\n");
@@ -216,6 +227,75 @@ public class Player {
 	
 	
 	
+	public boolean monster_statOpener(boolean in_team_viewer, int option_number)
+	{
+		if (option_number > this.get_playersTeam_length())
+		{
+			if (option_number < 5)
+			{
+				System.out.print("\nMonsterPod is empty.\n");
+			}
+			else
+			{
+				System.out.print("\nPlease select a valid monster option.\n");
+			}
+		}
+		else if (option_number == 0)
+		{
+			in_team_viewer = false;
+		}
+		else 
+		{
+			Monster selected_monster =  this.playersTeam.get(option_number-1);
+			System.out.printf("MonsterPod %d: %s\n\n", option_number, selected_monster.getMonsterName());
+			System.out.print(selected_monster.toString());
+		}
+		
+		return in_team_viewer;
+		
+	}
+	
+	
+	
+	public void view_team()
+	{
+		boolean in_team_viewer = true;
+		int option_number = 0;
+		
+		
+		while (in_team_viewer == true)
+		{ 
+			int order = 1;
+			System.out.print("\nYour ordered team monsters are: \n\n");
+			for (Monster monster: playersTeam)
+			{
+				System.out.printf("MonsterPod %d: %s\n", order, monster.getMonsterName());
+				order += 1;
+			}
+			for (int position = order; position < 5; position++)
+			{
+				System.out.printf("MonsterPod %d: (Empty)\n", position);
+					
+			}
+			System.out.print("\nSelect the monster position to view monster stats.\n");
+			System.out.print("\n0 - Exit Team View.\n");
+			
+			
+			try 
+			{
+				option_number = scan_input.nextInt();
+				in_team_viewer = monster_statOpener(in_team_viewer, option_number);
+			} 
+			catch (InputMismatchException excp) 
+			{
+				System.out.print("\nPlease enter a valid option number.\n");
+				scan_input.next();
+				continue;
+			}
+		}
+	}
+	
+	
 	
 	
 	public boolean execute_playerCommand(boolean in_player_menu, int option_number)
@@ -232,6 +312,23 @@ public class Player {
 		{
 			System.out.printf("Remaining Days: %d\n", this.getDaysRemaining());
         } 
+		else if (option_number == 4)
+		{
+			this.view_team();
+		}
+		else if (option_number == 5)
+		{
+			
+		}
+		else if (option_number == 6)
+		{
+			
+		}
+		else if (option_number == 7)
+		{
+			
+		}
+
 		else if (option_number == 0) 
 		{
 			in_player_menu = false;
@@ -244,9 +341,7 @@ public class Player {
 		return in_player_menu;
 	}
 	
-	
-	
-	
+
 	
 	
 	public void player_viewer() 
@@ -257,12 +352,13 @@ public class Player {
 		while (in_player_menu == true)
 		{
 			System.out.print("\nWhat would you like to do: \n");
-			System.out.print("1. View Gold\n");
+			System.out.print("\n1. View Gold\n");
 			System.out.print("2. View Current Day\n");
 			System.out.print("3. View Remaining Days\n");
 			System.out.print("4. View Team\n");
 			System.out.print("5. View Inventory\n");
 			System.out.print("6. View Battles\n");
+			System.out.print("7. View Shop\n");
 			System.out.print("0. Exit\n");
 			
 			try 

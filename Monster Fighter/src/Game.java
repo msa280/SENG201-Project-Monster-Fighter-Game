@@ -65,18 +65,18 @@ public class Game {
 	{
 		if (num_or_special_char) 
 		{
-			System.out.println(scanned_name + " contains numbers or special characters!\n");
+			System.out.println("\n" + scanned_name + " contains numbers or special characters!\n");
 			System.out.println("Please choose a different fighter name.\n");
 		} 
 		else if (name_length < 3) 
 		{
 			System.out.println(scanned_name + " is too short!\n");
-			System.out.println("Please choose a longer fighter name.\n");
+			System.out.println("\nPlease choose a longer fighter name.\n");
 		} 
 		else if (name_length > 15) 
 		{
 			System.out.println(scanned_name + " is too long!\n");
-			System.out.println("Please choose a shorter fighter name.\n");
+			System.out.println("\nPlease choose a shorter fighter name.\n");
 		}
 		else 
 		{
@@ -98,7 +98,7 @@ public class Game {
 		
 		while (name_check_passed == false) 
 		{	
-			System.out.print("Enter your fighter name: ");
+			System.out.print("\nEnter your fighter name: ");
 			scanned_name = scan_input.nextLine();
 			name_length = scanned_name.length();
 			matcher = pattern.matcher(scanned_name);
@@ -115,12 +115,12 @@ public class Game {
 		if (scanned_length < 5) 
 		{
 			System.out.println(scanned_length + " is too short!\n");
-			System.out.println("Please choose a number of days between 5 and 15.\n");
+			System.out.println("\nPlease choose a number of days between 5 and 15.\n");
 		} 
 		else if (scanned_length > 15) 
 		{
 			System.out.println(scanned_length + " is too long!\n");
-			System.out.println("Please choose a number of days between 5 and 15.\n");
+			System.out.println("\nPlease choose a number of days between 5 and 15.\n");
 		}
 		else 
 		{
@@ -138,7 +138,7 @@ public class Game {
 		
 		while (gameLength_check_passed == false) {
 			
-			System.out.print("Enter the number of days you want to play: ");
+			System.out.print("\nEnter the number of days you want to play: ");
 			
 			try 
 			{
@@ -147,7 +147,7 @@ public class Game {
 			} 
 			catch (InputMismatchException excp) 
 			{
-				System.out.print("Game length should be a number between 5 and 15.\n");
+				System.out.print("\nGame length should be a number between 5 and 15.\n");
 				scan_input.next();
 				continue;
 			}
@@ -186,7 +186,7 @@ public class Game {
         }
 		else 
 		{
-			System.out.print("Choose an option number between 1 and 5.\n");
+			System.out.print("\nChoose an option number between 1 and 5.\n");
 		}
 		return valid_option;
 		
@@ -201,12 +201,12 @@ public class Game {
 	    while (valid_option == false) 
 	    {
 			
-	    	System.out.println("What is your preferred game difficulty?");
+	    	System.out.println("\nWhat is your preferred game difficulty?\n");
 		    System.out.println("1. Classic");
 		    System.out.println("2. Easy");
 		    System.out.println("3. Normal");
 		    System.out.println("4. Hard");
-		    System.out.println("5. Boss");
+		    System.out.println("5. Boss\n");
 			
 			try 
 			{
@@ -215,7 +215,7 @@ public class Game {
 			} 
 			catch (InputMismatchException excp) 
 			{
-				System.out.print("Please enter a valid option number.\n");
+				System.out.print("\nPlease enter a valid option number.\n");
 				scan_input.next();
 				continue;
 			}
@@ -228,7 +228,7 @@ public class Game {
 	
 	public static void main(String[] args)
 	{
-		System.out.print("Monster Fighter Beta V1\n");
+		System.out.print("\nMonster Fighter Beta V1\n\n");
 		Game new_game = new Game();
 		new_game.ask_PlayerName();
 		new_game.ask_GameLength();

@@ -19,7 +19,7 @@ public class Game {
 	private int gameLength = 5;
 	private double gameDifficulty = 0.0;
 	private boolean gameOver = false;
-
+	
 	
 	public String getPlayerName() 
 	{
@@ -58,6 +58,7 @@ public class Game {
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
+
 
 
 	public boolean check_name(boolean num_or_special_char, boolean name_check_passed, int name_length, String scanned_name) 
@@ -227,13 +228,22 @@ public class Game {
 	
 	public static void main(String[] args)
 	{
+		System.out.print("Monster Fighter Beta V1\n");
 		Game new_game = new Game();
 		new_game.ask_PlayerName();
 		new_game.ask_GameLength();
 		new_game.ask_GameDifficulty();
 		
+		Player new_player = new Player();
+		new_player.setPlayerGold(1000, new_game);
+		new_player.setCurrentDay(1);
+		new_player.setDaysRemaining(new_player.getCurrentDay(), new_game);
+		new_player.choose_startingMonster();
+		
+		
 		while (!new_game.isGameOver()) 
 		{
+			new_player.player_viewer();
 			System.out.print("NOW GAME STARTS! Add functions inside main game!");
 			// do game
 			break;

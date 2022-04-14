@@ -11,105 +11,56 @@ import java.util.Scanner;  // Imports
 import java.util.regex.Matcher; 
 import java.util.regex.Pattern;
 
-/*
- * A class that initializes the game and stores information pertaining to the game.
- */
 
 public class Game {
 
-	/*
-	 * Receives and holds the players input.
-	 */	
 	private Scanner scan_input = new Scanner(System.in);
-	/*
-	 * The players name.
-	 */
 	private String playerName;
-	/*
-	 * The game length.
-	 */
 	private int gameLength = 5;
-	/*
-	 * The game difficulty.
-	 */
 	private double gameDifficulty = 0.0;
-	/*
-	 * Whether or not the game is over.
-	 */
 	private boolean gameOver = false;
-
 	
-	/*
-	 * Gets the players name.
-	 */	
+	
 	public String getPlayerName() 
 	{
 		return playerName;
 	}
 
-	/*
-	 * Sets the players name.
-	 */
 	public void setPlayerName(String playerName) 
 	{
 		this.playerName = playerName;
 	}
-
-	/*
-	 * Gets the total number of days the game lasts.
-	 */	
+	
 	public int getGameLength() 
 	{
 		return gameLength;
 	}
 
-	/*
-	 * Sets the total number of days the game lasts.
-	 */
 	public void setGameLength(int gameLength)
 	{
 		this.gameLength = gameLength;
 	}
-
-	/*
-	 * Gets the game difficulty.
-	 */
+	
 	public double getGameDifficulty() 
 	{
 		return gameDifficulty;
 	}
-	
-	/*
-	 * Sets the game difficulty.
-	 */
+
 	public void setGameDifficulty(double gameDifficulty)
 	{
 		this.gameDifficulty = gameDifficulty;
 	}
 	
-	/*
-	 * Gets whether or not the game is over.
-	 */
-	public boolean getGameOver() {
+	public boolean isGameOver() {
 		return gameOver;
 	}
-	
-	/*
-	 * Sets whether or not the game is over.
-	 */
+
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
 
 
-	/*
-	 * Checks if the name given is valid.
-	 * 
-	 * @param numOrSpecialChar 	Checks if the input has numbers or special characters
-	 * @param nameCheckPassed	Checks if the name is valid(to be fixed)
-	 * @param nameLength		The length of the name that was input
-	 * @param scannedName		The name that was input
-	 */
+
 	public boolean check_name(boolean num_or_special_char, boolean name_check_passed, int name_length, String scanned_name) 
 	{
 		if (num_or_special_char) 
@@ -147,6 +98,7 @@ public class Game {
 		
 		while (name_check_passed == false) 
 		{	
+			
 			System.out.print("\nEnter your fighter name: ");
 			scanned_name = scan_input.nextLine();
 			name_length = scanned_name.length();
@@ -260,6 +212,7 @@ public class Game {
 			try 
 			{
 				option_number = scan_input.nextInt();
+				
 				valid_option = check_and_set_gameDifficulty(valid_option, option_number);
 			} 
 			catch (InputMismatchException excp) 
@@ -284,13 +237,14 @@ public class Game {
 		new_game.ask_GameDifficulty();
 		
 		Player new_player = new Player();
+		new_player.setGame(new_game);
 		new_player.setPlayerGold(1000, new_game);
 		new_player.setCurrentDay(1);
 		new_player.setDaysRemaining(new_player.getCurrentDay(), new_game);
 		new_player.choose_startingMonster();
 		
 		
-		while (!new_game.getGameOver()) 
+		while (!new_game.isGameOver()) 
 		{
 			new_player.player_viewer();
 			System.out.print("NOW GAME STARTS! Add functions inside main game!");

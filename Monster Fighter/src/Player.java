@@ -11,17 +11,17 @@ import monsters.Soilscreamer;
 import monsters.Venomhound;
 
 
-
 public class Player {
 	
 	private Scanner scan_input = new Scanner(System.in);
 	private int playerGold = 0;
 	//private HashMap<String, String> playerInventory = new HashMap<String, String>(); 
 	private ArrayList<Monster> playersTeam = new ArrayList<Monster>();
-	private Monster startingMonsters[] = new Monster[4];
+	private Monster startingMonsters[] = new Monster[5];
+	private Shop shop = new Shop();
+	private Game game;
 	private int currentDay;
 	private int daysRemaining;
-	
 	
 	
 	public int getPlayerGold() {
@@ -53,6 +53,15 @@ public class Player {
 		return this.playersTeam.size();
 	}
 	
+	public Game setGame(Game game)
+	{
+		return this.game = game; 
+	}
+	
+	public Game getGame(Game game)
+	{
+		return this.game;
+	}
 	
 	
 	
@@ -73,7 +82,7 @@ public class Player {
 					System.out.print("\nMonster bought!\n");
 					this.playersTeam.add(monster);
 					monster.ask_MonsterName();
-					System.out.printf("%s has been added to the team.\n", monster.getMonsterName());
+					System.out.printf("%s has been added to the team.\n", monster.getMonsterRename());
 					bought = true;
 					option_correct = true;
 				} 
@@ -189,8 +198,6 @@ public class Player {
 	
 	
 	
-	
-	
 	public void choose_startingMonster()
 	{
 		startingMonsters[0] = new Cavernfreak();
@@ -269,7 +276,15 @@ public class Player {
 			System.out.print("\nYour ordered team monsters are: \n\n");
 			for (Monster monster: playersTeam)
 			{
-				System.out.printf("MonsterPod %d: %s\n", order, monster.getMonsterName());
+				if (monster.getMonsterRename() == null)
+				{
+					System.out.printf("MonsterPod %d: %s\n", order, monster.getMonsterName());
+				}
+				else
+				{
+					System.out.printf("MonsterPod %d: %s\n", order, monster.getMonsterRename());
+				}
+				
 				order += 1;
 			}
 			for (int position = order; position < 5; position++)
@@ -326,7 +341,14 @@ public class Player {
 		}
 		else if (option_number == 7)
 		{
+			shop.view_shop();
 			
+		}
+		else if (option_number == 8)
+		{
+			System.out.print("\nGoodnight!\n");
+			this.setCurrentDay(this.getCurrentDay()+1);
+			this.setDaysRemaining(this.getCurrentDay(), this.game);
 		}
 
 		else if (option_number == 0) 

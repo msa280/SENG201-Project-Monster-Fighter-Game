@@ -15,5 +15,4 @@ public class GuardianArch extends Item
 		monster.setHealAmount(monster.getHealAmount() + 20);
 		System.out.printf("%s's heal amount has increased by 10.\n", monster.getMonsterName());
 	}
-
 }

@@ -4,7 +4,7 @@ public class Mornpest extends Monster {
 
 	public Mornpest() {
 		
-		super("Mornpest", "Pest fire", "Dissolve", 100, 10, 20, 100, 30);
+		super("Mornpest", null, "Pest fire", "Dissolve", 100, 10, 20, 100, 30, 300);
 	
 	}
 

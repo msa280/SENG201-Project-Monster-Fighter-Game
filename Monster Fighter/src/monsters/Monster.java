@@ -8,6 +8,7 @@ public class Monster {
 	
 	private Scanner scan_input = new Scanner(System.in);
 	private String monsterName;
+	private String monsterRename;
 	private String attackName;
 	private String special_attackName;
 	private int maxHealth;
@@ -15,10 +16,12 @@ public class Monster {
 	private int healAmount;
 	private int currentHealth;
 	private int specialDamage;
+	private int price;
 	
 	
-	public Monster(String monsterName, String attack_name, String special_attack_name, int maxHealth, int damage, int healAmount, int currentHealth, int specialDamage) {
+	public Monster(String monsterName, String monsterRename, String attack_name, String special_attack_name, int maxHealth, int damage, int healAmount, int currentHealth, int specialDamage, int price) {
 		this.setMonsterName(monsterName);
+		this.setMonsterRename(monsterRename);
 		this.setAttackName(attack_name);
 		this.setSpecial_attackName(special_attack_name);
 		this.setMaxHealth(maxHealth);
@@ -26,6 +29,7 @@ public class Monster {
 		this.setHealAmount(healAmount);
 		this.setCurrentHealth(currentHealth);
 		this.setSpecialDamage(specialDamage);
+		this.setPrice(price);
 	}
 
 	public String getMonsterName() {
@@ -92,6 +96,14 @@ public class Monster {
 		this.special_attackName = special_attackName;
 	}
 	
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
 	public boolean check_name(boolean num_or_special_char, boolean name_check_passed, int name_length, String scanned_name) 
 	{
 		if (num_or_special_char) 
@@ -136,7 +148,7 @@ public class Monster {
 			num_or_special_char = matcher.find();
 			name_check_passed = check_name(num_or_special_char, name_check_passed, name_length, scanned_name);
 		}
-		this.setMonsterName(scanned_name);
+		this.setMonsterRename(scanned_name);
 	}
 	
 	public String toString()
@@ -157,5 +169,16 @@ public class Monster {
 		
 		return monsterDetails;
 	}
+
+	public String getMonsterRename() {
+		return monsterRename;
+	}
+
+	public void setMonsterRename(String monsterRename) {
+		this.monsterRename = monsterRename;
+	}
+	
+	
+	
 
 }

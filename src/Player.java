@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 //import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
+import items.Item;
 import monsters.Cavernfreak;
 import monsters.Hollowtree;
 import monsters.Monster;
@@ -15,10 +18,11 @@ public class Player {
 	
 	private Scanner scan_input = new Scanner(System.in);
 	private int playerGold = 0;
-	//private HashMap<String, String> playerInventory = new HashMap<String, String>(); 
+	Map<String, Integer> playerInventory = new HashMap<String, Integer>();
+	private ArrayList<Item> playersItems = new ArrayList<Item>();
 	private ArrayList<Monster> playersTeam = new ArrayList<Monster>();
 	private Monster startingMonsters[] = new Monster[5];
-	private Shop shop = new Shop();
+	private Shop shop;
 	private Game game;
 	private int currentDay;
 	private int daysRemaining;
@@ -62,6 +66,92 @@ public class Player {
 	{
 		return this.game;
 	}
+	
+	public void setShop(Shop new_shop)
+	{
+		this.shop = new_shop;
+	}
+	
+	public ArrayList<Item> get_playerItems()
+	{
+		return this.playersItems;
+	}
+	
+	public ArrayList<Monster> get_playerMonsters()
+	{
+		return this.playersTeam;
+	}
+	
+	
+	
+	
+	public void buyItem(Item item)
+	{
+		if (this.playerGold < item.getPrice())
+		{
+			System.out.print("You don't have enough gold to buy this item\n");
+			return;
+		}
+		else
+		{
+			this.playerGold -= item.getPrice();
+		}
+		
+		if (this.playerInventory.containsKey(item.getItemName()))
+		{
+			this.playerInventory.put(item.getItemName(), this.playerInventory.get(item.getItemName()) + 1);
+		}
+		else
+		{
+			this.playerInventory.putIfAbsent(item.getItemName(), 1);
+		}
+		
+		if (!this.playersItems.contains(item))
+		{
+			this.playersItems.add(item);
+		}
+		
+		System.out.print("\nItem bought!\n");
+		System.out.printf("\n%s has been added to the inventory.\n", item.getItemName());
+	}
+	
+	
+	
+	public void sellMonster(Monster monster)
+	{
+		this.playerGold += monster.get_resale_price();
+		this.playersTeam.remove(monster);
+		System.out.print("\nMonster sold!\n");
+		System.out.printf("\n%s has been removed from the team.\n", monster.pickMonsterName());
+		System.out.printf("%d Gold has been given to you.\n", monster.get_resale_price());
+	}
+	
+	
+	
+	
+	
+	public void buyMonster(Monster monster, boolean rename)
+	{
+		if (this.playerGold < monster.getPrice())
+		{
+			System.out.print("You don't have enough gold to buy this monster\n");
+			return;
+		}
+		else
+		{
+			this.playerGold -= monster.getPrice();
+			System.out.print("\nMonster bought!\n");
+			
+			if (rename == true)
+			{
+				monster.ask_MonsterName();
+			}
+			this.playersTeam.add(monster);
+			System.out.printf("\n%s has been added to the team.\n", monster.pickMonsterName());	
+		}
+	}
+	
+	
 	
 	
 	
@@ -259,10 +349,63 @@ public class Player {
 		}
 		
 		return in_team_viewer;
-		
 	}
 	
 	
+	public boolean item_statOpener(boolean in_inventory_viewer,int option_number)
+	{
+		if (option_number > this.playerInventory.size())
+		{
+			System.out.print("\nPlease select a valid monster option.\n");
+		}
+		else if (option_number == 0)
+		{
+			in_inventory_viewer = false;
+		}
+		else 
+		{
+			Item selected_item =  this.playersItems.get(option_number);
+			System.out.printf("%s: %s\n\n", selected_item.getItemName(), selected_item.getItemEffect());
+		}
+		
+		return in_inventory_viewer;
+	}
+	
+	
+	
+	public void view_inventory()
+	{
+		boolean in_inventory_viewer = true;
+		int option_number = 0;
+		
+		int position = 1;
+		while (in_inventory_viewer == true)
+		{ 
+			System.out.print("\nYour current inventory is:\n");
+			for (var entry: playerInventory.entrySet())
+			{
+				System.out.printf("%d) %s: %d\n", position, entry.getKey(), entry.getValue());
+				position += 1;
+			}
+			
+			System.out.print("\nSelect the item position to view item effects.\n");
+			System.out.print("\n0 - Exit Inventory View.\n");
+			
+			
+			try 
+			{
+				option_number = scan_input.nextInt();
+				in_inventory_viewer = item_statOpener(in_inventory_viewer, option_number);
+			} 
+			catch (InputMismatchException excp) 
+			{
+				System.out.print("\nPlease enter a valid option number.\n");
+				scan_input.next();
+				continue;
+			}
+		}
+		
+	}
 	
 	public void view_team()
 	{
@@ -311,6 +454,50 @@ public class Player {
 	}
 	
 	
+	public boolean player_sleep(boolean in_player_menu)
+	{
+		
+		this.currentDay += 1;
+		this.daysRemaining -= 1;
+		
+		if (this.daysRemaining == 0)
+		{
+			System.out.print("GAME OVER!");
+			this.game.setGameOver(true);
+			in_player_menu = false;
+		}
+		else
+		{
+			System.out.printf("\nGoodnight %s! *Sleeping...*\n", this.game.getPlayerName());
+			
+			// heal monsters by healAmount not exceeding maxHealth
+			for (Monster monster: this.playersTeam)
+			{
+				monster.heal_up();
+			}
+			
+			// update items in shop
+			shop.random_generateItems();
+			shop.random_generateMonsters();
+			
+			// implement sleeping time
+			long start = System.currentTimeMillis();
+			long end = start + 5*1000;
+			while (System.currentTimeMillis() < end) {
+				
+			}
+			
+			System.out.printf("\nGood Morning %s!\n", this.game.getPlayerName());
+			System.out.print("\nAll monsters have healed up over night!\n");
+			System.out.print("Shop has been updated!\n");
+					
+
+			// update all battles
+		}
+		
+		return in_player_menu;
+		
+	}
 	
 	
 	public boolean execute_playerCommand(boolean in_player_menu, int option_number)
@@ -333,7 +520,7 @@ public class Player {
 		}
 		else if (option_number == 5)
 		{
-			
+			this.view_inventory();
 		}
 		else if (option_number == 6)
 		{
@@ -346,9 +533,7 @@ public class Player {
 		}
 		else if (option_number == 8)
 		{
-			System.out.print("\nGoodnight!\n");
-			this.setCurrentDay(this.getCurrentDay()+1);
-			this.setDaysRemaining(this.getCurrentDay(), this.game);
+			in_player_menu = this.player_sleep(in_player_menu);
 		}
 
 		else if (option_number == 0) 
@@ -381,6 +566,7 @@ public class Player {
 			System.out.print("5. View Inventory\n");
 			System.out.print("6. View Battles\n");
 			System.out.print("7. View Shop\n");
+			System.out.print("8. Sleep\n");
 			System.out.print("0. Exit\n");
 			
 			try 

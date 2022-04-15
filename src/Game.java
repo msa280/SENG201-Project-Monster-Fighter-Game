@@ -236,12 +236,17 @@ public class Game {
 		new_game.ask_GameLength();
 		new_game.ask_GameDifficulty();
 		
+		Shop new_shop = new Shop();
+		new_shop.initialize_shop();
+		
 		Player new_player = new Player();
 		new_player.setGame(new_game);
 		new_player.setPlayerGold(1000, new_game);
 		new_player.setCurrentDay(1);
 		new_player.setDaysRemaining(new_player.getCurrentDay(), new_game);
 		new_player.choose_startingMonster();
+		new_player.setShop(new_shop);
+		new_shop.get_trader(new_player);
 		
 		
 		while (!new_game.isGameOver()) 

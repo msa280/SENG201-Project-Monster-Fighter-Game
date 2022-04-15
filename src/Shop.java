@@ -25,6 +25,7 @@ public class Shop {
 	private ArrayList<Item> itemsForSale = new ArrayList<Item>();
 	private Monster all_monsters[] = new Monster[5];
 	private Item all_items[] = new Item[5];
+	private Player trader;
 
 
 	public ArrayList<Monster> getMonstersForSale() {
@@ -44,14 +45,17 @@ public class Shop {
 		this.monstersForSale = monstersForSale;
 	}
 	
-	public void generate_allMonsters()
+	
+	public void initialize_shop()
 	{
-		this.all_monsters[0] = new Cavernfreak();
-		this.all_monsters[1] = new Hollowtree();
-		this.all_monsters[2] = new Mornpest();
-		this.all_monsters[3] = new Soilscreamer();
-		this.all_monsters[4] = new Venomhound();
+		this.generate_allItems();
+		this.generate_allMonsters();
+		this.random_generateItems();
+		this.random_generateMonsters();
 	}
+	
+	
+	
 	
 	public void generate_allItems()
 	{
@@ -63,11 +67,18 @@ public class Shop {
 	}
 	
 	
+	public void get_trader(Player player)
+	{
+		this.trader = player;
+	}
+	
 	
 	public void random_generateItems()
 	{
 		boolean generationComplete = false;
 		ArrayList<Integer> nums_done = new ArrayList<Integer>();
+		
+		this.itemsForSale.clear();   // Clearing array to generate a new array of items if the day changes
 		
 		while (generationComplete == false)
 		{
@@ -99,10 +110,71 @@ public class Shop {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void generate_allMonsters()
+	{
+		this.all_monsters[0] = new Cavernfreak();
+		this.all_monsters[1] = new Hollowtree();
+		this.all_monsters[2] = new Mornpest();
+		this.all_monsters[3] = new Soilscreamer();
+		this.all_monsters[4] = new Venomhound();
+	}
+	
+	
+	
+	
+	
+	
 	public void random_generateMonsters()
 	{
 		boolean generationComplete = false;
 		ArrayList<Integer> nums_done = new ArrayList<Integer>();
+		
+		this.monstersForSale.clear();   // Clearing array to generate a new array of monsters if the day changes
 		
 		while (generationComplete == false)
 		{
@@ -135,6 +207,9 @@ public class Shop {
 	
 	
 	
+	
+	
+	
 	public void buyMonster(Monster chosen_monster)
 	{
 		boolean in_buyMonster = true;
@@ -152,17 +227,12 @@ public class Shop {
 				read_option = scan_input.nextInt();
 				if (read_option == 1)
 				{
-					System.out.print("\nMonster bought!\n");
-					//this.playersTeam.add(monster);
-					chosen_monster.ask_MonsterName();
-					System.out.printf("\n%s has been added to the team.\n", chosen_monster.getMonsterRename());
+					this.trader.buyMonster(chosen_monster, true);
 					in_buyMonster = false;
 				} 
 				else if (read_option == 2)
 				{
-					System.out.print("\nMonster bought!\n");
-					//this.playersTeam.add(monster);
-					System.out.printf("\n%s has been added to the team.\n", chosen_monster.getMonsterName());
+					this.trader.buyMonster(chosen_monster, false);
 					in_buyMonster = false;
 				}
 				else if (read_option == 0)
@@ -184,6 +254,47 @@ public class Shop {
 	}
 	
 	
+	public void sellMonster(Monster chosen_monster)
+	{
+		boolean in_sellMonster = true;
+		
+		while (in_sellMonster == true)
+		{
+			System.out.print(chosen_monster.toString());
+			System.out.printf("\nWould you like to sell %s for %d? \n", chosen_monster.pickMonsterName(), chosen_monster.get_resale_price());
+			System.out.print("\n1. Sell\n");
+			System.out.print("0. Go Back\n");
+			
+			try 
+			{
+				read_option = scan_input.nextInt();
+				
+				if (read_option == 1)
+				{
+					this.trader.sellMonster(chosen_monster);
+					in_sellMonster = false;
+				} 
+				else if (read_option == 0)
+				{
+					in_sellMonster = false;
+				}
+				else
+				{
+					System.out.print("Please choose a vlid option.\n");
+				}
+			} 
+			catch (InputMismatchException excp) 
+			{
+				System.out.print("Please enter a valid name or option.\n");
+				scan_input.next();
+				continue;
+			}
+		}
+	}
+	
+	
+	
+	
 	
 	public boolean execute_MonsterBuy(boolean in_monster_buy, int read_option, ArrayList<Monster> monstersAvailable)
 	{
@@ -193,29 +304,10 @@ public class Shop {
 		{
 			in_monster_buy = false;
 		}
-		else if (read_option == 1)
+		else if (read_option >= 1 && read_option <= 5)
 		{
-			chosen_monster = monstersAvailable.get(0);
-			this.buyMonster(chosen_monster);
-		}
-		else if (read_option == 2)
-		{
-			chosen_monster = monstersAvailable.get(1);
-			this.buyMonster(chosen_monster);
-		}
-		else if (read_option == 3)
-		{
-			chosen_monster = monstersAvailable.get(2);
-			this.buyMonster(chosen_monster);
-		}
-		else if (read_option == 4)
-		{
-			chosen_monster = monstersAvailable.get(3);
-			this.buyMonster(chosen_monster);
-		}
-		else if (read_option == 5)
-		{
-			chosen_monster = monstersAvailable.get(4);
+			int index = read_option - 1;
+			chosen_monster = monstersAvailable.get(index);
 			this.buyMonster(chosen_monster);
 		}
 		else
@@ -225,6 +317,251 @@ public class Shop {
 
 		return in_monster_buy;
 	}
+	
+	
+	
+	
+	
+	
+	public boolean execute_MonsterSell(boolean in_monster_sell, int read_option)
+	{
+		Monster chosen_monster = null;
+			
+		if (read_option == 0)
+		{
+			in_monster_sell = false;
+		}
+		else if (read_option >= 1 && read_option <= 5)
+		{
+			int index = read_option - 1;
+			chosen_monster =  this.trader.get_playerMonsters().get(index);
+			this.sellMonster(chosen_monster);
+		}
+		else
+		{
+			System.out.print("Please choose a valid option.\n");
+		}
+
+		return in_monster_sell;
+	}
+	
+	
+	
+	
+	
+	
+	public void monsterBuyStoreSection()
+	{
+		boolean in_monster_buy = true;
+		read_option = 0;
+		
+		while (in_monster_buy == true)
+		{
+			System.out.print("\nHaru: What monster would you like to buy: \n\n");
+			this.random_generateMonsters();
+			int option_num = 1;
+			for (Monster monster: this.getMonstersForSale())
+			{
+				System.out.printf("%d. %s (Cost - %d Gold)\n", option_num, monster.getMonsterName(), monster.getPrice());
+				option_num += 1;
+			}
+			System.out.print("0. Go back\n");
+			
+			try 
+			{
+				read_option = scan_input.nextInt();
+				in_monster_buy = execute_MonsterBuy(in_monster_buy, read_option, this.getMonstersForSale());
+			} 
+			catch (InputMismatchException excp) 
+			{
+				System.out.print("Please enter a valid option number.\n");
+				scan_input.next();
+				continue;
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	public void monsterSellStoreSection()
+	{
+		boolean in_monster_sell = true;
+		read_option = 0;
+		
+		if (this.trader.get_playersTeam_length() == 0)
+		{
+			System.out.print("\nYou don't have any monsters to sell.\n");
+			return;
+		}
+		
+		
+		while (in_monster_sell == true)
+		{
+			if (this.trader.get_playersTeam_length() == 0)
+			{
+				break;
+			}
+			
+			System.out.print("\nHaru: What monster would you like to sell: \n\n");
+			//System.out.player_list
+			int option_num = 1;
+			for (Monster monster: this.trader.get_playerMonsters())
+			{
+				// calculate new selling price of monster
+				System.out.printf("%d) %s (Gain - %d Gold)\n", option_num, monster.getMonsterName(), monster.get_resale_price());
+				option_num += 1;
+			}
+			System.out.print("\n0. Go back\n");
+			
+			try 
+			{
+				read_option = scan_input.nextInt();
+				in_monster_sell = execute_MonsterSell(in_monster_sell, read_option);
+			} 
+			catch (InputMismatchException excp) 
+			{
+				System.out.print("Please enter a valid option number.\n");
+				scan_input.next();
+				continue;
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -245,9 +582,7 @@ public class Shop {
 				read_option = scan_input.nextInt();
 				if (read_option == 1)
 				{
-					System.out.print("\nItem bought!\n");
-					//this.playersInventory.add(item);
-					System.out.printf("\n%s has been added to the inventory.\n", chosen_item.getItemName());
+					this.trader.buyItem(chosen_item);
 					in_buyItem = false;
 				} 
 				else if (read_option == 0)
@@ -256,7 +591,7 @@ public class Shop {
 				}
 				else
 				{
-					System.out.print("Please choose a vlid option.\n");
+					System.out.print("Please choose a valid option.\n");
 				}
 			} 
 			catch (InputMismatchException excp) 
@@ -279,9 +614,32 @@ public class Shop {
 		{
 			in_item_buy = false;
 		}
+		else if (read_option >= 1 && read_option <= 5)
+		{
+			int index = read_option - 1;
+			chosen_item = itemsAvailable.get(index);
+			this.buyItem(chosen_item);
+		}
+		else
+		{
+			System.out.print("Please choose a valid option.\n");
+		}
+
+		return in_item_buy;
+	}
+	
+	
+	public boolean execute_ItemSell(boolean in_item_buy, int read_option)
+	{
+		Item chosen_item = null;
+		
+		if (read_option == 0)
+		{
+			in_item_buy = false;
+		}
 		else if (read_option == 1)
 		{
-			chosen_item = itemsAvailable.get(0);
+			chosen_item = this.it
 			this.buyItem(chosen_item);
 		}
 		else if (read_option == 2)
@@ -314,57 +672,27 @@ public class Shop {
 	
 	
 	
-	public void monsterBuyStoreSection()
-	{
-		boolean in_monster_buy = true;
-		read_option = 0;
-		
-		this.generate_allMonsters();
-		
-		while (in_monster_buy == true)
-		{
-			
-			System.out.print("\nHaru: What monster would you like to buy: \n\n");
-			this.random_generateMonsters();
-			int option_num = 1;
-			for (Monster monster: this.getMonstersForSale())
-			{
-				System.out.printf("%d. %s (Cost - %d Shinnies)\n", option_num, monster.getMonsterName(), monster.getPrice());
-				option_num += 1;
-			}
-			System.out.print("0. Go back\n");
-			
-			try 
-			{
-				read_option = scan_input.nextInt();
-				in_monster_buy = execute_MonsterBuy(in_monster_buy, read_option, this.getMonstersForSale());
-			} 
-			catch (InputMismatchException excp) 
-			{
-				System.out.print("Please enter a valid option number.\n");
-				scan_input.next();
-				continue;
-			}
-		}
-	}
 	
 	
-	public void monsterSellStoreSection()
+	
+	
+	
+	
+	
+	public void itemSellStoreSection()
 	{
-		boolean in_monster_buy = true;
+		boolean in_item_sell = true;
 		read_option = 0;
 		
-		this.generate_allMonsters();
-		
-		while (in_monster_buy == true)
+		while (in_item_sell == true)
 		{
 			
-			System.out.print("\nHaru: What monster would you like to sell: \n\n");
+			System.out.print("\nHaru: What item would you like to sell: \n\n");
 			//System.out.player_list
 			int option_num = 1;
-			for (Monster monster: this.getMonstersForSale())
+			for (Item item: this.trader.get_playerItems())
 			{
-				System.out.printf("%d. %s (Cost - %d Shinnies)\n", option_num, monster.getMonsterName(), monster.getPrice());
+				System.out.printf("%d) %s (Cost - %d Gold)\n", option_num, item.getItemName(), item.getPrice());
 				option_num += 1;
 			}
 			System.out.print("0. Go back\n");
@@ -372,7 +700,7 @@ public class Shop {
 			try 
 			{
 				read_option = scan_input.nextInt();
-				in_monster_buy = execute_MonsterBuy(in_monster_buy, read_option, this.getMonstersForSale());
+				in_item_sell = execute_ItemSell(in_item_sell, read_option);
 			} 
 			catch (InputMismatchException excp) 
 			{
@@ -382,14 +710,13 @@ public class Shop {
 			}
 		}
 	}
+	
 	
 	
 	public void itemBuyStoreSection()
 	{
 		boolean in_item_buy = true;
 		read_option = 0;
-		
-		this.generate_allItems();
 		
 		while (in_item_buy == true)
 		{

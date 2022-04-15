@@ -104,6 +104,40 @@ public class Monster {
 		this.price = price;
 	}
 	
+	public void heal_up()
+	{
+		if (this.currentHealth + this.healAmount <= this.maxHealth)
+		{
+			this.currentHealth += this.healAmount;
+		}
+		else
+		{
+			this.currentHealth = this.maxHealth;
+		}
+	}
+	
+	
+	public String pickMonsterName()
+	{
+		if (this.monsterRename == null)
+		{
+			return this.monsterName;
+		}
+		else
+		{
+			return this.monsterRename;
+		}
+	}
+	
+	
+	
+	public int get_resale_price()
+	{
+		return this.price - 100;
+	}
+	
+	
+	
 	public boolean check_name(boolean num_or_special_char, boolean name_check_passed, int name_length, String scanned_name) 
 	{
 		if (num_or_special_char) 
@@ -153,6 +187,7 @@ public class Monster {
 	
 	public String toString()
 	{
+		String spacing = "\n\n\n";
 		String a0 = "_____________Monster Stats___________\n\n";
 		String a = "Name: %s\n".formatted(this.monsterName);
 		String a1 = "_____________________________________\n";
@@ -165,7 +200,7 @@ public class Monster {
 		String e = "Heal Amount: %d\n".formatted(this.healAmount);
 		String e0 = "_____________________________________\n";
 		
-		String monsterDetails = a0 + a + a1 + b + b1 + c + c1 + d + d1 + e + e0;
+		String monsterDetails = spacing + a0 + a + a1 + b + b1 + c + c1 + d + d1 + e + e0 + spacing;
 		
 		return monsterDetails;
 	}

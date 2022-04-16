@@ -74,11 +74,7 @@ public class Enemy {
 		boolean generationComplete = false;
 		ArrayList<Integer> nums_done = new ArrayList<Integer>();
 		
-		
-		
 		this.enemyTeam.clear();  // Clearing array to generate a new array of monsters if the day changes
-		
-		
 		
 		this.generateEnemyMonsters();
 		

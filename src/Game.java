@@ -300,6 +300,7 @@ public class Game {
 		new_shop.get_trader(new_player);
 		
 		Battle new_battle = new Battle();
+		new_battle.setPlayer(new_player);
 		new_battle.generateBattles();
 		new_player.setBattle(new_battle);
 		

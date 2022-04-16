@@ -11,11 +11,18 @@ public class Battle {
 	
 
 	private ArrayList<Enemy> battles = new ArrayList<Enemy>();
+	private Player player;
 	
 	
 	public ArrayList <Enemy> getBattles()
 	{
 		return this.battles;
+	}
+	
+	
+	public void setPlayer(Player new_player)
+	{
+		this.player = new_player;
 	}
 	
 	
@@ -61,7 +68,18 @@ public class Battle {
 	
 	public void fight(Enemy enemy)
 	{
-		// last function to implement
+		
+	}
+	
+	
+	public void playerMove(Enemy enemy)
+	{
+		
+	}
+	
+	public void enemyMove(Player player)
+	{
+		
 	}
 	
 	

@@ -22,6 +22,7 @@ public class Player {
 	private ArrayList<Item> playersItems = new ArrayList<Item>();
 	private ArrayList<Monster> playersTeam = new ArrayList<Monster>();
 	private Monster startingMonsters[] = new Monster[5];
+	private Battle battle;
 	private Shop shop;
 	private Game game;
 	private int currentDay;
@@ -85,6 +86,14 @@ public class Player {
 	public Map<Item, Integer> get_playerInventory()
 	{
 		return this.playerInventory;
+	}
+	
+	public Battle getBattle() {
+		return battle;
+	}
+
+	public void setBattle(Battle battle) {
+		this.battle = battle;
 	}
 	
 	
@@ -523,16 +532,16 @@ public class Player {
 				
 			}
 			
+			// update all battles
+			this.battle.generateBattles();
+						
 			System.out.printf("\nGood Morning %s!\n", this.game.getPlayerName());
 			System.out.print("\nAll monsters have healed up over night!\n");
 			System.out.print("Shop has been updated!\n");
+			System.out.print("New battles available!\n");
 					
-
-			// update all battles
 		}
-		
 		return in_player_menu;
-		
 	}
 	
 	
@@ -560,11 +569,11 @@ public class Player {
 		}
 		else if (option_number == 6)
 		{
-			
+			this.battleViewer();
 		}
 		else if (option_number == 7)
 		{
-			shop.view_shop();
+			this.shop.view_shop();
 			
 		}
 		else if (option_number == 8)
@@ -586,6 +595,98 @@ public class Player {
 	
 
 	
+	public boolean executeFightCommand(Enemy chosen_enemy, boolean decidingToFight, int option_number)
+	{
+		if (option_number == 0)
+		{
+			decidingToFight = false;
+		}
+		else if (option_number == 1)
+		{
+			//this.battle.fight(chosen_enemy);
+		}
+		else
+		{
+			System.out.print("Please select a valid option\n");
+		}
+		return decidingToFight;
+	}
+	
+	
+	
+	
+	public boolean execute_battleCommand(boolean in_battleViewer, int option_number)
+	{
+		if (option_number == 0)
+		{
+			in_battleViewer = false;
+		}
+		else if (option_number >= 1 && option_number <= this.battle.getBattles().size())
+		{
+			boolean decidingToFight = true;
+			
+			while (decidingToFight == true)
+			{
+				Enemy chosen_enemy = this.battle.getBattles().get(option_number-1);
+				System.out.printf("\nWould you like to fight %s?\n", chosen_enemy.getEnemyName());
+				System.out.print("\n1) Yes\n");
+				System.out.print("0) Go Back\n");
+				
+				try 
+				{
+					option_number = scan_input.nextInt();
+					decidingToFight = executeFightCommand(chosen_enemy, decidingToFight, option_number);
+				} 
+				catch (InputMismatchException excp) 
+				{
+					System.out.print("Please enter a valid option number.\n");
+					scan_input.next();
+					continue;
+				}
+			}
+		}
+		else
+		{
+			System.out.print("Please select a valid option\n");
+		}
+		return in_battleViewer;
+		
+	}
+	
+	
+	
+	
+	
+	public void battleViewer()
+	{
+		boolean in_battleViewer = true;
+		int option_number = 0;
+	
+		while (in_battleViewer == true)
+		{
+			System.out.print("\nWho would you like to fight?\n\n");
+			int position = 1;
+			for (Enemy enemy: this.battle.getBattles())
+			{
+				System.out.printf("%d) %s\n", position, enemy.getEnemyName());
+				position += 1;
+			}
+			System.out.print("0) Go Back\n");
+			
+			try 
+			{
+				option_number = scan_input.nextInt();
+				in_battleViewer = execute_battleCommand(in_battleViewer, option_number);
+			} 
+			catch (InputMismatchException excp) 
+			{
+				System.out.print("Please enter a valid option number.\n");
+				scan_input.next();
+				continue;
+			}
+		}
+		
+	}
 	
 	public void player_viewer() 
 	{
@@ -618,6 +719,8 @@ public class Player {
 			}
 		}
 	}
+
+	
 }
 
 

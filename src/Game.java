@@ -299,11 +299,14 @@ public class Game {
 		new_player.setShop(new_shop);
 		new_shop.get_trader(new_player);
 		
+		Battle new_battle = new Battle();
+		new_battle.generateBattles();
+		new_player.setBattle(new_battle);
+		
 		
 		while (!new_game.getGameOver()) 
 		{
 			new_player.player_viewer();
-			System.out.print("NOW GAME STARTS! Add functions inside main game!");
 			// do game
 			break;
 		}

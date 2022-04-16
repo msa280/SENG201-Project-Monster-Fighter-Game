@@ -12,77 +12,128 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+
+/*
+ * A class that initializes the game and stores information pertaining to the game.
+ */
 public class Game {
 
-	private Scanner scan_input = new Scanner(System.in);
+	/*
+	 * The players input.
+	 */
+	private Scanner scanInput = new Scanner(System.in);
+	/*
+	 * The players name.
+	 */
 	private String playerName;
+	/*
+	 * The total number of days the game is going to be played.
+	 */
 	private int gameLength = 5;
+	/*
+	 * The difficulty of the game.
+	 */
 	private double gameDifficulty = 0.0;
+	/*
+	 * Whether the game is over or not.
+	 */
 	private boolean gameOver = false;
-	
-	
+
+
+	/*
+	 * Gets the players name.
+	 */
 	public String getPlayerName() 
 	{
 		return playerName;
 	}
 
+	/*
+	 * Sets the players name.
+	 */
 	public void setPlayerName(String playerName) 
 	{
 		this.playerName = playerName;
 	}
 	
+	/*
+	 * Gets the players name.
+	 */
 	public int getGameLength() 
 	{
 		return gameLength;
 	}
 
+	/*
+	 * Sets the players name.
+	 */
 	public void setGameLength(int gameLength)
 	{
 		this.gameLength = gameLength;
 	}
 	
+	/*
+	 * Gets the game difficulty name.
+	 */
 	public double getGameDifficulty() 
 	{
 		return gameDifficulty;
 	}
 
+	/*
+	 * Sets the game difficulty.
+	 */
 	public void setGameDifficulty(double gameDifficulty)
 	{
 		this.gameDifficulty = gameDifficulty;
 	}
 	
-	public boolean isGameOver() {
+	/*
+	 * Gets whether the game is over or not.
+	 */
+	public boolean getGameOver() {
 		return gameOver;
 	}
 
+	/*
+	 * Sets whether the game is over or not.
+	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
 
-
-
-	public boolean check_name(boolean num_or_special_char, boolean name_check_passed, int name_length, String scanned_name) 
+	/*
+	 * Determines whether or not the input for the players name is valid.
+	 * 
+	 * @param numOrSpecialChar 	Whether or not the input is a number or a special character.
+	 * @param nameCheckPassed	Whether or not the input is valid.
+	 * @param nameLength		The length of the input.
+	 * @param scannedName		The input.
+	 * 
+	 * @return					Returns true if the players name is valid.
+	 */
+	public boolean checkName(boolean numOrSpecialChar, boolean nameCheckPassed, int nameLength, String scannedName) 
 	{
-		if (num_or_special_char) 
+		if (numOrSpecialChar) 
 		{
-			System.out.println("\n" + scanned_name + " contains numbers or special characters!\n");
+			System.out.println("\n" + scannedName + " contains numbers or special characters!\n");
 			System.out.println("Please choose a different fighter name.\n");
 		} 
-		else if (name_length < 3) 
+		else if (nameLength < 3) 
 		{
-			System.out.println(scanned_name + " is too short!\n");
+			System.out.println(scannedName + " is too short!\n");
 			System.out.println("\nPlease choose a longer fighter name.\n");
 		} 
-		else if (name_length > 15) 
+		else if (nameLength > 15) 
 		{
-			System.out.println(scanned_name + " is too long!\n");
+			System.out.println(scannedName + " is too long!\n");
 			System.out.println("\nPlease choose a shorter fighter name.\n");
 		}
 		else 
 		{
-			name_check_passed = true;
+			nameCheckPassed = true;
 		}
-		return name_check_passed;
+		return nameCheckPassed;
 	}
 	
 	
@@ -90,116 +141,116 @@ public class Game {
 	{
 		
 		Pattern pattern = Pattern.compile("[^a-zA-Z]");
-		String scanned_name = null;
+		String scannedName = null;
 		Matcher matcher = null;
-		int name_length = 0;
-		boolean num_or_special_char = false;
-		boolean name_check_passed = false;
+		int nameLength = 0;
+		boolean numOrSpecialChar = false;
+		boolean nameCheckPassed = false;
 		
-		while (name_check_passed == false) 
+		while (nameCheckPassed == false) 
 		{	
 			
 			System.out.print("\nEnter your fighter name: ");
-			scanned_name = scan_input.nextLine();
-			name_length = scanned_name.length();
-			matcher = pattern.matcher(scanned_name);
-			num_or_special_char = matcher.find();
-			name_check_passed = check_name(num_or_special_char, name_check_passed, name_length, scanned_name);
+			scannedName = scanInput.nextLine();
+			nameLength = scannedName.length();
+			matcher = pattern.matcher(scannedName);
+			numOrSpecialChar = matcher.find();
+			nameCheckPassed = checkName(numOrSpecialChar, nameCheckPassed, nameLength, scannedName);
 		}
-		this.setPlayerName(scanned_name);
+		this.setPlayerName(scannedName);
 	}
 	
 	
-	public boolean check_gameLength(boolean gameLength_check_passed, int scanned_length) 
+	public boolean checkGameLength(boolean gameLengthCheckPassed, int scannedLength) 
 	{
 		
-		if (scanned_length < 5) 
+		if (scannedLength < 5) 
 		{
-			System.out.println(scanned_length + " is too short!\n");
+			System.out.println(scannedLength + " is too short!\n");
 			System.out.println("\nPlease choose a number of days between 5 and 15.\n");
 		} 
-		else if (scanned_length > 15) 
+		else if (scannedLength > 15) 
 		{
-			System.out.println(scanned_length + " is too long!\n");
+			System.out.println(scannedLength + " is too long!\n");
 			System.out.println("\nPlease choose a number of days between 5 and 15.\n");
 		}
 		else 
 		{
-			gameLength_check_passed = true;
+			gameLengthCheckPassed = true;
 		}
-		return gameLength_check_passed;
+		return gameLengthCheckPassed;
 	}
 	
 	
-	public void ask_GameLength() 
+	public void askGameLength() 
 	{
 		
-		int scanned_length = 0;
-		boolean gameLength_check_passed = false;
+		int scannedLength = 0;
+		boolean gameLengthCheckPassed = false;
 		
-		while (gameLength_check_passed == false) {
+		while (gameLengthCheckPassed == false) {
 			
 			System.out.print("\nEnter the number of days you want to play: ");
 			
 			try 
 			{
-				scanned_length = scan_input.nextInt();
-				gameLength_check_passed = check_gameLength(gameLength_check_passed, scanned_length);
+				scannedLength = scanInput.nextInt();
+				gameLengthCheckPassed = checkGameLength(gameLengthCheckPassed, scannedLength);
 			} 
 			catch (InputMismatchException excp) 
 			{
 				System.out.print("\nGame length should be a number between 5 and 15.\n");
-				scan_input.next();
+				scanInput.next();
 				continue;
 			}
 		}
 		
-		this.setGameLength(scanned_length);
+		this.setGameLength(scannedLength);
 	}
 	
 	
-	public boolean check_and_set_gameDifficulty(boolean valid_option, int option_number) 
+	public boolean checkAndSetGameDifficulty(boolean validOption, int optionNumber) 
 	{
-		if (option_number == 1) 
+		if (optionNumber == 1) 
 		{
 			this.setGameDifficulty(1.0);
-			valid_option = true;
+			validOption = true;
         } 
-		else if (option_number == 2) 
+		else if (optionNumber == 2) 
         {
 			this.setGameDifficulty(0.5);
-			valid_option = true;
+			validOption = true;
         } 
-		else if (option_number == 3) 
+		else if (optionNumber == 3) 
 		{
 			this.setGameDifficulty(1.5);
-			valid_option = true;
+			validOption = true;
         } 
-		else if (option_number == 4) 
+		else if (optionNumber == 4) 
 		{
 			this.setGameDifficulty(2.0);
-			valid_option = true;
+			validOption = true;
         }
-		else if (option_number == 5) 
+		else if (optionNumber == 5) 
 		{
 			this.setGameDifficulty(3.0);
-			valid_option = true;
+			validOption = true;
         }
 		else 
 		{
 			System.out.print("\nChoose an option number between 1 and 5.\n");
 		}
-		return valid_option;
+		return validOption;
 		
 	}
 	
 	
 	public void ask_GameDifficulty() 
 	{
-		int option_number = 0;
-		boolean valid_option = false;
+		int optionNumber = 0;
+		boolean validOption = false;
 		
-	    while (valid_option == false) 
+	    while (validOption == false) 
 	    {
 			
 	    	System.out.println("\nWhat is your preferred game difficulty?\n");
@@ -211,14 +262,14 @@ public class Game {
 			
 			try 
 			{
-				option_number = scan_input.nextInt();
+				optionNumber = scanInput.nextInt();
 				
-				valid_option = check_and_set_gameDifficulty(valid_option, option_number);
+				validOption = checkAndSetGameDifficulty(validOption, optionNumber);
 			} 
 			catch (InputMismatchException excp) 
 			{
 				System.out.print("\nPlease enter a valid option number.\n");
-				scan_input.next();
+				scanInput.next();
 				continue;
 			}
 		}
@@ -233,7 +284,7 @@ public class Game {
 		System.out.print("\nMonster Fighter Beta V1\n\n");
 		Game new_game = new Game();
 		new_game.ask_PlayerName();
-		new_game.ask_GameLength();
+		new_game.askGameLength();
 		new_game.ask_GameDifficulty();
 		
 		Shop new_shop = new Shop();
@@ -249,7 +300,7 @@ public class Game {
 		new_shop.get_trader(new_player);
 		
 		
-		while (!new_game.isGameOver()) 
+		while (!new_game.getGameOver()) 
 		{
 			new_player.player_viewer();
 			System.out.print("NOW GAME STARTS! Add functions inside main game!");

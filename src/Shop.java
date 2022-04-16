@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -216,6 +217,7 @@ public class Shop {
 		
 		while (in_buyMonster == true)
 		{
+			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			System.out.print(chosen_monster.toString());
 			System.out.printf("\nChoose a buying method for %s: \n", chosen_monster.getMonsterName());
 			System.out.print("\n1. Buy and Rename\n");
@@ -254,12 +256,14 @@ public class Shop {
 	}
 	
 	
+	
 	public void sellMonster(Monster chosen_monster)
 	{
 		boolean in_sellMonster = true;
 		
 		while (in_sellMonster == true)
 		{
+			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			System.out.print(chosen_monster.toString());
 			System.out.printf("\nWould you like to sell %s for %d? \n", chosen_monster.pickMonsterName(), chosen_monster.get_resale_price());
 			System.out.print("\n1. Sell\n");
@@ -331,7 +335,7 @@ public class Shop {
 		{
 			in_monster_sell = false;
 		}
-		else if (read_option >= 1 && read_option <= 5)
+		else if (read_option >= 1 && read_option <= this.trader.get_playersTeam_length())
 		{
 			int index = read_option - 1;
 			chosen_monster =  this.trader.get_playerMonsters().get(index);
@@ -357,6 +361,7 @@ public class Shop {
 		
 		while (in_monster_buy == true)
 		{
+			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			System.out.print("\nHaru: What monster would you like to buy: \n\n");
 			this.random_generateMonsters();
 			int option_num = 1;
@@ -399,6 +404,7 @@ public class Shop {
 		
 		while (in_monster_sell == true)
 		{
+			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			if (this.trader.get_playersTeam_length() == 0)
 			{
 				break;
@@ -549,18 +555,44 @@ public class Shop {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void sellItem(Item chosen_item)
+	{
+		boolean in_sellItem = true;
+		
+		while (in_sellItem == true)
+		{
+			System.out.printf("Available Gold: %d\n", this.trader.getPlayerGold());
+			System.out.printf("%s - (%s)\n", chosen_item.getItemName(), chosen_item.getItemEffect());
+			System.out.printf("\nWould you like to sell %s for %d? \n", chosen_item.getItemName(), chosen_item.getResalePrice());
+			System.out.print("\n1. Sell\n");
+			System.out.print("0. Go Back\n");
+			
+			try 
+			{
+				read_option = scan_input.nextInt();
+				
+				if (read_option == 1)
+				{
+					this.trader.sellItem(chosen_item);
+					in_sellItem = false;
+				} 
+				else if (read_option == 0)
+				{
+					in_sellItem = false;
+				}
+				else
+				{
+					System.out.print("Please choose a valid option.\n");
+				}
+			} 
+			catch (InputMismatchException excp) 
+			{
+				System.out.print("Please enter a valid name or option.\n");
+				scan_input.next();
+				continue;
+			}
+		}
+	}
 	
 	
 	
@@ -572,6 +604,7 @@ public class Shop {
 		
 		while (in_buyItem == true)
 		{
+			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			System.out.printf("\n%s - (%s)\n", chosen_item.getItemName(), chosen_item.getItemEffect());
 			System.out.printf("\nWould you like to buy %s: \n", chosen_item.getItemName());
 			System.out.print("\n1. Buy\n");
@@ -637,30 +670,10 @@ public class Shop {
 		{
 			in_item_buy = false;
 		}
-		else if (read_option == 1)
+		else if (read_option >= 1 && read_option <= 5)
 		{
-			chosen_item = this.it
-			this.buyItem(chosen_item);
-		}
-		else if (read_option == 2)
-		{
-			chosen_item = itemsAvailable.get(1);
-			this.buyItem(chosen_item);
-		}
-		else if (read_option == 3)
-		{
-			chosen_item= itemsAvailable.get(2);
-			this.buyItem(chosen_item);
-		}
-		else if (read_option == 4)
-		{
-			chosen_item= itemsAvailable.get(3);
-			this.buyItem(chosen_item);
-		}
-		else if (read_option == 5)
-		{
-			chosen_item = itemsAvailable.get(4);
-			this.buyItem(chosen_item);
+			chosen_item = this.trader.get_playerItems().get(read_option-1);
+			this.sellItem(chosen_item);
 		}
 		else
 		{
@@ -685,14 +698,21 @@ public class Shop {
 		read_option = 0;
 		
 		while (in_item_sell == true)
-		{
-			
+		{	
+			if (this.trader.get_playerInventory().size() == 0)
+			{
+				return;
+			}
+		
+			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			System.out.print("\nHaru: What item would you like to sell: \n\n");
 			//System.out.player_list
 			int option_num = 1;
-			for (Item item: this.trader.get_playerItems())
+			for (Map.Entry<Item, Integer> inventory : this.trader.get_playerInventory().entrySet()) 
 			{
-				System.out.printf("%d) %s (Cost - %d Gold)\n", option_num, item.getItemName(), item.getPrice());
+				
+                int item_resale_price = inventory.getKey().getResalePrice();
+				System.out.printf("%d) %s - %d left (Cost - %d Gold)\n", option_num, inventory.getKey().getItemName(), inventory.getValue(), item_resale_price);
 				option_num += 1;
 			}
 			System.out.print("0. Go back\n");
@@ -720,7 +740,7 @@ public class Shop {
 		
 		while (in_item_buy == true)
 		{
-			
+			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			System.out.print("\nHaru: What item would you like to buy: \n\n");
 			this.random_generateItems();
 			int option_num = 1;
@@ -783,7 +803,14 @@ public class Shop {
 		}
 		else if (read_option == 2)
 		{
-			this.itemSellStoreSection();
+			if (this.trader.get_playerInventory().size() == 0)
+			{
+				System.out.print("You have no items to sell\n");
+			}
+			else
+			{
+				this.itemSellStoreSection();
+			}
 		}
 		else
 		{
@@ -802,6 +829,7 @@ public class Shop {
 			
 			while (in_buySection == true)
 			{
+				System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 				System.out.print("\nHaru: What would you like to buy: \n");
 				System.out.print("\n1. Monsters\n");
 				System.out.print("2. Items\n");
@@ -827,6 +855,8 @@ public class Shop {
 			
 			while (in_sellSection == true)
 			{
+				
+				System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 				System.out.print("\nHaru: What would you like to sell: \n");
 				System.out.print("\n1. Monsters\n");
 				System.out.print("2. Items\n");
@@ -871,6 +901,7 @@ public class Shop {
 		
 		while (in_shop == true)
 		{
+			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			System.out.print("\nHaru: Please pick what you want to do: \n");
 			System.out.print("\n1. Buy\n");
 			System.out.print("2. Sell\n");

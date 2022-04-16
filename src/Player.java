@@ -18,7 +18,7 @@ public class Player {
 	
 	private Scanner scan_input = new Scanner(System.in);
 	private int playerGold = 0;
-	Map<String, Integer> playerInventory = new HashMap<String, Integer>();
+	Map<Item, Integer> playerInventory = new HashMap<Item, Integer>();
 	private ArrayList<Item> playersItems = new ArrayList<Item>();
 	private ArrayList<Monster> playersTeam = new ArrayList<Monster>();
 	private Monster startingMonsters[] = new Monster[5];
@@ -82,6 +82,11 @@ public class Player {
 		return this.playersTeam;
 	}
 	
+	public Map<Item, Integer> get_playerInventory()
+	{
+		return this.playerInventory;
+	}
+	
 	
 	
 	
@@ -97,13 +102,13 @@ public class Player {
 			this.playerGold -= item.getPrice();
 		}
 		
-		if (this.playerInventory.containsKey(item.getItemName()))
+		if (this.playerInventory.containsKey(item))
 		{
-			this.playerInventory.put(item.getItemName(), this.playerInventory.get(item.getItemName()) + 1);
+			this.playerInventory.put(item, this.playerInventory.get(item) + 1);
 		}
 		else
 		{
-			this.playerInventory.putIfAbsent(item.getItemName(), 1);
+			this.playerInventory.putIfAbsent(item, 1);
 		}
 		
 		if (!this.playersItems.contains(item))
@@ -115,6 +120,30 @@ public class Player {
 		System.out.printf("\n%s has been added to the inventory.\n", item.getItemName());
 	}
 	
+	
+	public void sellItem(Item item)
+	{
+		System.out.print("\nItem sold!\n");
+		this.playerGold += item.getResalePrice();
+		
+		for (Map.Entry<Item, Integer> inventoryItem : this.playerInventory.entrySet())
+		{
+			if (inventoryItem.getKey() == item)
+			{
+				if (inventoryItem.getValue() == 1)
+				{
+					this.playerInventory.remove(item);
+					System.out.printf("\n%s has been removed from the inventory.\n", item.getItemName());
+				}
+				else
+				{
+					this.playerInventory.put(item, this.playerInventory.get(item) - 1);
+					System.out.printf("\nYou have sold 1 %s.\n", item.getItemName());
+				}
+			}
+		}
+		System.out.printf("%d Gold has been given to you.\n", item.getResalePrice());
+	}
 	
 	
 	public void sellMonster(Monster monster)
@@ -364,7 +393,7 @@ public class Player {
 		}
 		else 
 		{
-			Item selected_item =  this.playersItems.get(option_number);
+			Item selected_item =  (Item) this.playerInventory.keySet().toArray()[option_number-1];
 			System.out.printf("%s: %s\n\n", selected_item.getItemName(), selected_item.getItemEffect());
 		}
 		
@@ -378,13 +407,20 @@ public class Player {
 		boolean in_inventory_viewer = true;
 		int option_number = 0;
 		
-		int position = 1;
+		if (this.playerInventory.size() == 0)
+		{
+			System.out.print("\nYou do not have any items.\n");
+			return;
+		}
+		
+		
 		while (in_inventory_viewer == true)
 		{ 
+			int position = 1;
 			System.out.print("\nYour current inventory is:\n");
 			for (var entry: playerInventory.entrySet())
 			{
-				System.out.printf("%d) %s: %d\n", position, entry.getKey(), entry.getValue());
+				System.out.printf("%d) %s: %d\n", position, entry.getKey().getItemName(), entry.getValue());
 				position += 1;
 			}
 			

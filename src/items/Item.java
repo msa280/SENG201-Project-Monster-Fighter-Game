@@ -44,6 +44,11 @@ public class Item {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	public int getResalePrice()
+	{
+		return this.price - 20;
+	}
 
 
 }

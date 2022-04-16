@@ -137,7 +137,7 @@ public class Game {
 	}
 	
 	
-	public void ask_PlayerName() 
+	public void askPlayerName() 
 	{
 		
 		Pattern pattern = Pattern.compile("[^a-zA-Z]");
@@ -245,7 +245,7 @@ public class Game {
 	}
 	
 	
-	public void ask_GameDifficulty() 
+	public void askGameDifficulty() 
 	{
 		int optionNumber = 0;
 		boolean validOption = false;
@@ -283,9 +283,9 @@ public class Game {
 	{
 		System.out.print("\nMonster Fighter Beta V1\n\n");
 		Game new_game = new Game();
-		new_game.ask_PlayerName();
+		new_game.askPlayerName();
 		new_game.askGameLength();
-		new_game.ask_GameDifficulty();
+		new_game.askGameDifficulty();
 		
 		Shop new_shop = new Shop();
 		new_shop.initialize_shop();

@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -72,7 +70,6 @@ public class Battle {
 	
 	public void fight(Enemy enemy)
 	{
-	
 		System.out.print("\nFight has begun!\n\n");
 		
 		while (this.battleOver == false)
@@ -80,11 +77,7 @@ public class Battle {
 			this.playerMove(enemy);
 			this.enemyMove(enemy);
 		}
-		
-		
-		
-		
-		
+		enemy.alreadyFought = true;
 	}
 	
 	
@@ -105,7 +98,7 @@ public class Battle {
 			System.out.print("\nAll enemy monsters have fainted!\n");
 			System.out.print("You have won the battle!\n");
 			System.out.printf("You have recieved %d gold and %d points.\n");
-			this.battleOver = true;
+			this.setBattleOver(true);
 			//this.player.addgold
 			return;
 		}
@@ -190,7 +183,7 @@ public class Battle {
 			System.out.print("\nAll your monsters have fainted!\n");
 			System.out.print("You have lost the battle!\n");
 			System.out.print("You do not recieve any gold or points.\n");
-			this.battleOver = true;
+			this.setBattleOver(true);
 			return;
 		}
 		else if (enemyFighter == null)
@@ -198,7 +191,7 @@ public class Battle {
 			System.out.print("\nAll enemy monsters have fainted!\n");
 			System.out.print("You have won the battle!\n");
 			System.out.printf("You have recieved %d gold and %d points.\n");
-			this.battleOver = true;
+			this.setBattleOver(true);
 			//this.player.addgold
 			return;
 		}

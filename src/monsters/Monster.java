@@ -144,7 +144,7 @@ public class Monster {
 	
 	public boolean specialAttackAvailable()
 	{
-		if (this.getAttackCount() == 3)
+		if (this.getAttackCount() >= 3)
 		{
 			return true;
 		}

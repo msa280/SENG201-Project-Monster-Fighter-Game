@@ -603,7 +603,16 @@ public class Player {
 		}
 		else if (option_number == 1)
 		{
-			this.battle.fight(chosen_enemy);
+			if (chosen_enemy.alreadyFought == false)
+			{
+				this.battle.fight(chosen_enemy);
+				decidingToFight = false;
+			}
+			else
+			{
+				System.out.print("Enemy already fought! Please pick a different enemy.\n");
+				decidingToFight = false;
+			}
 		}
 		else
 		{

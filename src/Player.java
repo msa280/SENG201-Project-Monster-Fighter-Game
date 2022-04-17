@@ -603,7 +603,7 @@ public class Player {
 		}
 		else if (option_number == 1)
 		{
-			//this.battle.fight(chosen_enemy);
+			this.battle.fight(chosen_enemy);
 		}
 		else
 		{

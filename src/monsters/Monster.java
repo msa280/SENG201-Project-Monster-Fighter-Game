@@ -17,9 +17,10 @@ public class Monster {
 	private int currentHealth;
 	private int specialDamage;
 	private int price;
+	private boolean isFaint;
 	
 	
-	public Monster(String monsterName, String monsterRename, String attack_name, String special_attack_name, int maxHealth, int damage, int healAmount, int currentHealth, int specialDamage, int price) {
+	public Monster(String monsterName, String monsterRename, String attack_name, String special_attack_name, int maxHealth, int damage, int healAmount, int currentHealth, int specialDamage, int price, boolean isFaint) {
 		this.setMonsterName(monsterName);
 		this.setMonsterRename(monsterRename);
 		this.setAttackName(attack_name);
@@ -30,6 +31,7 @@ public class Monster {
 		this.setCurrentHealth(currentHealth);
 		this.setSpecialDamage(specialDamage);
 		this.setPrice(price);
+		this.setFaint(isFaint);
 	}
 
 	public String getMonsterName() {
@@ -211,6 +213,14 @@ public class Monster {
 
 	public void setMonsterRename(String monsterRename) {
 		this.monsterRename = monsterRename;
+	}
+
+	public boolean isFaint() {
+		return isFaint;
+	}
+
+	public void setFaint(boolean isFaint) {
+		this.isFaint = isFaint;
 	}
 	
 	

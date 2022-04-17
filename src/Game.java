@@ -167,7 +167,7 @@ public class Game {
 		if (scannedLength < 5) 
 		{
 			System.out.println(scannedLength + " is too short!\n");
-			System.out.println("\nPlease choose a number of days between 5 and 15.\n");
+			System.out.println("\nPlease choose a number of d1ays between 5 and 15.\n");
 		} 
 		else if (scannedLength > 15) 
 		{

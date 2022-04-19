@@ -27,14 +27,15 @@ public class Player {
 	private Game game;
 	private int currentDay;
 	private int daysRemaining;
+	private boolean readyForBattle;
 	
 	
 	public int getPlayerGold() {
 		return playerGold;
 	}
 
-	public void setPlayerGold(int playerGold, Game game) {
-		this.playerGold = (int)(playerGold * game.getGameDifficulty());
+	public void setPlayerGold(int playerGold) {
+		this.playerGold = playerGold;
 	}
 	
 	public void setCurrentDay(int currentDay) {
@@ -94,6 +95,11 @@ public class Player {
 
 	public void setBattle(Battle battle) {
 		this.battle = battle;
+	}
+	
+	public double getPlayerDifficulty()
+	{
+		return this.game.getGameDifficulty();
 	}
 	
 	
@@ -173,7 +179,10 @@ public class Player {
 		if (this.playerGold < monster.getPrice())
 		{
 			System.out.print("You don't have enough gold to buy this monster\n");
-			return;
+		}
+		else if (this.playersTeam.size() == 4)
+		{
+			System.out.print("You don't have enough space in your team to buy this monster\n");
 		}
 		else
 		{
@@ -238,7 +247,15 @@ public class Player {
 	}
 	
 	
-	
+	public void viewTeamCondition()
+	{
+		System.out.print("Your team's current condition is:\n\n");
+		int position = 1;
+		for (Monster monster: this.playersTeam)
+		{
+			System.out.printf("%d) Monsterpod %d (Health: %d): %s\n", position, position, monster.getCurrentHealth(), monster.pickMonsterName());
+		}
+	}
 	
 	
 	public boolean verify_monsterPurchase(Monster monster)
@@ -276,7 +293,6 @@ public class Player {
 				continue;
 			}
 		}
-		
 		return bought;
 	}
 	
@@ -285,34 +301,12 @@ public class Player {
 	
 	public boolean execute_monsterSelection(Monster[] startingMonsters, boolean monster_selected, int option_number)
 	{
-		
 		Monster monster = null;
 		boolean monsterBought = false;
 		
-	
-		if (option_number == 1) 
+		if (option_number >= 1 && option_number <= 5) 
 		{
-			monster = startingMonsters[0];
-			monsterBought = verify_monsterPurchase(monster);
-		}
-		else if (option_number == 2)
-		{
-			monster = startingMonsters[1];
-			monsterBought = verify_monsterPurchase(monster);
-		} 
-		else if (option_number == 3)
-		{
-			monster = startingMonsters[2];
-			monsterBought = verify_monsterPurchase(monster);
-		}
-		else if (option_number == 4)
-		{
-			monster = startingMonsters[3];
-			monsterBought = verify_monsterPurchase(monster);
-		}
-		else if (option_number == 5)
-		{
-			monster = startingMonsters[4];
+			monster = startingMonsters[option_number-1];
 			monsterBought = verify_monsterPurchase(monster);
 		}
 		else
@@ -390,11 +384,87 @@ public class Player {
 	}
 	
 	
+	
+	public boolean useItem(boolean item_use_verifying, int option_number, Item selected_item, Monster monster)
+	{
+		if (option_number == 0)
+		{
+			item_use_verifying = false;
+		}
+		else if (option_number == 1)
+		{
+			System.out.print("Item used.\n");
+			selected_item.useItem(selected_item, monster);
+			
+			if (this.playerInventory.get(selected_item) == 1)
+			{
+				this.playerInventory.remove(selected_item);
+			}
+			else
+			{
+				this.playerInventory.put(selected_item, this.playerInventory.get(selected_item)-1);
+			}
+			item_use_verifying = false;
+		}
+		else
+		{
+			System.out.print("Please select a valid option.\n");
+		}
+		return item_use_verifying;
+	}
+	
+	
+	
+	public boolean itemOnMonster(boolean in_monster_selector, int option_number, Item selected_item)
+	{
+		if (option_number >= 1 && option_number <= this.playersTeam.size())
+		{
+			Monster monster = this.playersTeam.get(option_number-1);
+			boolean item_use_verifying = true;
+			
+			while (item_use_verifying == true)
+			{
+				System.out.print(monster.toString());
+				System.out.printf("Would you like to use %s on %s?\n\n", selected_item.getItemName(), monster.pickMonsterName());
+				System.out.print("1 - Yes\n");
+				System.out.print("0 - Go back.\n");
+				
+				try 
+				{
+					option_number = scan_input.nextInt();
+					item_use_verifying = useItem(item_use_verifying, option_number, selected_item, monster);
+				} 
+				catch (InputMismatchException excp) 
+				{
+					System.out.print("\nPlease enter a valid option number.\n");
+					scan_input.next();
+					continue;
+				}
+			}
+			item_use_verifying = false;
+		}
+		else if (option_number > this.playersTeam.size() && option_number <= 4)
+		{
+			System.out.printf("Monster Pod %d is empty. Please select a different monster pod.\n", option_number);
+		}
+		else if (option_number == 0)
+		{
+			in_monster_selector = false;
+		}
+		else
+		{
+			System.out.print("Please enter a valid option number.\n");
+		}
+		return in_monster_selector;
+	}
+	
+	
+	
 	public boolean item_statOpener(boolean in_inventory_viewer,int option_number)
 	{
 		if (option_number > this.playerInventory.size())
 		{
-			System.out.print("\nPlease select a valid monster option.\n");
+			System.out.print("\nPlease select a valid item option.\n");
 		}
 		else if (option_number == 0)
 		{
@@ -402,8 +472,50 @@ public class Player {
 		}
 		else 
 		{
+			
+			boolean in_monster_selector = true;
 			Item selected_item =  (Item) this.playerInventory.keySet().toArray()[option_number-1];
-			System.out.printf("%s: %s\n\n", selected_item.getItemName(), selected_item.getItemEffect());
+			
+			while (in_monster_selector == true)
+			{
+				if (this.playerInventory.containsKey(selected_item))
+				{
+					System.out.printf("%s: %s\n\n", selected_item.getItemName(), selected_item.getItemEffect());
+					System.out.printf("Which monster would you like to use %s on:\n\n", selected_item.getItemName());
+					
+					int order = 1;
+					for (Monster monster: playersTeam)
+					{
+						System.out.printf("MonsterPod %d (Health: %d): %s\n", order, monster.getCurrentHealth(), monster.pickMonsterName());
+						order += 1;
+					}
+					for (int position = order; position < 5; position++)
+					{
+						System.out.printf("MonsterPod %d (Health: -): (Empty)\n", position);	
+					}
+					System.out.print("\nSelect the MonsterPod to view monster stats or use item.\n");
+					System.out.print("\n0 - Go back.\n");
+					
+					
+					try 
+					{
+						option_number = scan_input.nextInt();
+						in_monster_selector = itemOnMonster(in_monster_selector, option_number, selected_item);
+					} 
+					catch (InputMismatchException excp) 
+					{
+						System.out.print("\nPlease enter a valid option number.\n");
+						scan_input.next();
+						continue;
+					}
+				}
+				else
+				{
+					System.out.printf("All available %s's have been used.\n", selected_item.getItemName());
+					in_monster_selector = false;
+				}
+				
+			}
 		}
 		
 		return in_inventory_viewer;
@@ -425,31 +537,38 @@ public class Player {
 		
 		while (in_inventory_viewer == true)
 		{ 
-			int position = 1;
-			System.out.print("\nYour current inventory is:\n");
-			for (var entry: playerInventory.entrySet())
+			if (this.playerInventory.size() == 0)
 			{
-				System.out.printf("%d) %s: %d\n", position, entry.getKey().getItemName(), entry.getValue());
-				position += 1;
+				System.out.print("Player inventory is currently: (Empty)\n");
+				in_inventory_viewer = false;
 			}
-			
-			System.out.print("\nSelect the item position to view item effects.\n");
-			System.out.print("\n0 - Exit Inventory View.\n");
-			
-			
-			try 
+			else
 			{
-				option_number = scan_input.nextInt();
-				in_inventory_viewer = item_statOpener(in_inventory_viewer, option_number);
-			} 
-			catch (InputMismatchException excp) 
-			{
-				System.out.print("\nPlease enter a valid option number.\n");
-				scan_input.next();
-				continue;
+				int position = 1;
+				System.out.print("\nYour current inventory is:\n");
+				for (var entry: playerInventory.entrySet())
+				{
+					System.out.printf("%d) %s: %d\n", position, entry.getKey().getItemName(), entry.getValue());
+					position += 1;
+				}
+				
+				System.out.print("\nSelect the item position to view item effects or use item.\n");
+				System.out.print("\n0 - Exit Inventory View.\n");
+				
+				
+				try 
+				{
+					option_number = scan_input.nextInt();
+					in_inventory_viewer = item_statOpener(in_inventory_viewer, option_number);
+				} 
+				catch (InputMismatchException excp) 
+				{
+					System.out.print("\nPlease enter a valid option number.\n");
+					scan_input.next();
+					continue;
+				}
 			}
 		}
-		
 	}
 	
 	public void view_team()
@@ -464,15 +583,7 @@ public class Player {
 			System.out.print("\nYour ordered team monsters are: \n\n");
 			for (Monster monster: playersTeam)
 			{
-				if (monster.getMonsterRename() == null)
-				{
-					System.out.printf("MonsterPod %d: %s\n", order, monster.getMonsterName());
-				}
-				else
-				{
-					System.out.printf("MonsterPod %d: %s\n", order, monster.getMonsterRename());
-				}
-				
+				System.out.printf("MonsterPod %d: %s\n", order, monster.pickMonsterName());
 				order += 1;
 			}
 			for (int position = order; position < 5; position++)
@@ -480,7 +591,7 @@ public class Player {
 				System.out.printf("MonsterPod %d: (Empty)\n", position);
 					
 			}
-			System.out.print("\nSelect the monster position to view monster stats.\n");
+			System.out.print("\nSelect the MonsterPod to view monster stats.\n");
 			System.out.print("\n0 - Exit Team View.\n");
 			
 			
@@ -521,15 +632,15 @@ public class Player {
 				monster.heal_up();
 			}
 			
-			// update items in shop
+			// update items and monsters in shop
 			shop.random_generateItems();
 			shop.random_generateMonsters();
 			
 			// implement sleeping time
 			long start = System.currentTimeMillis();
 			long end = start + 5*1000;
-			while (System.currentTimeMillis() < end) {
-				
+			while (System.currentTimeMillis() < end) 
+			{
 			}
 			
 			// update all battles
@@ -593,7 +704,19 @@ public class Player {
 		return in_player_menu;
 	}
 	
-
+    
+	public boolean monstersReadyBattle()
+	{
+		for (Monster monster: this.playersTeam)
+		{
+			if (monster.isFaint() == false)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	public boolean executeFightCommand(Enemy chosen_enemy, boolean decidingToFight, int option_number)
 	{
@@ -603,16 +726,24 @@ public class Player {
 		}
 		else if (option_number == 1)
 		{
-			if (chosen_enemy.alreadyFought == false)
+			if (this.monstersReadyBattle() == true)
 			{
-				this.battle.fight(chosen_enemy);
-				decidingToFight = false;
+				if (chosen_enemy.alreadyFought == false)
+				{
+					this.battle.fight(chosen_enemy);
+					decidingToFight = false;
+				}
+				else
+				{
+					System.out.print("Enemy already fought! Please pick a different enemy.\n");
+					decidingToFight = false;
+				}
 			}
 			else
 			{
-				System.out.print("Enemy already fought! Please pick a different enemy.\n");
-				decidingToFight = false;
+				System.out.print("All your monsters have fainted! Please have atleast 1 monster alive to fight.\n");
 			}
+			
 		}
 		else
 		{
@@ -727,6 +858,14 @@ public class Player {
 				continue;
 			}
 		}
+	}
+
+	public boolean isReadyForBattle() {
+		return readyForBattle;
+	}
+
+	public void setReadyForBattle(boolean readyForBattle) {
+		this.readyForBattle = readyForBattle;
 	}
 
 	

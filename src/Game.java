@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 
 
+
 /*
  * A class that initializes the game and stores information pertaining to the game.
  */
@@ -292,7 +293,8 @@ public class Game {
 		
 		Player new_player = new Player();
 		new_player.setGame(new_game);
-		new_player.setPlayerGold(1000, new_game);
+		int startingGold = (int)(1000 * new_game.getGameDifficulty());
+		new_player.setPlayerGold(startingGold);
 		new_player.setCurrentDay(1);
 		new_player.setDaysRemaining(new_player.getCurrentDay(), new_game);
 		new_player.choose_startingMonster();

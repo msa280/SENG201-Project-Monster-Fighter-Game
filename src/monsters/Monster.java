@@ -210,7 +210,7 @@ public class Monster {
 	{
 		String spacing = "\n\n\n";
 		String a0 = "_____________Monster Stats___________\n\n";
-		String a = "Name: %s\n".formatted(this.monsterName);
+		String a = "Name: %s\n".formatted(this.pickMonsterName());
 		String a1 = "_____________________________________\n";
 		String b = "Attack Name: %s\n".formatted(this.attackName);
 		String b1 = "Attack Damage: %d\n".formatted(this.damage);

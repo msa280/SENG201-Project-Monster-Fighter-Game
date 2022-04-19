@@ -109,52 +109,7 @@ public class Shop {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	public void generate_allMonsters()
 	{
@@ -164,8 +119,6 @@ public class Shop {
 		this.all_monsters[3] = new Soilscreamer();
 		this.all_monsters[4] = new Venomhound();
 	}
-	
-	
 	
 	
 	
@@ -217,10 +170,10 @@ public class Shop {
 		
 		while (in_buyMonster == true)
 		{
-			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			System.out.print(chosen_monster.toString());
-			System.out.printf("\nChoose a buying method for %s: \n", chosen_monster.getMonsterName());
-			System.out.print("\n1. Buy and Rename\n");
+			System.out.printf("\nChoose a buying method for %s:\n\n", chosen_monster.getMonsterName());
+			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
+			System.out.print("1. Buy and Rename\n");
 			System.out.print("2. Buy with Default Name\n");
 			System.out.print("0. Go Back\n");
 			
@@ -263,10 +216,10 @@ public class Shop {
 		
 		while (in_sellMonster == true)
 		{
-			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			System.out.print(chosen_monster.toString());
-			System.out.printf("\nWould you like to sell %s for %d? \n", chosen_monster.pickMonsterName(), chosen_monster.get_resale_price());
-			System.out.print("\n1. Sell\n");
+			System.out.printf("\nWould you like to sell %s for %d?\n\n", chosen_monster.pickMonsterName(), chosen_monster.get_resale_price());
+			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
+			System.out.print("1. Sell\n");
 			System.out.print("0. Go Back\n");
 			
 			try 
@@ -361,8 +314,8 @@ public class Shop {
 		
 		while (in_monster_buy == true)
 		{
-			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
-			System.out.print("\nHaru: What monster would you like to buy: \n\n");
+			System.out.print("\nHaru: What monster would you like to buy:\n\n");
+			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
 			this.random_generateMonsters();
 			int option_num = 1;
 			for (Monster monster: this.getMonstersForSale())
@@ -404,14 +357,13 @@ public class Shop {
 		
 		while (in_monster_sell == true)
 		{
-			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
 			if (this.trader.get_playersTeam_length() == 0)
 			{
 				break;
 			}
 			
-			System.out.print("\nHaru: What monster would you like to sell: \n\n");
-			//System.out.player_list
+			System.out.print("\nHaru: What monster would you like to sell:\n\n");
+			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
 			int option_num = 1;
 			for (Monster monster: this.trader.get_playerMonsters())
 			{
@@ -437,123 +389,7 @@ public class Shop {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	public void sellItem(Item chosen_item)
 	{
@@ -561,10 +397,11 @@ public class Shop {
 		
 		while (in_sellItem == true)
 		{
-			System.out.printf("Available Gold: %d\n", this.trader.getPlayerGold());
+			
 			System.out.printf("%s - (%s)\n", chosen_item.getItemName(), chosen_item.getItemEffect());
-			System.out.printf("\nWould you like to sell %s for %d? \n", chosen_item.getItemName(), chosen_item.getResalePrice());
-			System.out.print("\n1. Sell\n");
+			System.out.printf("\nWould you like to sell %s for %d?\n\n", chosen_item.getItemName(), chosen_item.getResalePrice());
+			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
+			System.out.print("1. Sell\n");
 			System.out.print("0. Go Back\n");
 			
 			try 
@@ -604,10 +441,11 @@ public class Shop {
 		
 		while (in_buyItem == true)
 		{
-			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
+			
 			System.out.printf("\n%s - (%s)\n", chosen_item.getItemName(), chosen_item.getItemEffect());
-			System.out.printf("\nWould you like to buy %s: \n", chosen_item.getItemName());
-			System.out.print("\n1. Buy\n");
+			System.out.printf("\nWould you like to buy %s:\n\n", chosen_item.getItemName());
+			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
+			System.out.print("1. Buy\n");
 			System.out.print("0. Go Back\n");
 			
 			try 
@@ -704,9 +542,9 @@ public class Shop {
 				return;
 			}
 		
-			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
-			System.out.print("\nHaru: What item would you like to sell: \n\n");
-			//System.out.player_list
+			System.out.print("\nHaru: What item would you like to sell:\n\n");
+			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
+			
 			int option_num = 1;
 			for (Map.Entry<Item, Integer> inventory : this.trader.get_playerInventory().entrySet()) 
 			{
@@ -740,13 +578,13 @@ public class Shop {
 		
 		while (in_item_buy == true)
 		{
-			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
-			System.out.print("\nHaru: What item would you like to buy: \n\n");
-			this.random_generateItems();
+
+			System.out.print("\nHaru: What item would you like to buy:\n\n");
+			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
 			int option_num = 1;
 			for (Item item: this.getItemsForSale())
 			{
-				System.out.printf("%d. %s (Cost - %d Shinnies)\n", option_num, item.getItemName(), item.getPrice());
+				System.out.printf("%d. %s (Cost - %d Gold)\n", option_num, item.getItemName(), item.getPrice());
 				option_num += 1;
 			}
 			System.out.print("0. Go back\n");
@@ -829,9 +667,9 @@ public class Shop {
 			
 			while (in_buySection == true)
 			{
-				System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
-				System.out.print("\nHaru: What would you like to buy: \n");
-				System.out.print("\n1. Monsters\n");
+				System.out.print("\nHaru: What would you like to buy:\n\n");
+				System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
+				System.out.print("1. Monsters\n");
 				System.out.print("2. Items\n");
 				System.out.print("0. Go Back\n");
 				
@@ -856,9 +694,9 @@ public class Shop {
 			while (in_sellSection == true)
 			{
 				
-				System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
-				System.out.print("\nHaru: What would you like to sell: \n");
-				System.out.print("\n1. Monsters\n");
+				System.out.print("\nHaru: What would you like to sell:\n\n");
+				System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
+				System.out.print("1. Monsters\n");
 				System.out.print("2. Items\n");
 				System.out.print("0. Go Back\n");
 				
@@ -877,8 +715,8 @@ public class Shop {
 		}
 		else if (chosen_option == 0)
 		{
-			System.out.print("\nWitch: Hope to see you again!\n");
-			System.out.print("Witch: Goodluck in your battles strong fellow!\n\n");
+			System.out.print("\nHaru: Hope to see you again!\n");
+			System.out.print("Haru: Goodluck in your battles strong fellow!\n\n");
 			in_shop = false;
 		}
 		else
@@ -893,7 +731,7 @@ public class Shop {
 	
 	public void view_shop()
 	{
-		System.out.print("Haru: Welcome to MonsterPod Laboratories!\n");
+		System.out.print("\nHaru: Welcome to MonsterPod Laboratories!\n");
 		System.out.print("Haru: Feel free to explore!\n");
 		
 		boolean in_shop = true;
@@ -901,9 +739,10 @@ public class Shop {
 		
 		while (in_shop == true)
 		{
-			System.out.printf("Available Gold: %d\n\n", this.trader.getPlayerGold());
-			System.out.print("\nHaru: Please pick what you want to do: \n");
-			System.out.print("\n1. Buy\n");
+			
+			System.out.print("\nHaru: Please pick what you want to do:\n\n");
+			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
+			System.out.print("1. Buy\n");
 			System.out.print("2. Sell\n");
 			System.out.print("0. Exit Shop\n");
 			

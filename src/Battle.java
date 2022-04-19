@@ -15,6 +15,9 @@ public class Battle {
 	private Random random = new Random();
 	private Scanner scan_input = new Scanner(System.in);
 	private boolean battleOver = false;
+	private boolean playerWon;
+	private int battleGold = 0;
+	private int experiencePoints = 0;
 	
 	
 	public ArrayList <Enemy> getBattles()
@@ -32,7 +35,6 @@ public class Battle {
 	
 	public void generateBattles()
 	{
-		
 		this.battles.clear();     // clearing all battles if player sleeps to refresh.
 		
 		boolean generationComplete = false;
@@ -41,7 +43,6 @@ public class Battle {
 		int battleOptions = 3 + random.nextInt(upperbound); // getting a random size of team between 3 and 5.
 		
 		ArrayList<String> selectedNames = new ArrayList<String>();
-		
 		
 		while (generationComplete == false)
 		{
@@ -77,8 +78,27 @@ public class Battle {
 			this.playerMove(enemy);
 			this.enemyMove(enemy);
 		}
+		
+		if (this.playerWon == true)
+		{
+			System.out.print("\nAll enemy monsters have fainted!\n");
+			System.out.print("You have won the battle!\n");
+			this.player.setPlayerGold(this.player.getPlayerGold() + this.battleGold);
+			System.out.printf("You have recieved %d gold and %d points.\n", this.battleGold, this.experiencePoints);	
+		}
+		else
+		{
+			System.out.print("\nAll your monsters have fainted!\n");
+			System.out.print("You have lost the battle!\n");
+			System.out.print("You do not recieve any gold or points.\n");
+		}
+		
+		this.player.viewTeamCondition();
 		enemy.alreadyFought = true;
+	
 	}
+	
+	
 	
 	
 	public void playerMove(Enemy enemy)
@@ -88,23 +108,19 @@ public class Battle {
 		
 		if (playerFighter == null)
 		{
-			System.out.print("\nAll your monsters have fainted!\n");
-			System.out.print("You have lost the battle!\n");
-			System.out.print("You do not recieve any gold or points.\n");
+			this.playerWon = false;
 			this.battleOver = true;
 		}
 		else if (enemyFighter == null)
 		{
-			System.out.print("\nAll enemy monsters have fainted!\n");
-			System.out.print("You have won the battle!\n");
-			System.out.printf("You have recieved %d gold and %d points.\n");
-			this.setBattleOver(true);
-			//this.player.addgold
-			return;
+			this.playerWon = true;
+			this.battleOver = true;
 		}
+		
 		else
 		{
 			boolean playerTurnDone = false;
+			double difficulty = this.player.getPlayerDifficulty();
 			
 			while (playerTurnDone == false)
 			{
@@ -122,10 +138,12 @@ public class Battle {
 						if (enemyFighter.getCurrentHealth() - playerFighter.getDamage() > 0)
 						{
 							enemyFighter.setCurrentHealth(enemyFighter.getCurrentHealth() - playerFighter.getDamage());
+							this.battleGold += (int)(playerFighter.getDamage() * difficulty);
 						}
 						else
 						{
 							System.out.print("\n Effective! Enemy monster has fainted!\n");
+							this.experiencePoints += 1;
 							enemyFighter.setCurrentHealth(0);
 							enemyFighter.setFaint(true);
 						}
@@ -140,10 +158,12 @@ public class Battle {
 							if (enemyFighter.getCurrentHealth() - playerFighter.getSpecialDamage() > 0)
 							{
 								enemyFighter.setCurrentHealth(enemyFighter.getCurrentHealth() - playerFighter.getSpecialDamage());
+								this.battleGold += (int)(playerFighter.getSpecialDamage() * difficulty);
 							}
 							else
 							{
-								System.out.print("\n Effective! Enemy monster has fainted!\n");
+								System.out.print("\nEffective! Enemy monster has fainted!\n");
+								this.experiencePoints += 1;
 								enemyFighter.setCurrentHealth(0);
 								enemyFighter.setFaint(true);
 							}
@@ -168,7 +188,6 @@ public class Battle {
 				}
 			}
 		}
-		
 	}
 	
 	
@@ -177,37 +196,30 @@ public class Battle {
 	{
 		Monster playerFighter = this.getPlayerCurrentFighter();
 		Monster enemyFighter = this.getEnemyCurrentFighter(enemy);
+		double difficulty = this.player.getPlayerDifficulty();
 		
 		if (playerFighter == null)
 		{
-			System.out.print("\nAll your monsters have fainted!\n");
-			System.out.print("You have lost the battle!\n");
-			System.out.print("You do not recieve any gold or points.\n");
-			this.setBattleOver(true);
-			return;
+			this.playerWon = false;
+			this.battleOver = true;
 		}
 		else if (enemyFighter == null)
 		{
-			System.out.print("\nAll enemy monsters have fainted!\n");
-			System.out.print("You have won the battle!\n");
-			System.out.printf("You have recieved %d gold and %d points.\n");
-			this.setBattleOver(true);
-			//this.player.addgold
-			return;
+			this.playerWon = true;
+			this.battleOver = true;
 		}
-		
 		
 		else if (enemyFighter.specialAttackAvailable() == true)
 		{
 			this.displayBattle(playerFighter, enemyFighter);
 			System.out.printf("\n%s used %s!\n", enemyFighter.pickMonsterName(), enemyFighter.getSpecial_attackName());
-			if (playerFighter.getCurrentHealth() - enemyFighter.getSpecialDamage() > 0)
+			if (playerFighter.getCurrentHealth() - (int)(enemyFighter.getSpecialDamage() * difficulty) > 0)
 			{
-				playerFighter.setCurrentHealth(playerFighter.getCurrentHealth() - enemyFighter.getSpecialDamage());
+				playerFighter.setCurrentHealth(playerFighter.getCurrentHealth() - (int)(enemyFighter.getSpecialDamage() * difficulty));
 			}
 			else
 			{
-				System.out.print("\n OH NO! Your monster has fainted!\n");
+				System.out.print("\nOH NO! Your monster has fainted!\n");
 				playerFighter.setCurrentHealth(0);
 				playerFighter.setFaint(true);
 			}	
@@ -217,13 +229,13 @@ public class Battle {
 		{
 			this.displayBattle(playerFighter, enemyFighter);
 			System.out.printf("\n%s used %s!\n", enemyFighter.pickMonsterName(), enemyFighter.getAttackName());
-			if (playerFighter.getCurrentHealth() - playerFighter.getDamage() > 0)
+			if (playerFighter.getCurrentHealth() - (int)(playerFighter.getDamage() * difficulty) > 0)
 			{
-				playerFighter.setCurrentHealth(playerFighter.getCurrentHealth() - enemyFighter.getDamage());
+				playerFighter.setCurrentHealth(playerFighter.getCurrentHealth() - (int)(playerFighter.getDamage() * difficulty));
 			}
 			else
 			{
-				System.out.print("\n OH NO! Your monster has fainted!\n");
+				System.out.print("\nOH NO! Your monster has fainted!\n");
 				playerFighter.setCurrentHealth(0);
 				playerFighter.setFaint(true);
 			}
@@ -275,14 +287,6 @@ public class Battle {
 	
 	
 	
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
-
 	public boolean isBattleOver() {
 		return battleOver;
 	}
@@ -290,6 +294,36 @@ public class Battle {
 
 	public void setBattleOver(boolean battleOver) {
 		this.battleOver = battleOver;
+	}
+
+
+	public boolean isPlayerWon() {
+		return playerWon;
+	}
+
+
+	public void setPlayerWon(boolean playerWon) {
+		this.playerWon = playerWon;
+	}
+
+
+	public int getBattleGold() {
+		return battleGold;
+	}
+
+
+	public void setBattleGold(int battleGold) {
+		this.battleGold = battleGold;
+	}
+
+
+	public int getExperiencePoints() {
+		return experiencePoints;
+	}
+
+
+	public void setExperiencePoints(int experiencePoints) {
+		this.experiencePoints = experiencePoints;
 	}
 
 }

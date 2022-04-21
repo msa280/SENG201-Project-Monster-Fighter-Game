@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Monster {
 	
-	private Scanner scan_input = new Scanner(System.in);
+	private Scanner scanInput = new Scanner(System.in);
 	private String monsterName;
 	private String monsterRename;
 	private String attackName;
@@ -109,7 +109,7 @@ public class Monster {
 		this.price = price;
 	}
 	
-	public void heal_up()
+	public void healUp()
 	{
 		if (this.currentHealth + this.healAmount <= this.maxHealth)
 		{
@@ -136,7 +136,7 @@ public class Monster {
 	
 	
 	
-	public int get_resale_price()
+	public int getResalePrice()
 	{
 		return this.price - 100;
 	}
@@ -197,7 +197,7 @@ public class Monster {
 		while (name_check_passed == false) 
 		{	
 			System.out.print("\nRename your monster: ");
-			scanned_name = scan_input.nextLine();
+			scanned_name = scanInput.nextLine();
 			name_length = scanned_name.length();
 			matcher = pattern.matcher(scanned_name);
 			num_or_special_char = matcher.find();

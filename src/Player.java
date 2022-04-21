@@ -163,11 +163,11 @@ public class Player {
 	
 	public void sellMonster(Monster monster)
 	{
-		this.playerGold += monster.get_resale_price();
+		this.playerGold += monster.getPrice();
 		this.playersTeam.remove(monster);
 		System.out.print("\nMonster sold!\n");
 		System.out.printf("\n%s has been removed from the team.\n", monster.pickMonsterName());
-		System.out.printf("%d Gold has been given to you.\n", monster.get_resale_price());
+		System.out.printf("%d Gold has been given to you.\n", monster.getPrice());
 	}
 	
 	
@@ -629,7 +629,7 @@ public class Player {
 			// heal monsters by healAmount not exceeding maxHealth
 			for (Monster monster: this.playersTeam)
 			{
-				monster.heal_up();
+				monster.healUp();
 			}
 			
 			// update items and monsters in shop

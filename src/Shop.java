@@ -217,7 +217,7 @@ public class Shop {
 		while (in_sellMonster == true)
 		{
 			System.out.print(chosen_monster.toString());
-			System.out.printf("\nWould you like to sell %s for %d?\n\n", chosen_monster.pickMonsterName(), chosen_monster.get_resale_price());
+			System.out.printf("\nWould you like to sell %s for %d?\n\n", chosen_monster.pickMonsterName(), chosen_monster.getPrice());
 			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
 			System.out.print("1. Sell\n");
 			System.out.print("0. Go Back\n");
@@ -368,7 +368,7 @@ public class Shop {
 			for (Monster monster: this.trader.get_playerMonsters())
 			{
 				// calculate new selling price of monster
-				System.out.printf("%d) %s (Gain - %d Gold)\n", option_num, monster.getMonsterName(), monster.get_resale_price());
+				System.out.printf("%d) %s (Gain - %d Gold)\n", option_num, monster.getMonsterName(), monster.getPrice());
 				option_num += 1;
 			}
 			System.out.print("\n0. Go back\n");

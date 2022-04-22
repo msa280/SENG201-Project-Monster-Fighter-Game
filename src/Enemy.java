@@ -10,11 +10,11 @@ import monsters.Venomhound;
 
 public class Enemy {
 	
-	String enemyName;
+	private String enemyName;
 	private ArrayList<Monster> enemyTeam = new ArrayList<Monster>();
-	boolean alreadyFought = false;
+	private boolean alreadyFought = false;
 	
-	private Monster all_monsters[] = new Monster[5];
+	private Monster allMonsters[] = new Monster[5];
 	private String allEnemyNames[] = {"Angela", "Arnold", "Cameron", "Julian", "Bladee", "Thaiboy", "Jonathan", "Mark", "Joshua", "Andrew"};
 	
 	
@@ -39,21 +39,28 @@ public class Enemy {
 		return this.alreadyFought;
 	}
 	
-	public ArrayList <Monster> getEnemyTeam()
+	public ArrayList<Monster> getEnemyTeam()
 	{
 		return this.enemyTeam;
 	}
 	
+	public void setAlreadyFought(boolean alreadyFought) {
+		this.alreadyFought = alreadyFought;
+	}
+	
+	public boolean getAlreadyFought() {
+		return alreadyFought;
+	}
 	
 	
 	
 	public void generateEnemyMonsters()
 	{
-		this.all_monsters[0] = new Cavernfreak();
-		this.all_monsters[1] = new Hollowtree();
-		this.all_monsters[2] = new Mornpest();
-		this.all_monsters[3] = new Soilscreamer();
-		this.all_monsters[4] = new Venomhound();
+		this.allMonsters[0] = new Cavernfreak();
+		this.allMonsters[1] = new Hollowtree();
+		this.allMonsters[2] = new Mornpest();
+		this.allMonsters[3] = new Soilscreamer();
+		this.allMonsters[4] = new Venomhound();
 	}
 	
 	
@@ -98,13 +105,13 @@ public class Enemy {
 			}
 			else
 			{
-				if (this.enemyTeam.contains(this.all_monsters[position]))
+				if (this.enemyTeam.contains(this.allMonsters[position]))
 				{
 					continue;
 				}
 				else
 				{
-					this.enemyTeam.add(this.all_monsters[position]);
+					this.enemyTeam.add(this.allMonsters[position]);
 				}		
 			}
 		}

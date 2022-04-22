@@ -10,7 +10,7 @@ public class Monster {
 	private String monsterName;
 	private String monsterRename;
 	private String attackName;
-	private String special_attackName;
+	private String specialAttackName;
 	private int maxHealth;
 	private int damage;
 	private int healAmount;
@@ -26,7 +26,7 @@ public class Monster {
 		this.setMonsterName(monsterName);
 		this.setMonsterRename(monsterRename);
 		this.setAttackName(attack_name);
-		this.setSpecial_attackName(special_attack_name);
+		this.setSpecialAttackName(special_attack_name);
 		this.setMaxHealth(maxHealth);
 		this.setDamage(damage);
 		this.setHealAmount(healAmount);
@@ -93,12 +93,12 @@ public class Monster {
 		this.attackName = attackName;
 	}
 
-	public String getSpecial_attackName() {
-		return special_attackName;
+	public String getSpecialAttackName() {
+		return specialAttackName;
 	}
 
-	public void setSpecial_attackName(String special_attackName) {
-		this.special_attackName = special_attackName;
+	public void setSpecialAttackName(String specialAttackName) {
+		this.specialAttackName = specialAttackName;
 	}
 	
 	public int getPrice() {
@@ -159,51 +159,51 @@ public class Monster {
 	
 	
 	
-	public boolean check_name(boolean num_or_special_char, boolean name_check_passed, int name_length, String scanned_name) 
+	public boolean checkName(boolean numOrSpecialChar, boolean nameCheckPassed, int nameLength, String scannedName) 
 	{
-		if (num_or_special_char) 
+		if (numOrSpecialChar) 
 		{
-			System.out.println(scanned_name + " contains numbers or special characters!\n");
+			System.out.println(scannedName + " contains numbers or special characters!\n");
 			System.out.println("Please choose a different monster name.\n");
 		} 
-		else if (name_length < 3) 
+		else if (nameLength < 3) 
 		{
-			System.out.println(scanned_name + " is too short!\n");
+			System.out.println(scannedName + " is too short!\n");
 			System.out.println("Please choose a longer monster name.\n");
 		} 
-		else if (name_length > 15) 
+		else if (nameLength > 15) 
 		{
-			System.out.println(scanned_name + " is too long!\n");
+			System.out.println(scannedName + " is too long!\n");
 			System.out.println("Please choose a shorter monster name.\n");
 		}
 		else 
 		{
-			name_check_passed = true;
+			nameCheckPassed = true;
 		}
-		return name_check_passed;
+		return nameCheckPassed;
 	}
 	
 	
-	public void ask_MonsterName() 
+	public void askMonsterName() 
 	{
 		
 		Pattern pattern = Pattern.compile("[^a-zA-Z]");
-		String scanned_name = null;
+		String scannedName = null;
 		Matcher matcher = null;
-		int name_length = 0;
-		boolean num_or_special_char = false;
-		boolean name_check_passed = false;
+		int nameLength = 0;
+		boolean numOrSpecialChar = false;
+		boolean nameCheckPassed = false;
 		
-		while (name_check_passed == false) 
+		while (nameCheckPassed == false) 
 		{	
 			System.out.print("\nRename your monster: ");
-			scanned_name = scanInput.nextLine();
-			name_length = scanned_name.length();
-			matcher = pattern.matcher(scanned_name);
-			num_or_special_char = matcher.find();
-			name_check_passed = check_name(num_or_special_char, name_check_passed, name_length, scanned_name);
+			scannedName = scanInput.nextLine();
+			nameLength = scannedName.length();
+			matcher = pattern.matcher(scannedName);
+			numOrSpecialChar = matcher.find();
+			nameCheckPassed = checkName(numOrSpecialChar, nameCheckPassed, nameLength, scannedName);
 		}
-		this.setMonsterRename(scanned_name);
+		this.setMonsterRename(scannedName);
 	}
 	
 	public String toString()
@@ -214,7 +214,7 @@ public class Monster {
 		String a1 = "_____________________________________\n";
 		String b = "Attack Name: %s\n".formatted(this.attackName);
 		String b1 = "Attack Damage: %d\n".formatted(this.damage);
-		String c = "Special Attack Name: %s\n".formatted(this.special_attackName);
+		String c = "Special Attack Name: %s\n".formatted(this.specialAttackName);
 		String c1 = "Speical Attack Damage: %s\n".formatted(this.specialDamage);
 		String d = "Maximum Health: %d\n".formatted(this.maxHealth);
 		String d1 = "Current Health: %d\n".formatted(this.currentHealth);

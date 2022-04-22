@@ -13,22 +13,22 @@ public class Battle {
 	private ArrayList<Enemy> battles = new ArrayList<Enemy>();
 	private Player player;
 	private Random random = new Random();
-	private Scanner scan_input = new Scanner(System.in);
+	private Scanner scanInput = new Scanner(System.in);
 	private boolean battleOver = false;
 	private boolean playerWon;
 	private int battleGold = 0;
 	private int experiencePoints = 0;
 	
 	
-	public ArrayList <Enemy> getBattles()
+	public ArrayList<Enemy> getBattles()
 	{
 		return this.battles;
 	}
 	
 	
-	public void setPlayer(Player new_player)
+	public void setPlayer(Player player)
 	{
-		this.player = new_player;
+		this.player = player;
 	}
 	
 	
@@ -52,16 +52,16 @@ public class Battle {
 			}
 			else
 			{
-				Enemy new_enemy = new Enemy();        // Generating a distinct enemy name
-				String enemy_name = new_enemy.generateEnemyName();
-				while (selectedNames.contains(enemy_name))
+				Enemy newEnemy = new Enemy();        // Generating a distinct enemy name
+				String enemyName = newEnemy.generateEnemyName();
+				while (selectedNames.contains(enemyName))
 				{
-					enemy_name = new_enemy.generateEnemyName();
+					enemyName = newEnemy.generateEnemyName();
 				}
-				selectedNames.add(enemy_name);
-				new_enemy.setEnemyName(enemy_name);
-				new_enemy.generateEnemyTeam();
-				this.battles.add(new_enemy);
+				selectedNames.add(enemyName);
+				newEnemy.setEnemyName(enemyName);
+				newEnemy.generateEnemyTeam();
+				this.battles.add(newEnemy);
 			}
 		}
 	}
@@ -94,7 +94,7 @@ public class Battle {
 		}
 		
 		this.player.viewTeamCondition();
-		enemy.alreadyFought = true;
+		enemy.setAlreadyFought(true);
 	
 	}
 	
@@ -127,11 +127,11 @@ public class Battle {
 				this.displayBattle(playerFighter, enemyFighter);
 				System.out.printf("\nChoose an attack for %s:\n", playerFighter.pickMonsterName());
 				System.out.printf("\n1) Name: %s  |  Damage: %d\n", playerFighter.getAttackName(), playerFighter.getDamage());
-				System.out.printf("2) Name: %s  |  Damage: %d\n", playerFighter.getSpecial_attackName(), playerFighter.getSpecialDamage());
+				System.out.printf("2) Name: %s  |  Damage: %d\n", playerFighter.getSpecialAttackName(), playerFighter.getSpecialDamage());
 
 				try 
 				{
-					int selection = scan_input.nextInt();
+					int selection = scanInput.nextInt();
 					if (selection == 1)
 					{
 						System.out.printf("\n%s used %s!\n", playerFighter.pickMonsterName(), playerFighter.getAttackName());
@@ -154,7 +154,7 @@ public class Battle {
 					{
 						if (playerFighter.specialAttackAvailable() == true)
 						{
-							System.out.printf("\n%s used %s!\n", playerFighter.pickMonsterName(), playerFighter.getSpecial_attackName());
+							System.out.printf("\n%s used %s!\n", playerFighter.pickMonsterName(), playerFighter.getSpecialAttackName());
 							if (enemyFighter.getCurrentHealth() - playerFighter.getSpecialDamage() > 0)
 							{
 								enemyFighter.setCurrentHealth(enemyFighter.getCurrentHealth() - playerFighter.getSpecialDamage());
@@ -183,7 +183,7 @@ public class Battle {
 				catch (InputMismatchException excp) 
 				{
 					System.out.print("Please enter a valid name or option.\n");
-					scan_input.next();
+					scanInput.next();
 					continue;
 				}
 			}
@@ -212,7 +212,7 @@ public class Battle {
 		else if (enemyFighter.specialAttackAvailable() == true)
 		{
 			this.displayBattle(playerFighter, enemyFighter);
-			System.out.printf("\n%s used %s!\n", enemyFighter.pickMonsterName(), enemyFighter.getSpecial_attackName());
+			System.out.printf("\n%s used %s!\n", enemyFighter.pickMonsterName(), enemyFighter.getSpecialAttackName());
 			if (playerFighter.getCurrentHealth() - (int)(enemyFighter.getSpecialDamage() * difficulty) > 0)
 			{
 				playerFighter.setCurrentHealth(playerFighter.getCurrentHealth() - (int)(enemyFighter.getSpecialDamage() * difficulty));
@@ -266,7 +266,7 @@ public class Battle {
 	public Monster getPlayerCurrentFighter()
 	{
 		Monster currentMonster = null;
-		for (Monster monster: this.player.get_playerMonsters())
+		for (Monster monster: this.player.getPlayerMonsters())
 		{
 			if (monster.isFaint() == false)
 			{
@@ -287,7 +287,7 @@ public class Battle {
 	
 	
 	
-	public boolean isBattleOver() {
+	public boolean getBattleOver() {
 		return battleOver;
 	}
 
@@ -297,7 +297,7 @@ public class Battle {
 	}
 
 
-	public boolean isPlayerWon() {
+	public boolean getPlayerWon() {
 		return playerWon;
 	}
 

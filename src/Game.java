@@ -289,7 +289,7 @@ public class Game {
 		new_game.askGameDifficulty();
 		
 		Shop new_shop = new Shop();
-		new_shop.initialize_shop();
+		new_shop.initializeShop();
 		
 		Player new_player = new Player();
 		new_player.setGame(new_game);
@@ -297,9 +297,9 @@ public class Game {
 		new_player.setPlayerGold(startingGold);
 		new_player.setCurrentDay(1);
 		new_player.setDaysRemaining(new_player.getCurrentDay(), new_game);
-		new_player.choose_startingMonster();
+		new_player.chooseStartingMonster();
 		new_player.setShop(new_shop);
-		new_shop.get_trader(new_player);
+		new_shop.getTrader(new_player);
 		
 		Battle new_battle = new Battle();
 		new_battle.setPlayer(new_player);
@@ -309,7 +309,7 @@ public class Game {
 		
 		while (!new_game.getGameOver()) 
 		{
-			new_player.player_viewer();
+			new_player.playerViewer();
 			// do game
 			break;
 		}

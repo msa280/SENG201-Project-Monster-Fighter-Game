@@ -79,7 +79,7 @@ public class Enemy {
 	public void generateEnemyTeam()
 	{
 		boolean generationComplete = false;
-		ArrayList<Integer> nums_done = new ArrayList<Integer>();
+		ArrayList<Integer> numsDone = new ArrayList<Integer>();
 		
 		this.enemyTeam.clear();  // Clearing array to generate a new array of monsters if the day changes
 		
@@ -99,7 +99,7 @@ public class Enemy {
 			{
 				generationComplete = true;
 			}
-			else if (nums_done.contains(position))
+			else if (numsDone.contains(position))
 			{
 				continue;
 			}

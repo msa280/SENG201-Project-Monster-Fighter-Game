@@ -500,13 +500,13 @@ public class Shop {
 	}
 	
 	
-	public boolean executeItemSell(boolean inItemBuy, int readOption)
+	public boolean executeItemSell(boolean inItemSell, int readOption)
 	{
 		Item chosenItem = null;
 		
 		if (readOption == 0)
 		{
-			inItemBuy = false;
+			inItemSell = false;
 		}
 		else if (readOption >= 1 && readOption <= 5)
 		{
@@ -518,7 +518,7 @@ public class Shop {
 			System.out.print("Please choose a valid option.\n");
 		}
 
-		return inItemBuy;
+		return inItemSell;
 	}
 	
 	

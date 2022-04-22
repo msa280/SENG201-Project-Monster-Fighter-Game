@@ -283,33 +283,33 @@ public class Game {
 	public static void main(String[] args)
 	{
 		System.out.print("\nMonster Fighter Beta V1\n\n");
-		Game new_game = new Game();
-		new_game.askPlayerName();
-		new_game.askGameLength();
-		new_game.askGameDifficulty();
+		Game newGame = new Game();
+		newGame.askPlayerName();
+		newGame.askGameLength();
+		newGame.askGameDifficulty();
 		
-		Shop new_shop = new Shop();
-		new_shop.initializeShop();
+		Shop newShop = new Shop();
+		newShop.initializeShop();
 		
-		Player new_player = new Player();
-		new_player.setGame(new_game);
-		int startingGold = (int)(1000 * new_game.getGameDifficulty());
-		new_player.setPlayerGold(startingGold);
-		new_player.setCurrentDay(1);
-		new_player.setDaysRemaining(new_player.getCurrentDay(), new_game);
-		new_player.chooseStartingMonster();
-		new_player.setShop(new_shop);
-		new_shop.getTrader(new_player);
+		Player newPlayer = new Player();
+		newPlayer.setGame(newGame);
+		int startingGold = (int)(1000 * newGame.getGameDifficulty());
+		newPlayer.setPlayerGold(startingGold);
+		newPlayer.setCurrentDay(1);
+		newPlayer.setDaysRemaining(newPlayer.getCurrentDay(), newGame);
+		newPlayer.chooseStartingMonster();
+		newPlayer.setShop(newShop);
+		newShop.getTrader(newPlayer);
 		
-		Battle new_battle = new Battle();
-		new_battle.setPlayer(new_player);
-		new_battle.generateBattles();
-		new_player.setBattle(new_battle);
+		Battle newBattle = new Battle();
+		newBattle.setPlayer(newPlayer);
+		newBattle.generateBattles();
+		newPlayer.setBattle(newBattle);
 		
 		
-		while (!new_game.getGameOver()) 
+		while (!newGame.getGameOver()) 
 		{
-			new_player.playerViewer();
+			newPlayer.playerViewer();
 			// do game
 			break;
 		}

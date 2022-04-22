@@ -18,7 +18,7 @@ public class Player {
 	
 	private Scanner scanInput = new Scanner(System.in);
 	private int playerGold = 0;
-	Map<Item, Integer> playerInventory = new HashMap<Item, Integer>();
+	private Map<Item, Integer> playerInventory = new HashMap<Item, Integer>();
 	private ArrayList<Item> playersItems = new ArrayList<Item>();
 	private ArrayList<Monster> playersTeam = new ArrayList<Monster>();
 	private Monster startingMonsters[] = new Monster[5];
@@ -59,12 +59,12 @@ public class Player {
 		return this.playersTeam.size();
 	}
 	
-	public Game setGame(Game game)
+	public void setGame(Game game)
 	{
-		return this.game = game; 
+		this.game = game; 
 	}
 	
-	public Game getGame(Game game)
+	public Game getGame()
 	{
 		return this.game;
 	}

@@ -629,6 +629,7 @@ public class Player {
 			// heal monsters by healAmount not exceeding maxHealth
 			for (Monster monster: this.playersTeam)
 			{
+				monster.setFaint(false);
 				monster.healUp();
 			}
 			

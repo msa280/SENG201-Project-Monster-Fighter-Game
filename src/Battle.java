@@ -72,7 +72,6 @@ public class Battle {
 	public void fight(Enemy enemy)
 	{
 		System.out.print("\nFight has begun!\n\n");
-		
 		while (this.battleOver == false)
 		{
 			this.playerMove(enemy);
@@ -84,18 +83,18 @@ public class Battle {
 			System.out.print("\nAll enemy monsters have fainted!\n");
 			System.out.print("You have won the battle!\n");
 			this.player.setPlayerGold(this.player.getPlayerGold() + this.battleGold);
-			System.out.printf("You have recieved %d gold and %d points.\n", this.battleGold, this.experiencePoints);	
+			System.out.printf("You have received %d gold and %d points.\n", this.battleGold, this.experiencePoints);	
 		}
 		else
 		{
 			System.out.print("\nAll your monsters have fainted!\n");
 			System.out.print("You have lost the battle!\n");
-			System.out.print("You do not recieve any gold or points.\n");
+			System.out.print("You do not receive any gold or points.\n");
 		}
 		
 		this.player.viewTeamCondition();
 		enemy.setAlreadyFought(true);
-	
+		this.battleOver = false;
 	}
 	
 	

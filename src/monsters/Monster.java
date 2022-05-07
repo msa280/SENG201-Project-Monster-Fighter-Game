@@ -215,7 +215,7 @@ public class Monster {
 		String b = "Attack Name: %s\n".formatted(this.attackName);
 		String b1 = "Attack Damage: %d\n".formatted(this.damage);
 		String c = "Special Attack Name: %s\n".formatted(this.specialAttackName);
-		String c1 = "Speical Attack Damage: %s\n".formatted(this.specialDamage);
+		String c1 = "Special Attack Damage: %s\n".formatted(this.specialDamage);
 		String d = "Maximum Health: %d\n".formatted(this.maxHealth);
 		String d1 = "Current Health: %d\n".formatted(this.currentHealth);
 		String e = "Heal Amount: %d\n".formatted(this.healAmount);

@@ -5,34 +5,68 @@ import java.util.Scanner;
 
 import monsters.Monster;
 
-
+/**
+ * Generates battles between the player and the enemy.
+ */
 
 public class Battle {
 	
-
+	/*
+	 * The list of enemies the player will verse.
+	 */
 	private ArrayList<Enemy> battles = new ArrayList<Enemy>();
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/*
+	 * Generates a stream of pseudorandom numbers.
+	 */
 	private Random random = new Random();
+	/*
+	 * Players input for what move they want to use.
+	 */
 	private Scanner scanInput = new Scanner(System.in);
+	/*
+	 * Whether or not the battle is over.
+	 */
 	private boolean battleOver = false;
+	/*
+	 * Whether or not the player won the battle.
+	 */
 	private boolean playerWon;
+	/*
+	 * The amount of gold earned.
+	 */
 	private int battleGold = 0;
+	/*
+	 * The amount of experience gained.
+	 */
 	private int experiencePoints = 0;
 	
 	
+	/*
+	 *@return Returns the possible battles.
+	 */
 	public ArrayList<Enemy> getBattles()
 	{
 		return this.battles;
 	}
 	
-	
+	/*
+	 * Creates the player instance.
+	 * 
+	 * @param player An instance of Player.
+	 */
 	public void setPlayer(Player player)
 	{
 		this.player = player;
 	}
 	
 	
-	
+	/*
+	 *  Generates the necessary set up for the battle to occur.
+	 */
 	public void generateBattles()
 	{
 		this.battles.clear();     // clearing all battles if player sleeps to refresh.
@@ -68,7 +102,13 @@ public class Battle {
 	
 	
 	
-	
+	/*
+	 * Starts the battle, calls methods to make player and 
+	 * enemy moves, ends the battle.
+	 *
+	 * 
+	 * @param enemy An instance of Enemy.
+	 */
 	public void fight(Enemy enemy)
 	{
 		System.out.print("\nFight has begun!\n\n");
@@ -99,7 +139,11 @@ public class Battle {
 	
 	
 	
-	
+	/*
+	 * Allows the player to have their turn.
+	 * 
+	 * @param enemy An instance of Enemy.
+	 */
 	public void playerMove(Enemy enemy)
 	{
 		Monster playerFighter = this.getPlayerCurrentFighter();

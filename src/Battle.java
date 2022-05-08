@@ -46,6 +46,8 @@ public class Battle {
 	
 	
 	/*
+	 * Gets the possible battles from an ArrayList
+	 * 
 	 *@return Returns the possible battles.
 	 */
 	public ArrayList<Enemy> getBattles()
@@ -234,7 +236,11 @@ public class Battle {
 	}
 	
 	
-	
+	/*
+	 * Simulates the enemy turn
+	 * 
+	 * @param enemy An instance of Enemy.
+	 */
 	public void enemyMove(Enemy enemy)
 	{
 		Monster playerFighter = this.getPlayerCurrentFighter();
@@ -289,7 +295,12 @@ public class Battle {
 		
 	}
 	
-	
+	/*
+	 * Gets the first monster in the enemies monster list (their current fighter).
+	 * 
+	 * @param enemy An instance of Enemy.
+	 * @return Returns the first monster in the enemies monster list.
+	 */
 	public Monster getEnemyCurrentFighter(Enemy enemy)
 	{
 		Monster currentMonster = null;
@@ -305,7 +316,11 @@ public class Battle {
 	}
 	
 	
-	
+	/*
+	 * Gets the first monster in the players monster list (their current fighter).
+	 * 
+	 * @return Returns the first monster in the players monster list.
+	 */
 	public Monster getPlayerCurrentFighter()
 	{
 		Monster currentMonster = null;
@@ -321,7 +336,12 @@ public class Battle {
 	}
 	
 	
-	
+	/*
+	 * The visual interface that displays what's happening in the battle.
+	 * 
+	 * @param playerFighter The players current monster that is fighting.
+	 * @param enemyFighter The enemies current monster that is fighting.
+	 */
 	public void displayBattle(Monster playerFighter, Monster enemyFighter)
 	{
 		System.out.printf("\nName: %s                  Name: %s\n", playerFighter.pickMonsterName(), enemyFighter.pickMonsterName());
@@ -329,42 +349,80 @@ public class Battle {
 	}
 	
 	
-	
+	/*
+	 * Gets the current value of battleOver. If either the
+	 * player or the enemy has no monsters remaining who have not fainted,
+	 * will return true, else false.
+	 * 
+	 * @return The value of battleOver.
+	 */
 	public boolean getBattleOver() {
 		return battleOver;
 	}
 
-
+	/*
+	 * Sets the value of battleOver.
+	 * 
+	 * @param battleOver Whether the battle is over or not.
+	 */
 	public void setBattleOver(boolean battleOver) {
 		this.battleOver = battleOver;
 	}
 
-
+	/*
+	 * Gets whether or not the player won the battle.
+	 * If the player won, will return true, else false.
+	 * 
+	 * @return The value of playerWon
+	 */
 	public boolean getPlayerWon() {
 		return playerWon;
 	}
 
-
+	/*
+	 * Sets the value of playerWon.
+	 * 
+	 * @param playerWon Whether the player won or not.
+	 */
 	public void setPlayerWon(boolean playerWon) {
 		this.playerWon = playerWon;
 	}
 
-
+	/*
+	 * Gets the gold gained from the battle.
+	 * 
+	 * @return battleGold The amount of gold.
+	 */
 	public int getBattleGold() {
 		return battleGold;
 	}
 
-
+	/*
+	 * Sets the gold gained from the battle. This is dependent on
+	 * difficulty settings, and damage dealt during the battle.
+	 * 
+	 * @param battleGold The amount of gold given from the battle.
+	 */
 	public void setBattleGold(int battleGold) {
 		this.battleGold = battleGold;
 	}
 
-
+	/*
+	 * Gets the amount of experience points gained
+	 * from the battle. 1 gained per enemy monster defeated.
+	 * 
+	 * @return experiencePoints The number of experience points gained total over the battle.
+	 */
 	public int getExperiencePoints() {
 		return experiencePoints;
 	}
 
-
+	/*
+	 * Sets the amount of experience points gained
+	 * from the battle.
+	 * 
+	 * @param experiencePoints The number of experience points.
+	 */
 	public void setExperiencePoints(int experiencePoints) {
 		this.experiencePoints = experiencePoints;
 	}

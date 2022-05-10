@@ -39,6 +39,15 @@ public class Game {
 	 * Whether the game is over or not.
 	 */
 	private boolean gameOver = false;
+	
+	
+	void init()
+	{
+		this.playerName = "Monster Fighter";
+		this.gameLength = 5;
+		this.gameDifficulty = 0.0;
+		this.gameOver = false;
+	}
 
 
 	/*
@@ -113,52 +122,43 @@ public class Game {
 	 * 
 	 * @return					Returns true if the players name is valid.
 	 */
-	public boolean checkName(boolean numOrSpecialChar, boolean nameCheckPassed, int nameLength, String scannedName) 
+	public String checkName(boolean numOrSpecialChar, int nameLength, String scannedName) 
 	{
 		if (numOrSpecialChar) 
 		{
-			System.out.println("\n" + scannedName + " contains numbers or special characters!\n");
-			System.out.println("Please choose a different fighter name.\n");
+			return ("\n" + scannedName + " contains numbers or special characters!\n");
 		} 
 		else if (nameLength < 3) 
 		{
-			System.out.println(scannedName + " is too short!\n");
-			System.out.println("\nPlease choose a longer fighter name.\n");
+			return (scannedName + " is too short!\n");
 		} 
 		else if (nameLength > 15) 
 		{
-			System.out.println(scannedName + " is too long!\n");
-			System.out.println("\nPlease choose a shorter fighter name.\n");
+			return (scannedName + " is too long!\n");
 		}
 		else 
 		{
-			nameCheckPassed = true;
+			return "Ok.";
 		}
-		return nameCheckPassed;
 	}
 	
 	
-	public void askPlayerName() 
+	public String checkPlayerName(String name) 
 	{
 		
 		Pattern pattern = Pattern.compile("[^a-zA-Z]");
-		String scannedName = null;
 		Matcher matcher = null;
 		int nameLength = 0;
 		boolean numOrSpecialChar = false;
-		boolean nameCheckPassed = false;
+		String error;
 		
-		while (nameCheckPassed == false) 
-		{	
-			
-			System.out.print("\nEnter your fighter name: ");
-			scannedName = scanInput.nextLine();
-			nameLength = scannedName.length();
-			matcher = pattern.matcher(scannedName);
-			numOrSpecialChar = matcher.find();
-			nameCheckPassed = checkName(numOrSpecialChar, nameCheckPassed, nameLength, scannedName);
-		}
-		this.setPlayerName(scannedName);
+		nameLength = name.length();
+		matcher = pattern.matcher(name);
+		numOrSpecialChar = matcher.find();
+		error = checkName(numOrSpecialChar, nameLength, name);
+		
+		return error;
+		
 	}
 	
 	
@@ -282,7 +282,21 @@ public class Game {
 	
 	public static void main(String[] args)
 	{
-		System.out.print("\nMonster Fighter Beta V1\n\n");
+		Game newGame = new Game();
+		newGame.init();
+		SetupMenu setup = new SetupMenu();
+		setup.setGame(newGame);
+		setup.launch_setup_menu();
+		
+	}
+		
+		
+		
+		
+		
+		
+		
+		/** System.out.print("\nMonster Fighter V1.0\n\n");
 		Game newGame = new Game();
 		newGame.askPlayerName();
 		newGame.askGameLength();
@@ -313,5 +327,5 @@ public class Game {
 			// do game
 			break;
 		}
-	}
+	}*/
 }

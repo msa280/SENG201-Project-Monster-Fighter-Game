@@ -30,15 +30,17 @@ public class Game {
 	/*
 	 * The total number of days the game is going to be played.
 	 */
-	private int gameLength = 5;
+	private int gameLength;
 	/*
 	 * The difficulty of the game.
 	 */
-	private double gameDifficulty = 0.0;
+	private double gameDifficulty;
 	/*
 	 * Whether the game is over or not.
 	 */
-	private boolean gameOver = false;
+	private boolean gameOver;
+	
+	
 	
 	
 	void init()
@@ -111,7 +113,8 @@ public class Game {
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
-
+	
+	
 	/*
 	 * Determines whether or not the input for the players name is valid.
 	 * 
@@ -286,7 +289,17 @@ public class Game {
 		newGame.init();
 		SetupMenu setup = new SetupMenu();
 		setup.setGame(newGame);
-		setup.launch_setup_menu();
+		
+		setup.launch_setup_menu(setup);
+		
+		while (setup.setup_complete != true)
+		{
+			
+		}
+		
+		System.out.print(newGame.getPlayerName());
+
+		
 		
 	}
 		

@@ -21,8 +21,12 @@ public class SetupMenu {
 
 	private JFrame frame;
 	private JTextField txtMonsterFighterV;
+	private JTextPane textNameError;
+
 	
 	private Game game;
+	private String fighter_name;
+	boolean setup_complete = false;
 	
 	
 	
@@ -61,10 +65,13 @@ public class SetupMenu {
 		numOrSpecialChar = matcher.find();
 		error = checkName(numOrSpecialChar, nameLength, name);
 		
-		/** if (error == "Ok.")
+		if (error == "Ok.")
 		{
 			this.game.setPlayerName(name);
-		} */
+			this.setup_complete = true;
+			System.out.print(this.game.getPlayerName());
+		}
+	
 		
 		return error;
 		
@@ -75,12 +82,11 @@ public class SetupMenu {
 	/**
 	 * Launch the application.
 	 */
-	public void launch_setup_menu() {
+	public void launch_setup_menu(SetupMenu window) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try 
 				{
-					SetupMenu window = new SetupMenu();
 					window.frame.setVisible(true);
 				} catch (Exception e) 
 				{
@@ -142,18 +148,20 @@ public class SetupMenu {
 		txtrChooseYourMonster.setText("Choose your monster:");
 		frame.getContentPane().add(txtrChooseYourMonster);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(0, 310, 260, 158);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBackground(new Color(255, 255, 0));
+		lblNewLabel.setForeground(new Color(240, 255, 255));
+		lblNewLabel.setBounds(29, 287, 303, 182);
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\animated-monster-image-0050.gif"));
 		frame.getContentPane().add(lblNewLabel);
 		
-		JTextPane textCheckName = new JTextPane();
-		textCheckName.setForeground(Color.RED);
-		textCheckName.setFont(new Font("Tahoma", Font.BOLD, 15));
-		textCheckName.setBackground(Color.BLACK);
-		textCheckName.setEditable(false);
-		textCheckName.setBounds(551, 166, 446, 31);
-		frame.getContentPane().add(textCheckName);
+		textNameError = new JTextPane();
+		textNameError.setForeground(Color.RED);
+		textNameError.setFont(new Font("Tahoma", Font.BOLD, 15));
+		textNameError.setBackground(Color.BLACK);
+		textNameError.setEditable(false);
+		textNameError.setBounds(551, 166, 446, 31);
+		frame.getContentPane().add(textNameError);
 		
 		JTextPane textAskName = new JTextPane();
 		textAskName.setDropMode(DropMode.INSERT);
@@ -168,18 +176,32 @@ public class SetupMenu {
 		JButton btnNewButton = new JButton("Check");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String error = checkPlayerName(textAskName.getText());
-				textCheckName.setText(error);
+				textNameError.setText(error);
 				if (error != "Ok.") {
 					textAskName.setText("");
+					textNameError.setForeground(Color.RED);
+				} else {
+					textNameError.setForeground(Color.GREEN);
+                    frame.dispose();
 				}
-				
-
-				
 			}
 		});
 		btnNewButton.setBounds(892, 621, 120, 44);
 		frame.getContentPane().add(btnNewButton);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\Animated Creature.gif"));
+		lblNewLabel_1.setBounds(336, 289, 216, 226);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\VenomHound.gif"));
+		lblNewLabel_2.setBounds(545, 265, 314, 226);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+		
 	}
 
 
@@ -190,5 +212,15 @@ public class SetupMenu {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+
+	public String getFighter_name() {
+		return fighter_name;
+	}
+
+
+	public void setFighter_name(String fighter_name) {
+		this.fighter_name = fighter_name;
 	}
 }

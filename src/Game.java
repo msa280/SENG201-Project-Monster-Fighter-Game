@@ -28,7 +28,7 @@ public class Game {
 	 */
 	private String playerName;
 	/*
-	 * The total number of days the game is going to be played.
+	 * The total number of days the game is going to be played. 5-15 days.
 	 */
 	private int gameLength;
 	/*
@@ -42,7 +42,9 @@ public class Game {
 	
 	
 	
-	
+	/*
+	 * Initiates the game.
+	 */
 	void init()
 	{
 		this.playerName = "Monster Fighter";
@@ -54,6 +56,8 @@ public class Game {
 
 	/*
 	 * Gets the players name.
+	 * 
+	 * @return The value of playerName.
 	 */
 	public String getPlayerName() 
 	{
@@ -62,6 +66,8 @@ public class Game {
 
 	/*
 	 * Sets the players name.
+	 * 
+	 * @param playerName Sets the value playerName.
 	 */
 	public void setPlayerName(String playerName) 
 	{
@@ -69,7 +75,9 @@ public class Game {
 	}
 	
 	/*
-	 * Gets the players name.
+	 * Gets the game length.
+	 * 
+	 * @return gameLength Returns the duration of the game in in-game days.
 	 */
 	public int getGameLength() 
 	{
@@ -77,7 +85,9 @@ public class Game {
 	}
 
 	/*
-	 * Sets the players name.
+	 * Sets the game length.
+	 * 
+	 * @param gameLength The duration of the game in in-game days.
 	 */
 	public void setGameLength(int gameLength)
 	{
@@ -85,7 +95,9 @@ public class Game {
 	}
 	
 	/*
-	 * Gets the game difficulty name.
+	 * Gets the game difficulty .
+	 * 
+	 * @return Returns the value of gameDifficulty.
 	 */
 	public double getGameDifficulty() 
 	{
@@ -93,7 +105,9 @@ public class Game {
 	}
 
 	/*
-	 * Sets the game difficulty.
+	 * Sets the game difficulty. Will be a double between 0.5 and 3.0.
+	 * 
+	 * @param gameDifficulty The value of gameDifficultly.
 	 */
 	public void setGameDifficulty(double gameDifficulty)
 	{
@@ -145,7 +159,13 @@ public class Game {
 		}
 	}
 	
-	
+	/*
+	 * Checks if the players name is valid. If so returns "Ok.", else asks to try again.
+	 * 
+	 * @param name The name the player input.
+	 * 
+	 * @return Returns whether the players name is valid or not.
+	 */
 	public String checkPlayerName(String name) 
 	{
 		
@@ -164,7 +184,14 @@ public class Game {
 		
 	}
 	
-	
+	/*
+	 * Checks if the players input for game length is valid.
+	 * 
+	 * @param gameLengthCheckPassed Whether or not the game length is valid.
+	 * @param scannedLength The number of days the player input.
+	 * 
+	 * @return Returns whether the input number of days was valid or not.
+	 */
 	public boolean checkGameLength(boolean gameLengthCheckPassed, int scannedLength) 
 	{
 		
@@ -185,7 +212,9 @@ public class Game {
 		return gameLengthCheckPassed;
 	}
 	
-	
+	/*
+	 * Asks the player of the number of days they would like to play for.
+	 */
 	public void askGameLength() 
 	{
 		
@@ -212,7 +241,15 @@ public class Game {
 		this.setGameLength(scannedLength);
 	}
 	
-	
+	/*
+	 * Checks if the input value for game difficulty is valid. If not returns false and asks again,
+	 * else returns true.
+	 * 
+	 * @param validOption Whether the players input was a valid option or not.
+	 * @param optionNumber What difficulty the player selected.
+	 * 
+	 * @return Returns whether or not the player input a valid option.
+	 */
 	public boolean checkAndSetGameDifficulty(boolean validOption, int optionNumber) 
 	{
 		if (optionNumber == 1) 
@@ -248,7 +285,9 @@ public class Game {
 		
 	}
 	
-	
+	/*
+	 * Asks the player what difficulty they would like to play on.
+	 */
 	public void askGameDifficulty() 
 	{
 		int optionNumber = 0;
@@ -282,7 +321,9 @@ public class Game {
 	
 	
 	
-	
+	/*
+	 * Starts the game.
+	 */
 	public static void main(String[] args)
 	{
 		Game newGame = new Game();

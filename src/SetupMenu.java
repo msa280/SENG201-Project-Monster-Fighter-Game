@@ -162,7 +162,7 @@ public class SetupMenu {
 		txtMonsterFighterV = new JTextField();
 		txtMonsterFighterV.setBounds(299, 11, 461, 84);
 		txtMonsterFighterV.setEditable(false);
-		txtMonsterFighterV.setForeground(new Color(51, 0, 255));
+		txtMonsterFighterV.setForeground(Color.WHITE);
 		txtMonsterFighterV.setFont(new Font("Agency FB", Font.BOLD, 65));
 		txtMonsterFighterV.setText("Monster Fighter V1.0");
 		txtMonsterFighterV.setBackground(Color.BLACK);

@@ -291,12 +291,6 @@ public class Game {
 		setup.setGame(newGame);
 		
 		setup.launch_setup_menu(setup);
-		
-		while (setup.setup_complete != true)
-		{
-			
-		}
-		
 		System.out.print(newGame.getPlayerName());
 
 		

@@ -7,12 +7,21 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+
+import monsters.Cavernfreak;
+import monsters.Hollowtree;
+import monsters.Monster;
+import monsters.Mornpest;
+import monsters.Soilscreamer;
+import monsters.Venomhound;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.DropMode;
+import javax.swing.JRadioButton;
 
 
 
@@ -27,22 +36,22 @@ public class SetupMenu {
 	private Game game;
 	private String fighter_name;
 	boolean setup_complete = false;
-	
+	Monster selected_monster;
 	
 	
 	public String checkName(boolean numOrSpecialChar, int nameLength, String scannedName) 
 	{
 		if (numOrSpecialChar) 
 		{
-			return ("Error: Name contains numbers or special characters!");
+			return ("Error: {} contained numbers, spaces or special characters!".formatted(scannedName));
 		} 
 		else if (nameLength < 3) 
 		{
-			return ("Error: Name is too short!");
+			return ("Error: {} is too short!".formatted(scannedName));
 		} 
 		else if (nameLength > 15) 
 		{
-			return ("Error: Name is too long!");
+			return ("Error: {} is too long!".formatted(scannedName));
 		}
 		else 
 		{
@@ -52,8 +61,7 @@ public class SetupMenu {
 	
 	
 	public String checkPlayerName(String name) 
-	{
-		
+	{	
 		Pattern pattern = Pattern.compile("[^a-zA-Z]");
 		Matcher matcher = null;
 		int nameLength = 0;
@@ -74,8 +82,21 @@ public class SetupMenu {
 	
 		
 		return error;
-		
 	}
+	
+	
+	public void selectMonster(JRadioButton[] buttons, JRadioButton selectedButton, Monster monster)
+	{
+		this.selected_monster = monster;
+		for (JRadioButton button : buttons) {
+			if (button != selectedButton)
+			{
+				button.setSelected(false);
+			}
+		}
+	}
+	
+	
 	
 
 	
@@ -113,9 +134,10 @@ public class SetupMenu {
 	 */
 	private void initialize() {
 		
+		JRadioButton[] buttons = new JRadioButton[5];
 		
 		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.BLACK);
+		frame.getContentPane().setBackground(new Color(0, 0, 0));
 		frame.getContentPane().setForeground(Color.BLACK);
 		frame.setBounds(100, 100, 1100, 715);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -147,13 +169,6 @@ public class SetupMenu {
 		txtrChooseYourMonster.setFont(new Font("Monospaced", Font.BOLD, 20));
 		txtrChooseYourMonster.setText("Choose your monster:");
 		frame.getContentPane().add(txtrChooseYourMonster);
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBackground(new Color(255, 255, 0));
-		lblNewLabel.setForeground(new Color(240, 255, 255));
-		lblNewLabel.setBounds(29, 287, 303, 182);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\animated-monster-image-0050.gif"));
-		frame.getContentPane().add(lblNewLabel);
 		
 		textNameError = new JTextPane();
 		textNameError.setForeground(Color.RED);
@@ -191,15 +206,99 @@ public class SetupMenu {
 		btnNewButton.setBounds(892, 621, 120, 44);
 		frame.getContentPane().add(btnNewButton);
 		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\1.) VenomHound.gif"));
+		lblNewLabel.setBounds(36, 291, 150, 150);
+		frame.getContentPane().add(lblNewLabel);
+		
 		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\Animated Creature.gif"));
-		lblNewLabel_1.setBounds(336, 289, 216, 226);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\2.) Soilscreamer.gif"));
+		lblNewLabel_1.setBounds(228, 277, 179, 178);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\VenomHound.gif"));
-		lblNewLabel_2.setBounds(545, 265, 314, 226);
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\3.) Mornpest.gif"));
+		lblNewLabel_2.setBounds(436, 291, 150, 150);
 		frame.getContentPane().add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\4.) Cavernfreak.gif"));
+		lblNewLabel_3.setBounds(628, 291, 150, 150);
+		frame.getContentPane().add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		lblNewLabel_4.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\5.) Hollowtree.gif"));
+		lblNewLabel_4.setBounds(835, 291, 150, 150);
+		frame.getContentPane().add(lblNewLabel_4);
+		
+		JRadioButton selectVenomhound = new JRadioButton("Select");
+		selectVenomhound.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectMonster(buttons, selectVenomhound, new Venomhound());
+			}
+		});
+		selectVenomhound.setForeground(new Color(255, 255, 255));
+		selectVenomhound.setBackground(new Color(0, 0, 0));
+		selectVenomhound.setBounds(33, 448, 70, 23);
+		frame.getContentPane().add(selectVenomhound);
+		
+		
+		
+		JRadioButton selectSoilscreamer = new JRadioButton("Select");
+		selectSoilscreamer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectMonster(buttons, selectSoilscreamer, new Soilscreamer());
+			}
+		});
+		selectSoilscreamer.setForeground(Color.WHITE);
+		selectSoilscreamer.setBackground(Color.BLACK);
+		selectSoilscreamer.setBounds(228, 462, 70, 23);
+		frame.getContentPane().add(selectSoilscreamer);
+		
+		
+		
+		JRadioButton selectMornpest = new JRadioButton("Select");
+		selectMornpest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectMonster(buttons, selectMornpest, new Mornpest());
+			}
+		});
+		selectMornpest.setForeground(Color.WHITE);
+		selectMornpest.setBackground(Color.BLACK);
+		selectMornpest.setBounds(436, 448, 70, 23);
+		frame.getContentPane().add(selectMornpest);
+		
+		
+		
+		
+		JRadioButton selectCavernfreak = new JRadioButton("Select");
+		selectCavernfreak.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectMonster(buttons, selectCavernfreak, new Cavernfreak());
+			}
+		});
+		selectCavernfreak.setForeground(Color.WHITE);
+		selectCavernfreak.setBackground(Color.BLACK);
+		selectCavernfreak.setBounds(628, 448, 70, 23);
+		frame.getContentPane().add(selectCavernfreak);
+		
+		JRadioButton selectHollowtree = new JRadioButton("Select");
+		selectHollowtree.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectMonster(buttons, selectHollowtree, new Hollowtree());
+			}
+		});
+		selectHollowtree.setForeground(Color.WHITE);
+		selectHollowtree.setBackground(Color.BLACK);
+		selectHollowtree.setBounds(835, 448, 70, 23);
+		frame.getContentPane().add(selectHollowtree);
+		
+		
+		buttons[0] = selectVenomhound;
+		buttons[1] = selectSoilscreamer;
+		buttons[2] = selectMornpest;
+		buttons[3] = selectCavernfreak;
+		buttons[4] = selectHollowtree;
 		
 		
 	}

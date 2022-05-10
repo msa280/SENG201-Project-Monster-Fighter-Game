@@ -417,6 +417,8 @@ public class SetupMenu {
 		selectCavernfreak.setBounds(823, 393, 80, 23);
 		frame.getContentPane().add(selectCavernfreak);
 		
+		
+		
 		JRadioButton selectHollowtree = new JRadioButton("Select");
 		selectHollowtree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -429,6 +431,11 @@ public class SetupMenu {
 		frame.getContentPane().add(selectHollowtree);
 		
 		
+		buttons[0] = selectVenomhound;
+		buttons[1] = selectSoilscreamer;
+		buttons[2] = selectMornpest;
+		buttons[3] = selectCavernfreak;
+		buttons[4] = selectHollowtree;
 		
 		
 		JButton viewVHButton = new JButton("View Stats");

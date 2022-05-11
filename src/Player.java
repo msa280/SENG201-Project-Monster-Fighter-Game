@@ -706,21 +706,17 @@ public class Player {
 	}
 	
 	
-	public boolean playerSleep(boolean inPlayerMenu)
+	public void playerSleep()
 	{
-		
 		this.currentDay += 1;
 		this.daysRemaining -= 1;
 		
 		if (this.daysRemaining == 0)
 		{
-			System.out.print("GAME OVER!");
 			this.game.setGameOver(true);
-			inPlayerMenu = false;
 		}
 		else
 		{
-			System.out.printf("\nGoodnight %s! *Sleeping...*\n", this.game.getPlayerName());
 			
 			// heal monsters by healAmount not exceeding maxHealth
 			for (Monster monster: this.playersTeam)
@@ -730,26 +726,20 @@ public class Player {
 			}
 			
 			// update items and monsters in shop
-			shop.randomGenerateItems();
-			shop.randomGenerateMonsters();
-			
-			// implement sleeping time
-			long start = System.currentTimeMillis();
-			long end = start + 5*1000;
-			while (System.currentTimeMillis() < end) 
-			{
-			}
+			this.shop.randomGenerateItems();
+			this.shop.randomGenerateMonsters();
 			
 			// update all battles
 			this.battle.generateBattles();
 						
-			System.out.printf("\nGood Morning %s!\n", this.game.getPlayerName());
+			/* System.out.printf("\nGood Morning %s!\n", this.game.getPlayerName());
 			System.out.print("\nAll monsters have healed up over night!\n");
 			System.out.print("Shop has been updated!\n");
-			System.out.print("New battles available!\n");
+			System.out.print("New battles available!\n"); */
 					
 		}
-		return inPlayerMenu;
+		
+		
 	}
 	
 	
@@ -786,7 +776,7 @@ public class Player {
 		}
 		else if (optionNumber == 8)
 		{
-			inPlayerMenu = this.playerSleep(inPlayerMenu);
+			
 		}
 
 		else if (optionNumber == 0) 

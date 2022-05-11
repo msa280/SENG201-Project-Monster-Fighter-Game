@@ -213,13 +213,24 @@ public class SetupMenu {
 	public void startGame()
 	{
 		Player player = new Player();
+		Shop shop = new Shop();
+		shop.initializeShop();
+		player.setShop(shop);
 		player.setGame(this.game);
 		int startingGold = (int)(1000 * this.game.getGameDifficulty());
 		player.setPlayerGold(startingGold);
 		player.setCurrentDay(1);
 		player.setDaysRemaining(player.getCurrentDay(), this.game);
+		player.getPlayerMonsters().add(game.getSelectedMonster());
+		shop.getTrader(player);
 		
-		PlayerHomeGUI menu = new PlayerHomeGUI(player);
+		Battle battles = new Battle();
+		battles.generateBattles();
+	
+		
+		System.out.print(player);
+		
+		PlayerHomeGUI menu = new PlayerHomeGUI(player, shop, battles);
 		menu.launchMainMenu(menu);
 		
 	} 

@@ -11,6 +11,8 @@ import java.util.Scanner;  // Imports
 import java.util.regex.Matcher; 
 import java.util.regex.Pattern;
 
+import monsters.Monster;
+
 
 
 
@@ -40,6 +42,8 @@ public class Game {
 	 */
 	private boolean gameOver;
 	
+	private Monster selectedMonster;
+	
 	
 	
 	/*
@@ -51,6 +55,7 @@ public class Game {
 		this.gameLength = 5;
 		this.gameDifficulty = 0.0;
 		this.gameOver = false;
+		this.selectedMonster = null;
 	}
 
 
@@ -330,13 +335,21 @@ public class Game {
 		newGame.init();
 		SetupMenu setup = new SetupMenu();
 		setup.setGame(newGame);
-		
 		setup.launch_setup_menu(setup);
-		System.out.print(newGame.getPlayerName());
-
-		
-		
 	}
+
+
+	public Monster getSelectedMonster() {
+		return selectedMonster;
+	}
+
+
+	public void setSelectedMonster(Monster selectedMonster) {
+		this.selectedMonster = selectedMonster;
+	}
+
+
+	
 		
 		
 		

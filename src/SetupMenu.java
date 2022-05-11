@@ -1,33 +1,34 @@
 import java.awt.EventQueue;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
-
 import monsters.Cavernfreak;
 import monsters.Hollowtree;
 import monsters.Monster;
 import monsters.Mornpest;
 import monsters.Soilscreamer;
 import monsters.Venomhound;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DropMode;
 import javax.swing.JRadioButton;
-import java.awt.SystemColor;
 import java.awt.Choice;
-import java.awt.ScrollPane;
-import java.awt.Canvas;
-import javax.swing.JProgressBar;
-import javax.swing.JSpinner;
+
 
 
 
@@ -37,17 +38,16 @@ public class SetupMenu {
 	private JFrame frame;
 	private JTextPane printNameError;
 
-	
 	private Game game;
-	private String fighter_name;
-	boolean setup_complete = false;
-	private Monster selected_monster = null;
-	private int gameLength;
-	private double gameDifficulty;
+	boolean setupComplete = false;
+	AudioPlayer audio = new AudioPlayer();
+	
+
+	
 
 	
 	
-	public String checkName(boolean numOrSpecialChar, int nameLength, String scannedName) 
+	public String checkNameErrors(boolean numOrSpecialChar, int nameLength, String scannedName) 
 	{
 		if (numOrSpecialChar) {
 			return ("Error: Name '%s' contains numbers, spaces or special characters! Please reenter name.".formatted(scannedName));
@@ -78,13 +78,8 @@ public class SetupMenu {
 		nameLength = name.length();
 		matcher = pattern.matcher(name);
 		numOrSpecialChar = matcher.find();
-		error = checkName(numOrSpecialChar, nameLength, name);
+		error = checkNameErrors(numOrSpecialChar, nameLength, name);
 		
-		if (error == "Ok.") {
-			this.game.setPlayerName(name);
-			this.setup_complete = true;
-			System.out.print(this.game.getPlayerName());
-		}
 		return error;
 	}
 	
@@ -93,7 +88,7 @@ public class SetupMenu {
 	public void selectMonster(JRadioButton[] buttons, JRadioButton selectedButton, Monster monster)
 	{
 		if (selectedButton.isSelected()) {
-			this.selected_monster = monster;
+			this.game.setSelectedMonster(monster);
 			selectedButton.setForeground(Color.GREEN);
 			selectedButton.setText("Selected");
 			for (JRadioButton button : buttons) {
@@ -104,7 +99,7 @@ public class SetupMenu {
 				}
 			}
 		} else {
-			this.selected_monster = null;
+			this.game.setSelectedMonster(null);
 			selectedButton.setForeground(Color.RED);
 			selectedButton.setText("Select");
 		}	
@@ -115,29 +110,25 @@ public class SetupMenu {
 	public void setMonsterRename(String newName) 
 	{
 		if (newName.length() > 0) {
-			this.selected_monster.setMonsterRename(newName);
+			this.game.getSelectedMonster().setMonsterRename(newName);
 		}
 	}
 	
 	
-	public void setGameLength(int days) 
-	{
-		this.gameLength = days;
-	}
-	
+
 	
 	public void setGameDifficulty(String difficulty)
 	{
 		if (difficulty == "Easy") {
-			this.setGameDifficulty(0.5);
+			this.game.setGameDifficulty(0.5);
 		} else if (difficulty == "Normal") {
-			this.setGameDifficulty(1.0);
+			this.game.setGameDifficulty(1.0);
 		} else if (difficulty == "Classic") {
-			this.setGameDifficulty(1.5);
+			this.game.setGameDifficulty(1.5);
 		} else if (difficulty == "Hard") {
-			this.setGameDifficulty(2.0);
+			this.game.setGameDifficulty(2.0);
 		} else {
-			this.setGameDifficulty(2.5);
+			this.game.setGameDifficulty(3.0);
 		}
 	}
 	
@@ -147,14 +138,14 @@ public class SetupMenu {
 	
 	public void renameMonster(String name)
 	{
-		this.selected_monster.setMonsterRename(name);
+		this.game.getSelectedMonster().setMonsterRename(name);
 	}
 	
 	
 	
 	public String setupSuccessful(JTextPane enterName)
 	{
-		if (this.selected_monster == null) {
+		if (this.game.getSelectedMonster() == null) {
 			return "Please select a monster.";
 		} else {
 			return "";
@@ -165,30 +156,73 @@ public class SetupMenu {
 	
 	public boolean nameErrorCheckPassed(JTextPane enterName, JTextPane printNameError) 
 	{
-		String error = checkPlayerName(enterName.getText());
+		String enteredName = enterName.getText();
+		String error = checkPlayerName(enteredName);
 		printNameError.setText(error);
 		if (error != "OK") {
 			enterName.setText("");
 			printNameError.setForeground(Color.RED);
 			return true;
 		} else {
+			this.game.setPlayerName(enteredName);
 			printNameError.setForeground(Color.GREEN);
 			return false;
-            /**frame.dispose();*/
 		}
 	}
 	
 	
 	public boolean monsterSelectionCheck(JTextPane monsterSelectionError)
 	{
-		if (this.selected_monster == null) {
+		if (this.game.getSelectedMonster() == null) {
 			monsterSelectionError.setText("Error: Please select a monster.");
 			monsterSelectionError.setForeground(Color.RED);
 			return true;
 		} else {
+			monsterSelectionError.setText("OK.");
+			monsterSelectionError.setForeground(Color.GREEN);
 			return false;
 		}
 	}
+	
+	
+	public void finishSetup(String monsterName, int gameLength, String difficulty)
+	{
+		this.game.getSelectedMonster().setMonsterRename(monsterName);
+		System.out.print(this.game.getSelectedMonster().getMonsterName());
+		this.game.setGameLength(gameLength);
+		this.setGameDifficulty(difficulty);
+		this.setupComplete = true;
+		this.audio.stopSound();
+	}
+	
+
+	
+	public void displaySettings(JTextPane pane)
+	{
+		String line1 = "Fighter Name: %s\n".formatted(this.game.getPlayerName());
+		String line2 = "Selected Monster: %s\n".formatted(this.game.getSelectedMonster().getMonsterName());
+		String line3 = "Game Days: %d\n".formatted(this.game.getGameLength());
+		String line4 = "Game Difficulty: %f\n".formatted(this.game.getGameDifficulty());
+		String line5 = "Renamed Monster: %s".formatted(this.game.getSelectedMonster().getMonsterRename());
+		pane.setText(line1 + line2 + line3 + line4 + line5);
+	}
+	
+	
+	
+	
+	public void startGame()
+	{
+		Player player = new Player();
+		player.setGame(this.game);
+		int startingGold = (int)(1000 * this.game.getGameDifficulty());
+		player.setPlayerGold(startingGold);
+		player.setCurrentDay(1);
+		player.setDaysRemaining(player.getCurrentDay(), this.game);
+		
+		PlayerHomeGUI menu = new PlayerHomeGUI(player);
+		menu.launchMainMenu(menu);
+		
+	} 
 	
 	
 	
@@ -221,7 +255,6 @@ public class SetupMenu {
 	 */
 	public SetupMenu() {
 		initialize();
-		
 	}
 	
 
@@ -231,6 +264,8 @@ public class SetupMenu {
 	private void initialize() {
 		
 		JRadioButton[] buttons = new JRadioButton[5];
+		
+		this.audio.playSound("MainMenu.wav");
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 0));
@@ -290,6 +325,14 @@ public class SetupMenu {
 		askMonsterRename.setBounds(33, 510, 333, 22);
 		frame.getContentPane().add(askMonsterRename);
 		
+		JTextPane enterMonsterRename = new JTextPane();
+		enterMonsterRename.setForeground(new Color(0, 0, 128));
+		enterMonsterRename.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		enterMonsterRename.setDropMode(DropMode.INSERT);
+		enterMonsterRename.setBackground(Color.LIGHT_GRAY);
+		enterMonsterRename.setBounds(371, 509, 205, 23);
+		frame.getContentPane().add(enterMonsterRename);
+		
 		
 		Choice enterDays = new Choice();
 		enterDays.setForeground(new Color(0, 0, 128));
@@ -315,6 +358,12 @@ public class SetupMenu {
 		enterDifficulty.add("Hard");
 		enterDifficulty.add("Boss");
 		
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textPane.setBounds(958, 493, 274, 126);
+		frame.getContentPane().add(textPane);
+		
 
 		JButton btnNewButton = new JButton("Start Game");
 		btnNewButton.setBackground(Color.YELLOW);
@@ -327,13 +376,11 @@ public class SetupMenu {
 				boolean monsterSelectionErrorExists = monsterSelectionCheck(monsterSelectionError);
 				if (nameErrorExists == false && monsterSelectionErrorExists == false)
 				{
-					setMonsterRename(askMonsterRename.getText());
-					setGameLength(Integer.parseInt(enterDays.getSelectedItem()));
-					setGameDifficulty(enterDifficulty.getSelectedItem());
-					frame.dispose();
+					finishSetup(enterMonsterRename.getText(), Integer.parseInt(enterDays.getSelectedItem()), enterDifficulty.getSelectedItem());
+					displaySettings(textPane);
+					frame.dispose(); 
+					startGame();
 				}
-				
-				
 			}
 		});
 		btnNewButton.setBounds(1105, 630, 133, 40);
@@ -511,16 +558,6 @@ public class SetupMenu {
 		txtpnUniversityOfCanterbury.setBounds(1015, 11, 239, 63);
 		frame.getContentPane().add(txtpnUniversityOfCanterbury);
 		
-		
-		JTextPane enterMonsterRename = new JTextPane();
-		enterMonsterRename.setForeground(new Color(0, 0, 128));
-		enterMonsterRename.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		enterMonsterRename.setDropMode(DropMode.INSERT);
-		enterMonsterRename.setBackground(Color.LIGHT_GRAY);
-		enterMonsterRename.setBounds(371, 509, 205, 23);
-		frame.getContentPane().add(enterMonsterRename);
-		
-		
 		JTextPane txtpnMonsterFighter = new JTextPane();
 		txtpnMonsterFighter.setBackground(new Color(0, 0, 0));
 		txtpnMonsterFighter.setForeground(new Color(199, 21, 133));
@@ -548,7 +585,6 @@ public class SetupMenu {
 		askGameDifficulty.setBackground(Color.BLACK);
 		askGameDifficulty.setBounds(33, 576, 179, 22);
 		frame.getContentPane().add(askGameDifficulty);
-		
 	}
 
 
@@ -559,25 +595,5 @@ public class SetupMenu {
 
 	public void setGame(Game game) {
 		this.game = game;
-	}
-
-
-	public String getFighter_name() {
-		return fighter_name;
-	}
-
-
-	public void setFighter_name(String fighter_name) {
-		this.fighter_name = fighter_name;
-	}
-
-
-	public double getGameDifficulty() {
-		return gameDifficulty;
-	}
-
-
-	public void setGameDifficulty(double gameDifficulty) {
-		this.gameDifficulty = gameDifficulty;
 	}
 }

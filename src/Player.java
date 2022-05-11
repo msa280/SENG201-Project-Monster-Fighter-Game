@@ -964,6 +964,14 @@ public class Player {
 	public void setReadyForBattle(boolean readyForBattle) {
 		this.readyForBattle = readyForBattle;
 	}
+	
+	
+	public static void main(String[] args)
+	{
+		Player player = new Player();
+		player.setPlayerGold(1);
+		System.out.print(player.getPlayerGold());
+	}
 
 	
 }

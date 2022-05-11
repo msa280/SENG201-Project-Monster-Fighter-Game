@@ -1,12 +1,8 @@
 import java.awt.EventQueue;
-
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-
 import monsters.Cavernfreak;
 import monsters.Hollowtree;
 import monsters.Magmataur;
@@ -14,10 +10,6 @@ import monsters.Monster;
 import monsters.Mornpest;
 import monsters.Soilscreamer;
 import monsters.Venomhound;
-
-import java.awt.GridLayout;
-import java.awt.event.WindowEvent;
-import java.awt.GridBagLayout;
 import javax.swing.JTextPane;
 import java.awt.Font;
 

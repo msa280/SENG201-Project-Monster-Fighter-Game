@@ -276,7 +276,7 @@ public class SetupMenu {
 		
 		JRadioButton[] buttons = new JRadioButton[5];
 		
-		this.audio.playSound("MainMenu.wav");
+		this.audio.playSound("GameSetup.wav");
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 0));

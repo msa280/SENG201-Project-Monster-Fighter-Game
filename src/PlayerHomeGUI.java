@@ -29,9 +29,7 @@ public class PlayerHomeGUI {
 	private JFrame frmMainMenu;
 	
 	private Player player;
-	private Shop shop;
-	private Battle battles;
-	private AudioPlayer audioPlayer;
+	AudioPlayer audio = new AudioPlayer();
 	
 	
 	public Player getPlayer() {
@@ -168,6 +166,8 @@ public class PlayerHomeGUI {
 	 */
 	private void initialize() {
 		
+		this.audio.playSound("MainMenu.wav");
+		
 		frmMainMenu = new JFrame();
 		frmMainMenu.getContentPane().setForeground(Color.WHITE);
 		frmMainMenu.getContentPane().setBackground(Color.BLACK);
@@ -213,10 +213,6 @@ public class PlayerHomeGUI {
 		frmMainMenu.getContentPane().add(remainingDaysField);
 		remainingDaysField.setText("Days Remaining: " + Integer.toString(this.player.getDaysRemaining()));
 		
-		
-		
-		
-		
 		JButton teamButton = new JButton("View Team");
 		teamButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		teamButton.addActionListener(new ActionListener() {
@@ -261,6 +257,11 @@ public class PlayerHomeGUI {
 		frmMainMenu.getContentPane().add(sleepButton);
 		
 		JButton quitGameButton = new JButton("Quit Game");
+		quitGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmMainMenu.dispose();
+			}
+		});
 		quitGameButton.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		quitGameButton.setBounds(10, 645, 108, 25);
 		frmMainMenu.getContentPane().add(quitGameButton);

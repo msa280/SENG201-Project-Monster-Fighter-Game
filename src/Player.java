@@ -16,69 +16,165 @@ import monsters.Venomhound;
 
 public class Player {
 	
+	/*
+	 * Players input.
+	 */
 	private Scanner scanInput = new Scanner(System.in);
+	/* 
+	 * Players gold.
+	 */
 	private int playerGold = 0;
+	/* 
+	 * Players inventory.
+	 */
 	private Map<Item, Integer> playerInventory = new HashMap<Item, Integer>();
+	/* 
+	 * Players items.
+	 */
 	private ArrayList<Item> playersItems = new ArrayList<Item>();
+	/* 
+	 * Players team of monsters.
+	 */
 	private ArrayList<Monster> playersTeam = new ArrayList<Monster>();
+	/* 
+	 * Players choice of starting monster.
+	 */
 	private Monster startingMonsters[] = new Monster[5];
+	/* 
+	 * An instance of the Battle class.
+	 */
 	private Battle battle;
+	/* 
+	 * An instance of the Shop class.
+	 */
 	private Shop shop;
+	/* 
+	 * An instance of the Game class.
+	 */
 	private Game game;
+	/* 
+	 * The current day.
+	 */
 	private int currentDay;
+	/* 
+	 * The days remaining in the game.
+	 */
 	private int daysRemaining;
+	/* 
+	 * Whether or not the player is ready for battle.
+	 */
 	private boolean readyForBattle;
 	
-	
+	/* 
+	 * Gets the current amount of gold the player has.
+	 * 
+	 * @return Returns the players gold value.
+	 */
 	public int getPlayerGold() {
 		return playerGold;
 	}
-
+	
+	/* 
+	 * Sets the amount of gold the player will start with. 
+	 * 
+	 * @param playerGold The amount of gold the player will start with.
+	 */
 	public void setPlayerGold(int playerGold) {
 		this.playerGold = playerGold;
 	}
 	
+	/* 
+	 * Sets the current day, and will increment as each day passes.
+	 * 
+	 * @param currentDay The current day for the player.
+	 */
 	public void setCurrentDay(int currentDay) {
 		this.currentDay = currentDay;
 	}
 	
+	/* 
+	 * Gets what the current day is.
+	 * 
+	 * @return Returns the value of currentDay.
+	 */
 	public int getCurrentDay() {
 		return currentDay;
 	}
 	
+	/* 
+	 * Sets the amount of days remaining.
+	 * 
+	 * @param currentDay The current day.
+	 * @game An instance of the Game class.
+	 * 
+	 */
 	public void setDaysRemaining(int currentDay, Game game) {
 		this.daysRemaining = game.getGameLength() - currentDay;
 	}
 	
+	/* 
+	 * Gets the amount of days remaining.
+	 * 
+	 * @return The value of daysRemaining.
+	 */
 	public int getDaysRemaining() {
 		return this.daysRemaining;
 	}
-	
+	/* 
+	 * Gets the length of the players monster team.
+	 * 
+	 * @return Returns the integer value of the length of his team (how many Monsters there are in it).
+	 */
 	public int getPlayersTeamLength()
 	{
 		return this.playersTeam.size();
 	}
 	
+	/* 
+	 * Creates the game.
+	 * 
+	 * @param game An instance of the Game class.
+	 */
 	public void setGame(Game game)
 	{
 		this.game = game; 
 	}
 	
+	/* 
+	 * Gets the game instance.
+	 * 
+	 * @return Returns the game instance.
+	 */
 	public Game getGame()
 	{
 		return this.game;
 	}
 	
+	/* 
+	 * Creates the shop.
+	 * 
+	 * @param newShop An instance of the Shop class.
+	 */
 	public void setShop(Shop newShop)
 	{
 		this.shop = newShop;
 	}
 	
+	/* 
+	 * Gets the players current items.
+	 * 
+	 * @return Returns an ArrayList of the players items.
+	 */
 	public ArrayList<Item> getPlayerItems()
 	{
 		return this.playersItems;
 	}
 	
+	/* 
+	 * Gets the players current monster team.
+	 * 
+	 * @return Returns an ArrayList containing the players monsters.
+	 */
 	public ArrayList<Monster> getPlayerMonsters()
 	{
 		return this.playersTeam;

@@ -187,7 +187,9 @@ public class SetupMenu {
 	
 	public void finishSetup(String monsterName, int gameLength, String difficulty)
 	{
-		this.game.getSelectedMonster().setMonsterRename(monsterName);
+		if (monsterName.length() != 0) {
+			this.game.getSelectedMonster().setMonsterRename(monsterName);
+		}
 		System.out.print(this.game.getSelectedMonster().getMonsterName());
 		this.game.setGameLength(gameLength);
 		this.setGameDifficulty(difficulty);
@@ -276,7 +278,7 @@ public class SetupMenu {
 		
 		JRadioButton[] buttons = new JRadioButton[5];
 		
-		this.audio.playSound("GameSetup.wav");
+		this.audio.playSound("GameSetup2.wav");
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 0));

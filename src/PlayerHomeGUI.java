@@ -145,6 +145,22 @@ public class PlayerHomeGUI {
 	}
 	
 	
+	public void openTeamViewer(JFrame oldFrame)
+	{
+		ViewTeam teamViewer = new ViewTeam(this.player, oldFrame);
+		ViewTeam.launchTeamViewer(player, teamViewer);
+		oldFrame.setVisible(false);
+		this.audio.stopSound();
+		
+	}
+	
+	
+	public AudioPlayer getAudioPlayer()
+	{
+		return this.audio;
+	}
+	
+	
 	
 	
 	
@@ -217,7 +233,7 @@ public class PlayerHomeGUI {
 		teamButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		teamButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				openTeamViewer(frmMainMenu);
 			}
 		});
 		teamButton.setBounds(61, 239, 163, 39);
@@ -259,6 +275,7 @@ public class PlayerHomeGUI {
 		JButton quitGameButton = new JButton("Quit Game");
 		quitGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				frmMainMenu.dispose();
 			}
 		});

@@ -200,6 +200,12 @@ public class Player {
 	
 	
 	
+	public void addToTeam(Monster monster)
+	{
+		this.playersTeam.add(monster);
+	}
+	
+	
 	
 	public void buyItem(Item item)
 	{

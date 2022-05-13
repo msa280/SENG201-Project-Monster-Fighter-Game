@@ -121,6 +121,8 @@ public class Game {
 	
 	/*
 	 * Gets whether the game is over or not.
+	 * 
+	 * @return Returns the value of gameOver.
 	 */
 	public boolean getGameOver() {
 		return gameOver;
@@ -128,6 +130,8 @@ public class Game {
 
 	/*
 	 * Sets whether the game is over or not.
+	 * 
+	 * @param gameOver The current value of gameOver
 	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
@@ -338,12 +342,20 @@ public class Game {
 		setup.launch_setup_menu(setup);
 	}
 
-
+	/*
+	 * Gets the selected monster.
+	 * 
+	 * @return Returns that selected monster.
+	 */
 	public Monster getSelectedMonster() {
 		return selectedMonster;
 	}
 
-
+	/*
+	 * Sets the selected monster.
+	 * 
+	 * @param selectedMonster The monster that was selected.
+	 */
 	public void setSelectedMonster(Monster selectedMonster) {
 		this.selectedMonster = selectedMonster;
 	}

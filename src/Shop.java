@@ -17,36 +17,80 @@ import monsters.Mornpest;
 import monsters.Soilscreamer;
 import monsters.Venomhound;
 
-
+/*
+ * Creates a shop where the player can buy and sell items and monsters.
+ */
 public class Shop {
 	
+	/*
+	 * Players input.
+	 */
 	private Scanner scanInput = new Scanner(System.in);
+	/*
+	 * The option the player will choose for what item/monster to buy/sell.
+	 */
 	private int readOption = 0;
+	/*
+	 * An array containing all of the monsters that are purchasable by the player.
+	 */
 	private ArrayList<Monster> monstersForSale = new ArrayList<Monster>();
+	/*
+	 * An array containing all of the items that are purchasable by the player.
+	 */
 	private ArrayList<Item> itemsForSale = new ArrayList<Item>();
+	/*
+	 * A list containing all of the monsters in the game.
+	 */
 	private Monster allMonsters[] = new Monster[5];
+	/*
+	 * A list containing all of the items in the game.
+	 */
 	private Item allItems[] = new Item[5];
+	/*
+	 * The player.
+	 */
 	private Player trader;
 
-
+	/*
+	 * Gets all of the monsters that are for sale by the shop.
+	 * 
+	 * @return Returns the value of monstersForSale.
+	 */
 	public ArrayList<Monster> getMonstersForSale() {
 		return monstersForSale;
 	}
 	
+	/*
+	 * Gets all of the items that are for sale by the shop.
+	 * 
+	 * @return Returns the value of itemsForSale.
+	 */
 	public ArrayList<Item> getItemsForSale() {
 		return itemsForSale;
 	}
-
+	
+	/*
+	 * Sets all of the items that will be for sale to the player.
+	 * 
+	 * @param itemsForSale The items that are for sale.
+	 */
 	public void setItemsForSale(ArrayList<Item> itemsForSale) {
 		this.itemsForSale = itemsForSale;
 	}
 
-
+	/*
+	 * Sets all of the monsters that will be for sale to the player.
+	 * 
+	 * @param monstersForSale The monsters that are for sale.
+	 */
 	public void setMonstersForSale(ArrayList<Monster> monstersForSale) {
 		this.monstersForSale = monstersForSale;
 	}
 	
-	
+	/*
+	 * Initializes the shop by generating all items and monsters, then
+	 * takes a random assortment of them to be for sale.
+	 */
 	public void initializeShop()
 	{
 		this.generateAllItems();
@@ -55,9 +99,9 @@ public class Shop {
 		this.randomGenerateMonsters();
 	}
 	
-	
-	
-	
+	/*
+	 * Generates all of the items in the game.
+	 */
 	public void generateAllItems()
 	{
 		this.allItems[0] = new BloodBroth();
@@ -67,13 +111,19 @@ public class Shop {
 		this.allItems[4] = new VirilityGem();
 	}
 	
-	
+	/*
+	 * Gets the current instance of Player.
+	 * 
+	 * @param player The player.
+	 */
 	public void getTrader(Player player)
 	{
 		this.trader = player;
 	}
 	
-	
+	/*
+	 * Randomly generates a list of items to be used by the shop.
+	 */
 	public void randomGenerateItems()
 	{
 		boolean generationComplete = false;
@@ -109,8 +159,9 @@ public class Shop {
 		}
 	}
 	
-
-	
+	/*
+	 * Generates all of the monsters in the game.
+	 */
 	public void generateAllMonsters()
 	{
 		this.allMonsters[0] = new Cavernfreak();
@@ -120,9 +171,9 @@ public class Shop {
 		this.allMonsters[4] = new Venomhound();
 	}
 	
-	
-	
-	
+	/*
+	 * Randomly generates a list of monsters to be used by the shop.
+	 */
 	public void randomGenerateMonsters()
 	{
 		boolean generationComplete = false;
@@ -158,12 +209,11 @@ public class Shop {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
+	/*
+	 * Purchases a monster of the players choosing.
+	 * 
+	 * @param chosenMonster The monster that the player chose.
+	 */
 	public void buyMonster(Monster chosenMonster)
 	{
 		boolean inBuyMonster = true;
@@ -209,7 +259,11 @@ public class Shop {
 	}
 	
 	
-	
+	/*
+	 * Sells a monster of the players choosing.
+	 * 
+	 * @param chosenMonster The monster that the player chose.
+	 */
 	public void sellMonster(Monster chosenMonster)
 	{
 		boolean inSellMonster = true;
@@ -249,10 +303,15 @@ public class Shop {
 		}
 	}
 	
-	
-	
-	
-	
+	/*
+	 * Executes the purchase of a monster by the player.
+	 * 
+	 * @param inMonsterBuy Whether or not the player is in the monster buy screen.
+	 * @param readOption The players input for which monster they would like to purchase.
+	 * @param monstersAvailable The monsters available to purchase by the player.
+	 * 
+	 * @return Returns whether or not the player is in the monster buy screen.
+	 */
 	public boolean executeMonsterBuy(boolean inMonsterBuy, int readOption, ArrayList<Monster> monstersAvailable)
 	{
 		Monster chosenMonster = null;
@@ -275,11 +334,14 @@ public class Shop {
 		return inMonsterBuy;
 	}
 	
-	
-	
-	
-	
-	
+	/*
+	 * Executes the sale of a monster by the player.
+	 * 
+	 * @param inMonsterSell Whether or not we are in the monster sell screen.
+	 * @param readOption The players input for which monster they would like to sell.
+	 * 
+	 * @return Returns whether or not we are in the monster sell screen.
+	 */
 	public boolean executeMonsterSell(boolean inMonsterSell, int readOption)
 	{
 		Monster chosenMonster = null;
@@ -302,11 +364,9 @@ public class Shop {
 		return inMonsterSell;
 	}
 	
-	
-	
-	
-	
-	
+	/*
+	 * Allows the player to choose what monster they want to purchase from the shop.
+	 */
 	public void monsterBuyStoreSection()
 	{
 		boolean inMonsterBuy = true;
@@ -339,10 +399,9 @@ public class Shop {
 		}
 	}
 	
-	
-	
-	
-	
+	/*
+	 * Allows the player to choose what monster they would like to sell from their team.
+	 */
 	public void monsterSellStoreSection()
 	{
 		boolean inMonsterSell = true;
@@ -387,10 +446,11 @@ public class Shop {
 		}
 	}
 	
-	
-	
-
-	
+	/*
+	 * Sells the chosen item.
+	 * 
+	 * @param chosenItem The item that the player chose.
+	 */
 	public void sellItem(Item chosenItem)
 	{
 		boolean inSellItem = true;
@@ -431,10 +491,11 @@ public class Shop {
 		}
 	}
 	
-	
-	
-	
-	
+	/*
+	 * Buys the chosen item.
+	 * 
+	 * @chosenItem The item that the player chose.
+	 */
 	public void buyItem(Item chosenItem)
 	{
 		boolean inBuyItem = true;
@@ -474,9 +535,15 @@ public class Shop {
 		}
 	}
 	
-	
-	
-	
+	/*
+	 * Executes the purchase of an item.
+	 * 
+	 * @param inItemBuy Whether or not the player is in the item buy screen.
+	 * @param readOption The players input for which item they would like to purchase.
+	 * @param itemsAvailable A list of what items are available to purchase.
+	 * 
+	 * @return Returns whether or not the player is in the item buy screen.
+	 */
 	public boolean executeItemBuy(boolean inItemBuy, int readOption, ArrayList<Item> itemsAvailable)
 	{
 		Item chosenItem = null;
@@ -499,7 +566,14 @@ public class Shop {
 		return inItemBuy;
 	}
 	
-	
+	/*
+	 * Executes the sale of an item.
+	 * 
+	 * @param inItemSell Whether or not the player is in the item sell screen.
+	 * @param readOption The players input for which item they would like to sell.
+	 * 
+	 * @return Returns whether or not the player is in the item sell screen.
+	 */
 	public boolean executeItemSell(boolean inItemSell, int readOption)
 	{
 		Item chosenItem = null;
@@ -521,15 +595,9 @@ public class Shop {
 		return inItemSell;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/*
+	 * Allows the player to choose what items to sell to the shop.
+	 */
 	public void itemSellStoreSection()
 	{
 		boolean inItemSell = true;
@@ -569,8 +637,9 @@ public class Shop {
 		}
 	}
 	
-	
-	
+	/*
+	 * Allows the player to choose what items to buy from the shop.
+	 */
 	public void itemBuyStoreSection()
 	{
 		boolean inItemBuy = true;
@@ -603,8 +672,15 @@ public class Shop {
 		}
 	}
 	
-	
-	
+	/*
+	 * Allows the player to choose what section of the store they want to purchase from.
+	 * Either monster or item.
+	 * 
+	 * @param inBuySection Whether or not the player is in the buy section.
+	 * @param readOption The player input for which section they would like to shop in.
+	 * 
+	 * @return Returns whether or not the player is in the inBuySection.
+	 */
 	public boolean buyStoreSection(boolean inBuySection, int readOption)
 	{
 		if (readOption == 0)
@@ -627,7 +703,14 @@ public class Shop {
 		return inBuySection;
 	}
 	
-	
+	/*
+	 * Allows the player to choose whether they want to sell monsters or items.
+	 * 
+	 * @param inSellSection Whether or not the player is in the sell section.
+	 * @param readOption The player input for which section they would like to sell in.
+	 * 
+	 * @return Returns whether or not the player is in the inSellSection.
+	 */
 	public boolean sellStoreSection(boolean inSellSection, int readOption)
 	{
 		if (readOption == 0)
@@ -656,8 +739,15 @@ public class Shop {
 		}
 		return inSellSection;
 	}
-	
-	
+
+	/*
+	 * Allows the player to choose whether they want to buy or sell.
+	 * 
+	 * @param inShop Whether or not the player is in the shop.
+	 * @param chosenOption The players input for whether they want to buy or sell.
+	 * 
+	 * @return Whether or not the player is in the shop.
+	 */
 	public boolean executeBuyOrSell(boolean inShop, int chosenOption)
 	{
 		if (chosenOption == 1)
@@ -727,8 +817,9 @@ public class Shop {
 		return inShop;
 	}
 	
-	
-	
+	/*
+	 * Allows the player to view the shop and interact with it.
+	 */
 	public void viewShop()
 	{
 		System.out.print("\nHaru: Welcome to MonsterPod Laboratories!\n");
@@ -760,7 +851,9 @@ public class Shop {
 		}
 	}
 	
-	
+	/*
+	 * Initializes the shop.
+	 */
 	public static void main(String[] args)
 	{
 		Shop newShop = new Shop();

@@ -180,33 +180,60 @@ public class Player {
 		return this.playersTeam;
 	}
 	
+	/*
+	 * Gets the players current inventory.
+	 * 
+	 * @return Returns a Map containing the players inventory.
+	 */
 	public Map<Item, Integer> getPlayerInventory()
 	{
 		return this.playerInventory;
 	}
 	
+	/*
+	 * Gets a Battle instance.
+	 * 
+	 * @return Returns an instance of the Battle class.
+	 */
 	public Battle getBattle() {
 		return battle;
 	}
-
+	
+	/*
+	 * Sets the Battle instance.
+	 * 
+	 * @param battle An instance of the Battle class.
+	 */
 	public void setBattle(Battle battle) {
 		this.battle = battle;
 	}
 	
+	/*
+	 * Gets the difficulty of the game that was set by the player,
+	 * 
+	 * @return Returns the value of gameDifficulty.
+	 */
 	public double getPlayerDifficulty()
 	{
 		return this.game.getGameDifficulty();
 	}
 	
-	
-	
+	/*
+	 * Adds a new monster to the players monster team.
+	 * 
+	 * @param monster The monster that is to be added.
+	 */
 	public void addToTeam(Monster monster)
 	{
 		this.playersTeam.add(monster);
 	}
 	
 	
-	
+	/* 
+	 * Purchases an item from the shop.
+	 * 
+	 *  @param item The item to be purchased.
+	 */
 	public void buyItem(Item item)
 	{
 		if (this.playerGold < item.getPrice())
@@ -237,7 +264,11 @@ public class Player {
 		System.out.printf("\n%s has been added to the inventory.\n", item.getItemName());
 	}
 	
-	
+	/*
+	 * Sells an item to the shop.
+	 * 
+	 * @param item The item to be sold.
+	 */
 	public void sellItem(Item item)
 	{
 		System.out.print("\nItem sold!\n");
@@ -262,7 +293,11 @@ public class Player {
 		System.out.printf("%d Gold has been given to you.\n", item.getResalePrice());
 	}
 	
-	
+	/*
+	 * Sells a monster to the shop.
+	 * 
+	 * @param monster The monster to be sold.
+	 */
 	public void sellMonster(Monster monster)
 	{
 		this.playerGold += monster.getPrice();
@@ -272,10 +307,12 @@ public class Player {
 		System.out.printf("%d Gold has been given to you.\n", monster.getPrice());
 	}
 	
-	
-	
-	
-	
+	/*
+	 * Purchases a monster from the shop.
+	 * 
+	 * @param monster The monster to be purchased.
+	 * @param rename The name the player wants to give the monster (optional).
+	 */
 	public void buyMonster(Monster monster, boolean rename)
 	{
 		if (this.playerGold < monster.getPrice())
@@ -300,10 +337,18 @@ public class Player {
 		}
 	}
 	
-	
-	
-	
-	
+	/*
+	 * Renames a monster. The player inputs the name that they want the monster to have,
+	 * and it is checked for validity. If the name isn't valid, is simply asked to try again.
+	 * 
+	 * @param bought Whether or not the monster has been purchased or not.
+	 * @param optionCorrect If the players input was valid.
+	 * @param selection The players input.
+	 * @param monster The monster the player wants to rename.
+	 * 
+	 * @return Returns true if the monster had been purchased and a correct option was chosen,
+	 * else false.
+	 */
 	public boolean[] monsterRenamer(boolean bought, boolean optionCorrect, int selection, Monster monster)
 	{
 		while (optionCorrect == false)
@@ -348,7 +393,9 @@ public class Player {
 		return new boolean[] {bought, optionCorrect};
 	}
 	
-	
+	/*
+	 * Views the players teams condition. Their condition consists of their health and name.
+	 */
 	public void viewTeamCondition()
 	{
 		System.out.print("Your team's current condition is:\n\n");
@@ -359,10 +406,15 @@ public class Player {
 		}
 	}
 	
-	
+	/*
+	 * Makes sure the monster purchase is successful.
+	 * 
+	 * @param monster The monster to be purchased.
+	 * @return Returns true if the monster was purchased, else false.
+	 */
 	public boolean verifyMonsterPurchase(Monster monster)
 	{
-		boolean bought  = false;
+		boolean bought = false;
 		int selectedOption = 0;
 		int selection = 0;
 		
@@ -398,9 +450,15 @@ public class Player {
 		return bought;
 	}
 	
-
-	
-	
+	/*
+	 * Executes the players choice of starting monster. If they input a valid monster,
+	 * they can take that monster.
+	 * 
+	 * @param startingMonsters The starting monster in the game.
+	 * @param optionNumber The players input.
+	 * 
+	 * @return Returns true if the player chose a valid starting monster, else false.
+	 */
 	public boolean executeMonsterSelection(Monster[] startingMonsters, boolean monsterSelected, int optionNumber)
 	{
 		Monster monster = null;
@@ -419,9 +477,9 @@ public class Player {
 		return monsterBought;
 	}
 	
-	
-	
-	
+	/*
+	 * Makes the player choose a starting monster to take.
+	 */
 	public void chooseStartingMonster()
 	{
 		startingMonsters[0] = new Cavernfreak();
@@ -456,8 +514,14 @@ public class Player {
 		}
 	}
 	
-	
-	
+	/*
+	 * Allows the player to checks the stats of a monster that is in their party.
+	 * 
+	 * @param inTeamViewer Whether or not the player is in team viewer.
+	 * @param optionNumber The players input.
+	 * 
+	 * @return Whether or not the player is in team viewer.
+	 */
 	public boolean monsterStatOpener(boolean inTeamViewer, int optionNumber)
 	{
 		if (optionNumber > this.getPlayersTeamLength())
@@ -485,8 +549,16 @@ public class Player {
 		return inTeamViewer;
 	}
 	
-	
-	
+	/*
+	 * Uses an item that the player has on their selected monster.
+	 * 
+	 * @param itemUseVerifying If the player wants to use an item or not.
+	 * @param optionNumber The players input on what item they want to use.
+	 * @param selectedItem The item that the player had selected.
+	 * @param monster What monster the player wanted to use their item on.
+	 * 
+	 * @return Returns true if an item was used successfully, else false.
+	 */
 	public boolean useItem(boolean itemUseVerifying, int optionNumber, Item selectedItem, Monster monster)
 	{
 		if (optionNumber == 0)
@@ -515,8 +587,15 @@ public class Player {
 		return itemUseVerifying;
 	}
 	
-	
-	
+	/*
+	 * Allows the player to choose what monster they want to use the item on.
+	 * 
+	 * @param inMonsterSelector Whether or not the player is in the monster selector screen or not.
+	 * @param optionNumber The player input on what monster they want to use an item on.
+	 * @param selectedItem The item that the player selected.
+	 * 
+	 * @return Returns whether the player is in monster selector or not.
+	 */
 	public boolean itemOnMonster(boolean inMonsterSelector, int optionNumber, Item selectedItem)
 	{
 		if (optionNumber >= 1 && optionNumber <= this.playersTeam.size())
@@ -560,8 +639,14 @@ public class Player {
 		return inMonsterSelector;
 	}
 	
-	
-	
+	/*
+	 * Selects an item and chooses the monster they would like to use it on.
+	 * 
+	 * @param inInventoryViewer Whether the player is in inventory viewer or not.
+	 * @param optionNumber The players input on which item they would like to use.
+	 * 
+	 * @return Returns whether or not the player is in inventory viewer.
+	 */
 	public boolean itemStatOpener(boolean inInventoryViewer,int optionNumber)
 	{
 		if (optionNumber > this.playerInventory.size())
@@ -573,8 +658,7 @@ public class Player {
 			inInventoryViewer = false;
 		}
 		else 
-		{
-			
+		{	
 			boolean inMonsterSelector = true;
 			Item selectedItem =  (Item) this.playerInventory.keySet().toArray()[optionNumber-1];
 			
@@ -623,8 +707,9 @@ public class Player {
 		return inInventoryViewer;
 	}
 	
-	
-	
+	/*
+	 * Views the players inventory.
+	 */
 	public void viewInventory()
 	{
 		boolean inInventoryViewer = true;
@@ -673,6 +758,9 @@ public class Player {
 		}
 	}
 	
+	/*
+	 * Views the players current monster team.
+	 */
 	public void viewTeam()
 	{
 		boolean inTeamViewer = true;
@@ -711,7 +799,13 @@ public class Player {
 		}
 	}
 	
-	
+	/*
+	 * Puts the player and their team to sleep. Increases the current day by one,
+	 * and decreases day remaining by one. If days remaining is 0, the game ends.
+	 * Heals the players monster party each by their own healing stat and unfaints them,=.
+	 * Randomizes shop and battles again.
+	 * 
+	 */
 	public void playerSleep()
 	{
 		this.currentDay += 1;
@@ -748,7 +842,14 @@ public class Player {
 		
 	}
 	
-	
+	/*
+	 * Executes what the player wants to do in the main screen.
+	 * 
+	 * @param inPlayerMenu Whether or not the player is still in the player menu.
+	 * @param optionNumber What the players input is.
+	 * 
+	 * @return Returns whether or not the the player is still in the player menu.
+	 */
 	public boolean executePlayerCommand(boolean inPlayerMenu, int optionNumber)
 	{
 		if (optionNumber == 1) 
@@ -797,7 +898,11 @@ public class Player {
 		return inPlayerMenu;
 	}
 	
-    
+	/*
+	 * Checks if the player has any monsters that can battle (haven't fainted).
+	 * 
+	 * @return Returns true if the player has any ready monsters, else false.
+	 */
 	public boolean monstersReadyBattle()
 	{
 		for (Monster monster: this.playersTeam)
@@ -810,7 +915,15 @@ public class Player {
 		return false;
 	}
 	
-	
+	/*
+	 * Takes the players input for what enemy they want to battle.
+	 * 
+	 * @param chosenEnemy The enemy that the player wants to battle.
+	 * @param decidingToFight Whether or not the player wants to battle.
+	 * @param optionNumber The players input on what enemy that want to battle.
+	 * 
+	 * @return Returns true if the player has found an enemy to fight that is valid, else false.
+	 */
 	public boolean executeFightCommand(Enemy chosenEnemy, boolean decidingToFight, int optionNumber)
 	{
 		if (optionNumber == 0)
@@ -845,9 +958,14 @@ public class Player {
 		return decidingToFight;
 	}
 	
-	
-	
-	
+	/*
+	 * Checks if the enemy that the player has chosen to battle is valid, and begins the battle.
+	 * 
+	 * @param inBattleViewer Whether or not the player is in the battle viewer.
+	 * @param optionNumber The players input on what enemy they want to battle.
+	 * 
+	 * @return Returns whether or not the player is in the battle viewer.
+	 */
 	public boolean executeBattleCommand(boolean inBattleViewer, int optionNumber)
 	{
 		if (optionNumber == 0)
@@ -886,10 +1004,9 @@ public class Player {
 		
 	}
 	
-	
-	
-	
-	
+	/*
+	 * Allows the player to view who they want to battle.
+	 */
 	public void battleViewer()
 	{
 		boolean inBattleViewer = true;
@@ -921,6 +1038,9 @@ public class Player {
 		
 	}
 	
+	/*
+	 * Allows the player to view the main screen, and decide what they want to do.
+	 */
 	public void playerViewer() 
 	{
 		boolean inPlayerMenu = true;
@@ -953,23 +1073,33 @@ public class Player {
 		}
 	}
 
+	/*
+	 * Gets whether or not the player is ready for battle.
+	 * 
+	 * @return Returns true if at least one of the players monsters have not fainted, else fale.
+	 */
 	public boolean isReadyForBattle() {
 		return readyForBattle;
 	}
-
+	
+	/*
+	 * Sets the value of readyForBattle.
+	 * 
+	 * @param readyForBattle Whether or not the player is ready for battle.
+	 */
 	public void setReadyForBattle(boolean readyForBattle) {
 		this.readyForBattle = readyForBattle;
 	}
 	
-	
+	/*
+	 * Creates the player instance, and sets and outputs their gold.
+	 */
 	public static void main(String[] args)
 	{
 		Player player = new Player();
 		player.setPlayerGold(1);
 		System.out.print(player.getPlayerGold());
 	}
-
-	
 }
 
 

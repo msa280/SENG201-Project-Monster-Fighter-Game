@@ -19,6 +19,7 @@ import monsters.Venomhound;
 
 public class Player {
 	
+	private String lastUpdate = "";
 	/*
 	 * Players input.
 	 */
@@ -331,26 +332,24 @@ public class Player {
 	 */
 	public void sellItem(Item item)
 	{
-		System.out.print("\nItem sold!\n");
+		String update = "";
+		update += ("%s sold!\n".formatted(item.getItemName()));
+		
 		this.playerGold += item.getResalePrice();
 		
-		for (Map.Entry<Item, Integer> inventoryItem : this.playerInventory.entrySet())
+		if (this.playerInventory.get(item) == 1)
 		{
-			if (inventoryItem.getKey() == item)
-			{
-				if (inventoryItem.getValue() == 1)
-				{
-					this.playerInventory.remove(item);
-					System.out.printf("\n%s has been removed from the inventory.\n", item.getItemName());
-				}
-				else
-				{
-					this.playerInventory.put(item, this.playerInventory.get(item) - 1);
-					System.out.printf("\nYou have sold 1 %s.\n", item.getItemName());
-				}
-			}
+			this.playerInventory.remove(item);
+			update += ("%s has been removed from the inventory.\n".formatted(item.getItemName()));
+		} 
+		else
+		{
+			this.playerInventory.put(item, this.playerInventory.get(item) - 1);
+			update += ("You have sold 1 %s.\n".formatted(item.getItemName()));
 		}
-		System.out.printf("%d Gold has been given to you.\n", item.getResalePrice());
+		
+		update += ("%d Gold has been given to you.\n".formatted(item.getResalePrice()));
+		this.lastUpdate = update;
 	}
 	
 	/*
@@ -1160,6 +1159,14 @@ public class Player {
 		Player player = new Player();
 		player.setPlayerGold(1);
 		System.out.print(player.getPlayerGold());
+	}
+
+	public String getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(String lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 }
 

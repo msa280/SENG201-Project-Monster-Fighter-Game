@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+
 import monsters.Cavernfreak;
 import monsters.Hollowtree;
 import monsters.Monster;
@@ -33,7 +35,7 @@ public class Enemy {
 	/*
 	 * All of the names of the enemies.
 	 */
-	private String allEnemyNames[] = {"Angela", "Arnold", "Cameron", "Julian", "Bladee", "Thaiboy", "Jonathan", "Mark", "Joshua", "Andrew"};
+	private String allEnemyNames[] = {"Angela", "Arnold", "Cameron", "Haider", "Haru", "MonsterKing", "Saima", "Sarah", "Zack", "Jonathan"};
 	
 	
 	/*
@@ -102,6 +104,40 @@ public class Enemy {
 	public boolean getAlreadyFought() {
 		return alreadyFought;
 	}
+	
+	
+	
+	public String getEnemyImage()
+	{
+		String name = this.enemyName;
+		String imageLink;
+		
+		if (name == "Angela") {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Angela.png";
+		} else if (name == "Arnold") {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Arnold.png";
+		} else if (name == "Cameron") {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Cameron.png";
+		} else if (name == "Haider") {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Haider.png";
+		} else if (name == "Haru") {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Haru.png";
+		} else if (name == "MonsterKing") {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\MonsterKing.png";
+		} else if (name == "Saima") {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Saima.png";
+		} else if (name == "Sarah") {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Sarah.png";
+		} else if (name == "Zack") {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Zack.png";
+		} else {
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Jonathan.png";
+		}
+		
+		return imageLink;
+	}
+	
+	
 	
 	/*
 	 * Generates the enemy monsters used to create their teams.

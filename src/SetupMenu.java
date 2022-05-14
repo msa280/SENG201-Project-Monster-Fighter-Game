@@ -432,12 +432,6 @@ public class SetupMenu {
 		enterDifficulty.add("Hard");
 		enterDifficulty.add("Boss");
 		
-		
-		JTextPane textPane = new JTextPane();
-		textPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textPane.setBounds(958, 493, 274, 126);
-		frame.getContentPane().add(textPane);
-		
 
 		JButton btnNewButton = new JButton("Start Game");
 		btnNewButton.setBackground(Color.YELLOW);
@@ -451,7 +445,6 @@ public class SetupMenu {
 				if (nameErrorExists == false && monsterSelectionErrorExists == false)
 				{
 					finishSetup(enterMonsterRename.getText(), Integer.parseInt(enterDays.getSelectedItem()), enterDifficulty.getSelectedItem());
-					displaySettings(textPane);
 					frame.dispose(); 
 					startGame();
 				}

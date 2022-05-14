@@ -55,10 +55,11 @@ public class Item {
 	}
 	
 	
+
 	public void useItem(Item item, Monster monster)
 	{
 		String item_name = item.getItemName();
-		
+
 		
 		if  (item_name == "Blood Broth")
 		{
@@ -101,7 +102,6 @@ public class Item {
 			monster.setSpecialDamage(monster.getSpecialDamage() + 10);
 			System.out.printf("%s's special attack has increased by 10.\n", monster.getMonsterName());
 		}
-		
 	}
 }
 	

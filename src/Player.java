@@ -3,7 +3,10 @@ import java.util.HashMap;
 //import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.ImageIcon;
 
 import items.Item;
 import monsters.Cavernfreak;
@@ -175,6 +178,13 @@ public class Player {
 	 * 
 	 * @return Returns an ArrayList containing the players monsters.
 	 */
+	
+	
+	public Shop getShop()
+	{
+		return this.shop;
+	}
+	
 	public ArrayList<Monster> getPlayerMonsters()
 	{
 		return this.playersTeam;
@@ -229,39 +239,100 @@ public class Player {
 	}
 	
 	
+<<<<<<< Updated upstream
 	/* 
 	 * Purchases an item from the shop.
 	 * 
 	 *  @param item The item to be purchased.
 	 */
 	public void buyItem(Item item)
+=======
+	
+	
+	public boolean useItem(Item item, Monster monster)
+>>>>>>> Stashed changes
 	{
-		if (this.playerGold < item.getPrice())
+		String item_name = item.getItemName();
+		
+		if  (item_name == "Blood Broth")
 		{
-			System.out.print("You don't have enough gold to buy this item\n");
-			return;
+			monster.setCurrentHealth(monster.getCurrentHealth() + 50);
+			System.out.printf("%s's health has increased by 50.\n", monster.getMonsterName());
 		}
-		else
+		
+		else if (item_name == "Energizer Bone")
 		{
+			monster.setDamage(monster.getDamage() + 5);
+			System.out.printf("%s's basic attack has increased by 50.\n", monster.getMonsterName());
+		}
+		
+		else if (item_name == "Cursed Skull")
+		{
+			Random randNum = new Random();
+			int upperbound = 3;
+			int deciding_num = randNum.nextInt(upperbound);
+			
+			if (deciding_num <= 1)
+			{
+				monster.setMaxHealth(monster.getMaxHealth() + 30);
+				System.out.printf("Lucky! %s's max health has increased by 30.\n", monster.getMonsterName());
+			}
+			else
+			{
+				monster.setMaxHealth(monster.getMaxHealth() + 30);
+				System.out.printf("Unlucky! %s's max health has decreased by 30.\n", monster.getMonsterName());
+			}
+		}
+		
+		else if (item_name == "Guardian Arch")
+		{
+			monster.setHealAmount(monster.getHealAmount() + 20);
+			System.out.printf("%s's heal amount has increased by 10.\n", monster.getMonsterName());
+		}
+		
+		else if (item_name == "Virility Gem")
+		{
+			monster.setSpecialDamage(monster.getSpecialDamage() + 10);
+			System.out.printf("%s's special attack has increased by 10.\n", monster.getMonsterName());
+		}
+		
+
+		int quantityLeft = this.playerInventory.get(item);
+		
+		if (quantityLeft >= 2)
+		{
+			int newQuantity = quantityLeft - 1;
+			this.playerInventory.remove(item);
+			this.playerInventory.put(item, newQuantity);
+			return false;
+		} 
+		else 
+		{
+			this.playerInventory.remove(item);
+			return true;
+		}
+	}
+	
+	
+	public boolean buyItem(Item item)
+	{
+		if (this.playerGold < item.getPrice()) {
+			return false;
+		}
+		else {
 			this.playerGold -= item.getPrice();
+			if (this.playerInventory.containsKey(item)) 
+			{
+				int newValue = this.playerInventory.get(item) + 1;
+				this.playerInventory.remove(item);
+				this.playerInventory.put(item, newValue);
+				System.out.print(this.playerInventory);
+			} else 
+			{
+				this.playerInventory.put(item, 1);
+			}
+			return true;
 		}
-		
-		if (this.playerInventory.containsKey(item))
-		{
-			this.playerInventory.put(item, this.playerInventory.get(item) + 1);
-		}
-		else
-		{
-			this.playerInventory.putIfAbsent(item, 1);
-		}
-		
-		if (!this.playersItems.contains(item))
-		{
-			this.playersItems.add(item);
-		}
-		
-		System.out.print("\nItem bought!\n");
-		System.out.printf("\n%s has been added to the inventory.\n", item.getItemName());
 	}
 	
 	/*
@@ -300,13 +371,14 @@ public class Player {
 	 */
 	public void sellMonster(Monster monster)
 	{
-		this.playerGold += monster.getPrice();
+		this.playerGold += monster.getResalePrice();
 		this.playersTeam.remove(monster);
-		System.out.print("\nMonster sold!\n");
+		/** System.out.print("\nMonster sold!\n");
 		System.out.printf("\n%s has been removed from the team.\n", monster.pickMonsterName());
-		System.out.printf("%d Gold has been given to you.\n", monster.getPrice());
+		System.out.printf("%d Gold has been given to you.\n", monster.getPrice()); */
 	}
 	
+<<<<<<< Updated upstream
 	/*
 	 * Purchases a monster from the shop.
 	 * 
@@ -314,27 +386,31 @@ public class Player {
 	 * @param rename The name the player wants to give the monster (optional).
 	 */
 	public void buyMonster(Monster monster, boolean rename)
+=======
+	
+	
+	
+	
+	public String buyMonster(Monster monster)
+>>>>>>> Stashed changes
 	{
+		String update;
 		if (this.playerGold < monster.getPrice())
 		{
-			System.out.print("You don't have enough gold to buy this monster\n");
+			update = "You don't have enough gold to buy %s!\n".formatted(monster.getMonsterName());
+			update = "No_Gold";
 		}
 		else if (this.playersTeam.size() == 4)
-		{
-			System.out.print("You don't have enough space in your team to buy this monster\n");
+		{		
+			update = "Team_Full";
 		}
 		else
 		{
 			this.playerGold -= monster.getPrice();
-			System.out.print("\nMonster bought!\n");
-			
-			if (rename == true)
-			{
-				monster.askMonsterName();
-			}
 			this.playersTeam.add(monster);
-			System.out.printf("\n%s has been added to the team.\n", monster.pickMonsterName());	
+			update = "No Error";
 		}
+		return update;
 	}
 	
 	/*
@@ -450,6 +526,7 @@ public class Player {
 		return bought;
 	}
 	
+<<<<<<< Updated upstream
 	/*
 	 * Executes the players choice of starting monster. If they input a valid monster,
 	 * they can take that monster.
@@ -459,6 +536,12 @@ public class Player {
 	 * 
 	 * @return Returns true if the player chose a valid starting monster, else false.
 	 */
+=======
+	
+
+	
+	
+>>>>>>> Stashed changes
 	public boolean executeMonsterSelection(Monster[] startingMonsters, boolean monsterSelected, int optionNumber)
 	{
 		Monster monster = null;
@@ -875,11 +958,6 @@ public class Player {
 		else if (optionNumber == 6)
 		{
 			this.battleViewer();
-		}
-		else if (optionNumber == 7)
-		{
-			this.shop.viewShop();
-			
 		}
 		else if (optionNumber == 8)
 		{

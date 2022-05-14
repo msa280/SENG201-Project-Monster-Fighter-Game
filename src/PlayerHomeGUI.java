@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
+import javax.swing.JTextArea;
 
 public class PlayerHomeGUI {
 
@@ -70,10 +71,9 @@ public class PlayerHomeGUI {
 		this.player.setShop(shop);
 		this.player.setBattle(battle);
 		shop.getTrader(player);
-		
 		battle.setPlayer(player);
-		
 		initialize();
+		this.audio.playSound("MainMenu.wav");
 		
 	}
 	
@@ -88,19 +88,21 @@ public class PlayerHomeGUI {
 	{
 		Game game = new Game();
 		game.setGameLength(7);
-		
+	
 		Shop shop = new Shop();
 		shop.initializeShop();
 		
+		Battle battles = new Battle();
+		battles.generateBattles();
 		
 		Player player = new Player();
 		player.setGame(game);
-		player.setPlayerGold(100);
+		player.setPlayerGold(6000);
 		player.setCurrentDay(4);
 		player.setDaysRemaining(player.getCurrentDay(), game);
+		player.setShop(shop);
 		
-		Battle battles = new Battle();
-		battles.generateBattles();
+	
 		
 		PlayerHomeGUI mainMenu = new PlayerHomeGUI(player, shop, battles);
 		mainMenu.launchMainMenu(mainMenu);
@@ -109,8 +111,9 @@ public class PlayerHomeGUI {
 	
 	
 	
-	public void sleepMessage(JTextPane pane) 
+	public void sleepMessage() 
 	{	
+		this.audio.stopSound();
 		// implement sleeping time
 		long start = System.currentTimeMillis();
 		long end = start + 5*1000;
@@ -120,38 +123,50 @@ public class PlayerHomeGUI {
 		
 		/* currentDay.setText("Current Day: " + Integer.toString(this.player.getCurrentDay()));
 		remainingDays.setText("Remaining Days: " + Integer.toString(this.player.getDaysRemaining())); */
-		
-		pane.setText("Good Morning %s!\nAll monsters have healed up over night!\nThe shop has been updated!\nNew battles are also available!\n".formatted(player.getGame().getPlayerName()));
 	}
 	
-	
-	
-	public void updateDisplay(JFormattedTextField currentDayField, JFormattedTextField remainingDaysField)
-	{
-		currentDayField.setText("Current Day: " + Integer.toString(this.player.getCurrentDay()));
-		remainingDaysField.setText("Remaining Days: " + Integer.toString(this.player.getDaysRemaining()));
-	}
 	
 	
 	public void sleep(JFrame frmMainMenu)
 	{
-		this.player.playerSleep();
 		
-		/* Exits the game if game is over. */
-		if (this.player.getDaysRemaining() == -1)
-		{
-			frmMainMenu.dispose();
-		}
+		this.player.playerSleep();
+		this.frmMainMenu.dispose();
+		PlayerHomeGUI refreshWindow = new PlayerHomeGUI(this.player, this.player.getShop(), this.player.getBattle());
+		refreshWindow.launchMainMenu(refreshWindow);
+		GoodMorningGUI.launchGoodMorning(player);
+		
 	}
 	
 	
 	public void openTeamViewer(JFrame oldFrame)
 	{
+		this.audio.stopSound();
+		oldFrame.setVisible(false);
 		ViewTeam teamViewer = new ViewTeam(this.player, oldFrame);
 		ViewTeam.launchTeamViewer(player, teamViewer);
-		oldFrame.setVisible(false);
+	}
+	
+	public void openInventoryViewer(JFrame oldFrame)
+	{
 		this.audio.stopSound();
-		
+		oldFrame.setVisible(false);
+		ViewInventory inventoryViewer = new ViewInventory(this.player, oldFrame);
+		ViewInventory.launchInventoryViewer(player, inventoryViewer);
+	}
+	
+	public void openShop(JFrame oldFrame)
+	{
+		this.audio.stopSound();
+		oldFrame.setVisible(false);
+		ViewBuySection shop = new ViewBuySection(this.player);
+		ViewBuySection.launchBuySection(player, shop);
+	}
+	
+	public void quitGame()
+	{
+		this.audio.stopSound();
+		this.frmMainMenu.dispose();
 	}
 	
 	
@@ -182,7 +197,6 @@ public class PlayerHomeGUI {
 	 */
 	private void initialize() {
 		
-		this.audio.playSound("MainMenu.wav");
 		
 		frmMainMenu = new JFrame();
 		frmMainMenu.getContentPane().setForeground(Color.WHITE);
@@ -191,17 +205,6 @@ public class PlayerHomeGUI {
 		frmMainMenu.setBounds(100, 100, 1080, 720);
 		frmMainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMainMenu.getContentPane().setLayout(null);
-		
-		
-		JTextPane txtpnWhatWouldYou = new JTextPane();
-		txtpnWhatWouldYou.setEditable(false);
-		txtpnWhatWouldYou.setForeground(new Color(255, 255, 255));
-		txtpnWhatWouldYou.setBackground(UIManager.getColor("windowText"));
-		txtpnWhatWouldYou.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		txtpnWhatWouldYou.setText("What would you like to do?");
-		txtpnWhatWouldYou.setBounds(61, 185, 235, 30);
-		frmMainMenu.getContentPane().add(txtpnWhatWouldYou);
-		txtpnWhatWouldYou.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.5f));
 		
 		JFormattedTextField goldField = new JFormattedTextField();
 		goldField.setBackground(Color.BLACK);
@@ -240,6 +243,11 @@ public class PlayerHomeGUI {
 		frmMainMenu.getContentPane().add(teamButton);
 		
 		JButton inventoryButton = new JButton("View Inventory");
+		inventoryButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openInventoryViewer(frmMainMenu);
+			}
+		});
 		inventoryButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		inventoryButton.setBounds(61, 289, 163, 39);
 		frmMainMenu.getContentPane().add(inventoryButton);
@@ -250,6 +258,11 @@ public class PlayerHomeGUI {
 		frmMainMenu.getContentPane().add(battlesButton);
 		
 		JButton shopButton = new JButton("View Shop");
+		shopButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openShop(frmMainMenu);
+			}
+		});
 		shopButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		shopButton.setBounds(61, 389, 163, 39);
 		frmMainMenu.getContentPane().add(shopButton);
@@ -263,9 +276,8 @@ public class PlayerHomeGUI {
 		JButton sleepButton = new JButton("Sleep");
 		sleepButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				sleepMessage();
 				sleep(frmMainMenu);	
-				sleepMessage(updateArea);
-				updateDisplay(currentDayField, remainingDaysField);
 			}
 		});
 		sleepButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
@@ -275,8 +287,7 @@ public class PlayerHomeGUI {
 		JButton quitGameButton = new JButton("Quit Game");
 		quitGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				frmMainMenu.dispose();
+				quitGame();
 			}
 		});
 		quitGameButton.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -290,6 +301,14 @@ public class PlayerHomeGUI {
 		txtpnNotifications.setText("Notifications");
 		txtpnNotifications.setBounds(487, 563, 108, 21);
 		frmMainMenu.getContentPane().add(txtpnNotifications);
+		
+		JTextArea txtrWhatWouldYou = new JTextArea();
+		txtrWhatWouldYou.setBackground(Color.BLACK);
+		txtrWhatWouldYou.setForeground(Color.WHITE);
+		txtrWhatWouldYou.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		txtrWhatWouldYou.setText("What would you like to do?");
+		txtrWhatWouldYou.setBounds(61, 194, 285, 30);
+		frmMainMenu.getContentPane().add(txtrWhatWouldYou);
 		
 	}
 }

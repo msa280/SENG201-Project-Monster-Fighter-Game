@@ -13,11 +13,20 @@ import monsters.Venomhound;
 import javax.swing.JTextPane;
 import java.awt.Font;
 
+
+/*
+ * This class can show the images and statistics of each of the monsters in the game
+ * to the player in the form of a GUI. 
+ */
 public class MonsterStatGUI {
 
 	private JFrame frmMonsterStats;
 	
-	
+	/*
+	 * Launches the window.
+	 * 
+	 * @param monster The chosen monster for which their image and statistics will be shown.
+	 */
 	public static void launchMonsterStatScreen(Monster monster)
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -32,7 +41,12 @@ public class MonsterStatGUI {
 		});
 	}
 	
-	
+	/*
+	 * Sets the image for each monster in the game.
+	 * 
+	 * @param image The image for each individual monster.
+	 * @param monster The monster chosen.
+	 */
 	public void setMonsterImage(JLabel image, Monster monster)
 	{
 		String monster_name = monster.getMonsterName();
@@ -53,7 +67,12 @@ public class MonsterStatGUI {
 		}
 	}
 	
-	
+	/*
+	 * Displays the monsters statistics.
+	 * 
+	 * @param monster The chosen monster.
+	 * @param monsterName The text pane that displays the statistics.
+	 */
 	public void displayMonsterStats(Monster monster, JTextPane monsterName) {
 		
 		
@@ -74,10 +93,9 @@ public class MonsterStatGUI {
 		
 	}
 	
-	
 
-	/**
-	 * Launch the application.
+	/*
+	 * Launches the application.
 	 */
 	public static void main(String[] args) {
 		Monster venomhound = new Venomhound();
@@ -95,15 +113,19 @@ public class MonsterStatGUI {
 		launchMonsterStatScreen(magmataur);
 	}
 
-	/**
-	 * Create the application.
+	/*
+	 * Creates the application.
+	 * 
+	 * @param monster The chosen monster.
 	 */
 	public MonsterStatGUI(Monster monster) {
 		initialize(monster);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * Initializes the contents of the frame.
+	 * 
+	 * @param monster The chosen monster.
 	 */
 	private void initialize(Monster monster) {
 		frmMonsterStats = new JFrame();

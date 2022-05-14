@@ -29,24 +29,37 @@ import javax.swing.DropMode;
 import javax.swing.JRadioButton;
 import java.awt.Choice;
 
-
-
-
+/*
+ * Sets up the game. Does basic pre-game setup such as naming the player and
+ * initializing audio.
+ */
 public class SetupMenu {
 	
 
 	private JFrame frame;
 	private JTextPane printNameError;
-
+	/*
+	 * An instance of the Game class.
+	 */
 	private Game game;
+	/*
+	 * Whether or not the setup process has successfully been completed.
+	 */
 	boolean setupComplete = false;
+	/*
+	 * An instance of the AudioPlayer class.
+	 */
 	AudioPlayer audio = new AudioPlayer();
 	
-
-	
-
-	
-	
+	/*
+	 * Checks if the input by the player for their name contains any errors and thus would be invalid.
+	 * 
+	 * @param numOrSpecialChar If there's a number or special character in the name.
+	 * @param nameLength The length of the name (number of characters).
+	 * @scannedName The players input for their name.
+	 * 
+	 * @return Returns "OK" if name is valid, an error else.
+	 */
 	public String checkNameErrors(boolean numOrSpecialChar, int nameLength, String scannedName) 
 	{
 		if (numOrSpecialChar) {
@@ -66,7 +79,13 @@ public class SetupMenu {
 		}
 	}
 	
-	
+	/*
+	 * Makes sure the players name is valid.
+	 * 
+	 * @param name The name given by the player.
+	 * 
+	 * @return If the name is valid, returns "OK.", else an error.
+	 */
 	public String checkPlayerName(String name) 
 	{	
 		Pattern pattern = Pattern.compile("[^a-zA-Z]");
@@ -83,8 +102,13 @@ public class SetupMenu {
 		return error;
 	}
 	
-	
-	
+	/*
+	 * A GUI that allows the player to select the monster they want.
+	 * 
+	 * @param buttons The buttons for each monster.
+	 * @param selectedButton The button the player selected.
+	 * @param monster The monster that corresponds to the selected button.
+	 */
 	public void selectMonster(JRadioButton[] buttons, JRadioButton selectedButton, Monster monster)
 	{
 		if (selectedButton.isSelected()) {
@@ -105,8 +129,11 @@ public class SetupMenu {
 		}	
 	}
 	
-	
-	
+	/*
+	 * Renames a monster.
+	 * 
+	 * @param newName The new name for the monster.
+	 */
 	public void setMonsterRename(String newName) 
 	{
 		if (newName.length() > 0) {
@@ -114,9 +141,11 @@ public class SetupMenu {
 		}
 	}
 	
-	
-
-	
+	/*
+	 * Sets the game difficulty.
+	 * 
+	 * @param difficulty The value of difficulty.
+	 */
 	public void setGameDifficulty(String difficulty)
 	{
 		if (difficulty == "Easy") {
@@ -132,17 +161,24 @@ public class SetupMenu {
 		}
 	}
 	
-	
-	
-	
-	
+	/*
+	 * Gives a name that will become the new name for the monster.
+	 * 
+	 * @param name The new name.
+	 */
 	public void renameMonster(String name)
 	{
 		this.game.getSelectedMonster().setMonsterRename(name);
 	}
 	
-	
-	
+	/*
+	 * Whether the name setup was successful or not.
+	 * 
+	 * @param enterName The players input for a name
+	 * 
+	 * @return Returns an error if the player had not selected a monster, else
+	 * returns an empty string.
+	 */
 	public String setupSuccessful(JTextPane enterName)
 	{
 		if (this.game.getSelectedMonster() == null) {
@@ -152,8 +188,15 @@ public class SetupMenu {
 		}
 	}
 	
-	
-	
+	/*
+	 * Checks whether the name passed the error check or not. If it did, name is accepted,
+	 * else resets the text box.
+	 * 
+	 * @param enterName The enterName TextPane which will likely contain an input name.
+	 * @param printNameError Prints an error if the name is invalid.\
+	 * 
+	 * @return Returns true if the name was invalid, else false.
+	 */
 	public boolean nameErrorCheckPassed(JTextPane enterName, JTextPane printNameError) 
 	{
 		String enteredName = enterName.getText();
@@ -170,7 +213,14 @@ public class SetupMenu {
 		}
 	}
 	
-	
+	/*
+	 * Checks whether or not the player has selected a monster to start with.
+	 * 
+	 * @param monsterSelectionError Checks if the player has selected a monster or not. If they have,
+	 * prints "OK.", else prints an error.
+	 * 
+	 * @return Returns true if the player failed to choose a monster, else false.
+	 */
 	public boolean monsterSelectionCheck(JTextPane monsterSelectionError)
 	{
 		if (this.game.getSelectedMonster() == null) {
@@ -184,7 +234,13 @@ public class SetupMenu {
 		}
 	}
 	
-	
+	/*
+	 * Finishes the game setup, and starts the main game.
+	 * 
+	 * @param monsterName The name of the monster the player chose.
+	 * @param gameLength The length of the game in days.
+	 * @param difficulty The difficulty of the game.
+	 */
 	public void finishSetup(String monsterName, int gameLength, String difficulty)
 	{
 		if (monsterName.length() != 0) {
@@ -197,8 +253,11 @@ public class SetupMenu {
 		this.audio.stopSound();
 	}
 	
-
-	
+	/*
+	 * Displays the games basic settings.
+	 * 
+	 * @param pane The pane that displays the settings.
+	 */
 	public void displaySettings(JTextPane pane)
 	{
 		String line1 = "Fighter Name: %s\n".formatted(this.game.getPlayerName());
@@ -209,9 +268,9 @@ public class SetupMenu {
 		pane.setText(line1 + line2 + line3 + line4 + line5);
 	}
 	
-	
-	
-	
+	/*
+	 * Starts the game.
+	 */
 	public void startGame()
 	{
 		Player player = new Player();
@@ -243,8 +302,10 @@ public class SetupMenu {
 	
 
 	
-	/**
+	/*
 	 * Launches the game setup screen.
+	 * 
+	 * @param window The setup window.
 	 */
 	public void launch_setup_menu(SetupMenu window) {
 		EventQueue.invokeLater(new Runnable() {
@@ -263,7 +324,7 @@ public class SetupMenu {
 	
 	
 
-	/**
+	/*
 	 * Creates the game setup screen.
 	 */
 	public SetupMenu() {
@@ -271,7 +332,7 @@ public class SetupMenu {
 	}
 	
 
-	/**
+	/*
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
@@ -600,12 +661,20 @@ public class SetupMenu {
 		frame.getContentPane().add(askGameDifficulty);
 	}
 
-
+	/*
+	 * Gets the current instance of the Game class.
+	 * 
+	 * @return Returns the value of game.
+	 */
 	public Game getGame() {
 		return game;
 	}
 
-
+	/*
+	 * Sets the current instance of the Game class.
+	 * 
+	 * @param game The instance of Game.
+	 */
 	public void setGame(Game game) {
 		this.game = game;
 	}

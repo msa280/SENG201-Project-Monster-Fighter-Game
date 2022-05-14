@@ -209,64 +209,8 @@ public class Shop {
 		}
 	}
 	
-<<<<<<< Updated upstream
-	/*
-	 * Purchases a monster of the players choosing.
-	 * 
-	 * @param chosenMonster The monster that the player chose.
-	 */
-	public void buyMonster(Monster chosenMonster)
-	{
-		boolean inBuyMonster = true;
-		
-		while (inBuyMonster == true)
-		{
-			System.out.print(chosenMonster.toString());
-			System.out.printf("\nChoose a buying method for %s:\n\n", chosenMonster.getMonsterName());
-			System.out.printf("[Available Gold: %d]\n\n", this.trader.getPlayerGold());
-			System.out.print("1. Buy and Rename\n");
-			System.out.print("2. Buy with Default Name\n");
-			System.out.print("0. Go Back\n");
-			
-			try 
-			{
-				readOption = scanInput.nextInt();
-				if (readOption == 1)
-				{
-					this.trader.buyMonster(chosenMonster, true);
-					inBuyMonster = false;
-				} 
-				else if (readOption == 2)
-				{
-					this.trader.buyMonster(chosenMonster, false);
-					inBuyMonster = false;
-				}
-				else if (readOption == 0)
-				{
-					inBuyMonster = false;
-				}
-				else
-				{
-					System.out.print("Please choose a vlid option.\n");
-				}
-			} 
-			catch (InputMismatchException excp) 
-			{
-				System.out.print("Please enter a valid name or option.\n");
-				scanInput.next();
-				continue;
-			}
-		}
-	}
-=======
+
 	
-	
-	
-	
-	
-	
-	
->>>>>>> Stashed changes
 	
 	
 	/*
@@ -313,7 +257,7 @@ public class Shop {
 		}
 	}
 	
-<<<<<<< Updated upstream
+
 	/*
 	 * Executes the purchase of a monster by the player.
 	 * 
@@ -334,8 +278,7 @@ public class Shop {
 		else if (readOption >= 1 && readOption <= 5)
 		{
 			int index = readOption - 1;
-			chosenMonster = monstersAvailable.get(index);
-			this.buyMonster(chosenMonster);
+	
 		}
 		else
 		{
@@ -353,14 +296,7 @@ public class Shop {
 	 * 
 	 * @return Returns whether or not we are in the monster sell screen.
 	 */
-=======
-	
-	
 
-	
-	
-	
->>>>>>> Stashed changes
 	public boolean executeMonsterSell(boolean inMonsterSell, int readOption)
 	{
 		Monster chosenMonster = null;
@@ -383,7 +319,7 @@ public class Shop {
 		return inMonsterSell;
 	}
 	
-<<<<<<< Updated upstream
+
 	/*
 	 * Allows the player to choose what monster they want to purchase from the shop.
 	 */
@@ -418,14 +354,7 @@ public class Shop {
 			}
 		}
 	}
-=======
-	
-	
-	
-	
-	
 
->>>>>>> Stashed changes
 	
 	/*
 	 * Allows the player to choose what monster they would like to sell from their team.
@@ -700,7 +629,7 @@ public class Shop {
 		}
 	}
 	
-<<<<<<< Updated upstream
+
 	/*
 	 * Allows the player to choose what section of the store they want to purchase from.
 	 * Either monster or item.
@@ -731,10 +660,7 @@ public class Shop {
 		}
 		return inBuySection;
 	}
-=======
-	
-	
->>>>>>> Stashed changes
+
 	
 	/*
 	 * Allows the player to choose whether they want to sell monsters or items.
@@ -772,7 +698,7 @@ public class Shop {
 		}
 		return inSellSection;
 	}
-<<<<<<< Updated upstream
+
 
 	/*
 	 * Allows the player to choose whether they want to buy or sell.
@@ -885,6 +811,7 @@ public class Shop {
 		}
 	}
 	
+	
 	/*
 	 * Initializes the shop.
 	 */
@@ -893,14 +820,7 @@ public class Shop {
 		Shop newShop = new Shop();
 		newShop.viewShop();
 	}
-=======
-	
-	
-	
-	
 
-	
->>>>>>> Stashed changes
 
 	
 

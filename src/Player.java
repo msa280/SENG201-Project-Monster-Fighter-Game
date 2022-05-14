@@ -239,18 +239,7 @@ public class Player {
 	}
 	
 	
-<<<<<<< Updated upstream
-	/* 
-	 * Purchases an item from the shop.
-	 * 
-	 *  @param item The item to be purchased.
-	 */
-	public void buyItem(Item item)
-=======
-	
-	
 	public boolean useItem(Item item, Monster monster)
->>>>>>> Stashed changes
 	{
 		String item_name = item.getItemName();
 		
@@ -378,21 +367,19 @@ public class Player {
 		System.out.printf("%d Gold has been given to you.\n", monster.getPrice()); */
 	}
 	
-<<<<<<< Updated upstream
+
 	/*
 	 * Purchases a monster from the shop.
 	 * 
 	 * @param monster The monster to be purchased.
 	 * @param rename The name the player wants to give the monster (optional).
 	 */
-	public void buyMonster(Monster monster, boolean rename)
-=======
+
 	
 	
 	
 	
 	public String buyMonster(Monster monster)
->>>>>>> Stashed changes
 	{
 		String update;
 		if (this.playerGold < monster.getPrice())
@@ -412,6 +399,7 @@ public class Player {
 		}
 		return update;
 	}
+	
 	
 	/*
 	 * Renames a monster. The player inputs the name that they want the monster to have,
@@ -526,7 +514,7 @@ public class Player {
 		return bought;
 	}
 	
-<<<<<<< Updated upstream
+	
 	/*
 	 * Executes the players choice of starting monster. If they input a valid monster,
 	 * they can take that monster.
@@ -536,12 +524,7 @@ public class Player {
 	 * 
 	 * @return Returns true if the player chose a valid starting monster, else false.
 	 */
-=======
-	
 
-	
-	
->>>>>>> Stashed changes
 	public boolean executeMonsterSelection(Monster[] startingMonsters, boolean monsterSelected, int optionNumber)
 	{
 		Monster monster = null;

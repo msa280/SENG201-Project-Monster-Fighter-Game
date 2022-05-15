@@ -1,12 +1,7 @@
 package monsters;
 
-import java.util.Scanner;
-import java.util.regex.Matcher; 
-import java.util.regex.Pattern;
-
 public class Monster {
 	
-	private Scanner scanInput = new Scanner(System.in);
 	private String monsterName;
 	private String monsterRename;
 	private String attackName;
@@ -22,7 +17,8 @@ public class Monster {
 	
 	
 	public Monster(String monsterName, String monsterRename, String attack_name, String special_attack_name, int maxHealth,
-			int damage, int healAmount, int currentHealth, int specialDamage, int price, boolean isFaint, int attackCount) {
+			int damage, int healAmount, int currentHealth, int specialDamage, int price, boolean isFaint, int attackCount) 
+	{
 		this.setMonsterName(monsterName);
 		this.setMonsterRename(monsterRename);
 		this.setAttackName(attack_name);
@@ -86,7 +82,7 @@ public class Monster {
 	}
 
 	public String getAttackName() {
-		return attackName;
+		return this.attackName;
 	}
 
 	public void setAttackName(String attackName) {
@@ -94,7 +90,7 @@ public class Monster {
 	}
 
 	public String getSpecialAttackName() {
-		return specialAttackName;
+		return this.specialAttackName;
 	}
 
 	public void setSpecialAttackName(String specialAttackName) {
@@ -108,6 +104,31 @@ public class Monster {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	public String getMonsterRename() {
+		return monsterRename;
+	}
+
+	public void setMonsterRename(String monsterRename) {
+		this.monsterRename = monsterRename;
+	}
+
+	public boolean isFaint() {
+		return isFaint;
+	}
+
+	public void setFaint(boolean isFaint) {
+		this.isFaint = isFaint;
+	}
+
+	public int getAttackCount() {
+		return attackCount;
+	}
+
+	public void setAttackCount(int attackCount) {
+		this.attackCount = attackCount;
+	}
+	
 	
 	public void healUp()
 	{
@@ -142,7 +163,7 @@ public class Monster {
 	}
 	
 	
-	public boolean specialAttackAvailable()
+	public boolean getSpecialAttackAvailable()
 	{
 		if (this.getAttackCount() >= 3)
 		{
@@ -155,102 +176,59 @@ public class Monster {
 	}
 	
 	
-	
-	
-	
-	
-	public boolean checkName(boolean numOrSpecialChar, boolean nameCheckPassed, int nameLength, String scannedName) 
+	public String getMonsterImage()
 	{
-		if (numOrSpecialChar) 
+		String imageLink;
+		if (this.monsterName == "Venomhound") 
 		{
-			System.out.println(scannedName + " contains numbers or special characters!\n");
-			System.out.println("Please choose a different monster name.\n");
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\1.) VenomHound.gif";
 		} 
-		else if (nameLength < 3) 
+		else if (this.monsterName == "Soilscreamer") 
 		{
-			System.out.println(scannedName + " is too short!\n");
-			System.out.println("Please choose a longer monster name.\n");
-		} 
-		else if (nameLength > 15) 
-		{
-			System.out.println(scannedName + " is too long!\n");
-			System.out.println("Please choose a shorter monster name.\n");
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\2.) Soilscreamer.gif";
 		}
+		else if (this.monsterName == "Mornpest") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\3.) Mornpest.gif";
+		} 
+		else if (this.monsterName == "Cavernfreak") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\4.) Cavernfreak.gif";
+		} 
+		else if (this.monsterName == "Hollowtree") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\5.) Hollowtree.gif";
+		} 
+		else if (this.monsterName == "Magmataur") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\6.) Magmataur.gif";
+		} 
 		else 
 		{
-			nameCheckPassed = true;
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\noImage.png";
 		}
-		return nameCheckPassed;
+		return imageLink;
 	}
 	
 	
-	public void askMonsterName() 
-	{
-		
-		Pattern pattern = Pattern.compile("[^a-zA-Z]");
-		String scannedName = null;
-		Matcher matcher = null;
-		int nameLength = 0;
-		boolean numOrSpecialChar = false;
-		boolean nameCheckPassed = false;
-		
-		while (nameCheckPassed == false) 
-		{	
-			System.out.print("\nRename your monster: ");
-			scannedName = scanInput.nextLine();
-			nameLength = scannedName.length();
-			matcher = pattern.matcher(scannedName);
-			numOrSpecialChar = matcher.find();
-			nameCheckPassed = checkName(numOrSpecialChar, nameCheckPassed, nameLength, scannedName);
-		}
-		this.setMonsterRename(scannedName);
-	}
 	
-	public String toString()
+	/*
+	 * Displays the monsters statistics.
+	 * 
+	 * @param monster The chosen monster.
+	 * @param monsterName The text pane that displays the statistics.
+	 */
+	public String displayMonsterStats() 
 	{
-		String spacing = "\n\n\n";
-		String a0 = "_____________Monster Stats___________\n\n";
 		String a = "Name: %s\n".formatted(this.pickMonsterName());
-		String a1 = "_____________________________________\n";
-		String b = "Attack Name: %s\n".formatted(this.attackName);
-		String b1 = "Attack Damage: %d\n".formatted(this.damage);
-		String c = "Special Attack Name: %s\n".formatted(this.specialAttackName);
-		String c1 = "Special Attack Damage: %s\n".formatted(this.specialDamage);
-		String d = "Maximum Health: %d\n".formatted(this.maxHealth);
+		String b = "Attack - (%s: %d)\n".formatted(this.attackName, this.damage);
+		String c = "Special Attack - (%s: %d)\n".formatted(this.specialAttackName, this.specialDamage);
 		String d1 = "Current Health: %d\n".formatted(this.currentHealth);
+		String d = "Maximum Health: %d\n".formatted(this.maxHealth);
 		String e = "Heal Amount: %d\n".formatted(this.healAmount);
-		String e0 = "_____________________________________\n";
 		
-		String monsterDetails = spacing + a0 + a + a1 + b + b1 + c + c1 + d + d1 + e + e0 + spacing;
-		
+		String monsterDetails = a + b + c + d + d1 + e;
 		return monsterDetails;
 	}
-
-	public String getMonsterRename() {
-		return monsterRename;
-	}
-
-	public void setMonsterRename(String monsterRename) {
-		this.monsterRename = monsterRename;
-	}
-
-	public boolean isFaint() {
-		return isFaint;
-	}
-
-	public void setFaint(boolean isFaint) {
-		this.isFaint = isFaint;
-	}
-
-	public int getAttackCount() {
-		return attackCount;
-	}
-
-	public void setAttackCount(int attackCount) {
-		this.attackCount = attackCount;
-	}
 	
-	
-	
-
 }

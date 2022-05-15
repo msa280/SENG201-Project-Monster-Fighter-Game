@@ -55,12 +55,39 @@ public class Item {
 	}
 	
 	
+	
+	public String getItemImage()
+	{
+		String itemImage;
+		
+		if (this.itemName == "Blood Broth") 
+		{
+			itemImage = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\ItemsArtwork\\2.) BloodBroth.png";
+		} else if (this.itemName == "Cursed Skull") 
+		{
+			itemImage = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\ItemsArtwork\\1.) CursedSkull.png";
+		} else if (this.itemName == "Energizer Bone")
+		{
+			itemImage = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\ItemsArtwork\\3.) EnergizerBone.png";
+		} else if (this.itemName == "Guardian Arch")
+		{
+			itemImage = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\ItemsArtwork\\4.) GuardianArch.png";
+		} else if (this.itemName == "Virility Gem") 
+		{
+			itemImage = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\ItemsArtwork\\5.) VirilityGem.png";
+		} else {
+			itemImage = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\ItemsArtwork\\1.) CursedSkull.png";
+		}
+		return itemImage;
+	}
+	
+	
+	
 
 	public void useItem(Item item, Monster monster)
 	{
 		String item_name = item.getItemName();
 
-		
 		if  (item_name == "Blood Broth")
 		{
 			monster.setCurrentHealth(monster.getCurrentHealth() + 50);
@@ -103,6 +130,19 @@ public class Item {
 			System.out.printf("%s's special attack has increased by 10.\n", monster.getMonsterName());
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 	
 

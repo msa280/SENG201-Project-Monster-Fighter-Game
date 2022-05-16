@@ -16,8 +16,6 @@ import GUI.IntroGUI;
 import monsters.Monster;
 
 
-
-
 /*
  * A class that initializes the game and stores information pertaining to the game.
  */
@@ -32,33 +30,41 @@ public class Game {
 	 */
 	private int gameLength;
 	/*
-	 * The difficulty of the game.
+	 * The difficulty of the game. 0.5 - 3.0, the latter being the most difficult.
 	 */
 	private double gameDifficulty;
 	/*
 	 * Whether the game is over or not.
 	 */
 	private boolean gameOver;
-	
+	/*
+	 * The selected monster.
+	 */
 	private Monster selectedMonster;
-	
+	/*
+	 * Whether the setup is complete or not.
+	 */
 	private boolean setupComplete;
 	
-	
-	
-	
-	
-	public boolean isSetupComplete() 
+	/*
+	 * Gets if the setup is complete or not.
+	 * 
+	 * @return The value of setupComplete, true if true, else false.
+	 */
+	public boolean getSetupComplete() 
 	{
 		return setupComplete;
 	}
-
+	
+	/*
+	 * Sets the value of setupComplete.
+	 * 
+	 * @param The value of setup complete.
+	 */
 	public void setSetupComplete(boolean setupComplete) 
 	{
 		this.setupComplete = setupComplete;
 	}
-	
-	
 	
 	/*
 	 * Gets the players name.
@@ -164,11 +170,6 @@ public class Game {
 	}
 	
 	
-	
-	
-	
-	
-	
 	/*
 	 * Checks if the players name is valid. If so returns "Ok.", else asks to try again.
 	 * 
@@ -191,8 +192,6 @@ public class Game {
 		
 		return error;
 	}
-	
-	
 	
 	/*
 	 * Checks if the input by the player for their name contains any errors and thus would be invalid.
@@ -222,8 +221,6 @@ public class Game {
 		}
 	}
 	
-	
-	
 	/*
 	 * Sets the game difficulty.
 	 * 
@@ -249,8 +246,6 @@ public class Game {
 		}
 	}
 	
-
-	
 	/*
 	 * Finishes the game setup, and starts the main game.
 	 * 
@@ -269,9 +264,6 @@ public class Game {
 		this.setSetupComplete(true);
 	}
 	
-	
-	
-	
 	/*
 	 * Whether the name setup was successful or not.
 	 * 
@@ -289,8 +281,6 @@ public class Game {
 		}
 	}
 	
-	
-	
 	/*
 	 * Displays the games basic settings.
 	 * 
@@ -306,8 +296,6 @@ public class Game {
 		String display = line1 + line2 +line3 + line4 + line5;
 		return display;
 	}
-	
-	
 	
 	/*
 	 * Starts the main game.

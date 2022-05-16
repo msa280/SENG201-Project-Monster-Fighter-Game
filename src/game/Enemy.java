@@ -99,13 +99,18 @@ public class Enemy {
 	/*
 	 * Gets whether or not the enemy has already been fought. If they have,
 	 * returns true, else false.
+	 * 
+	 * @return Returns the value of alreadyFought.
 	 */
 	public boolean getAlreadyFought() {
 		return alreadyFought;
 	}
 	
-	
-	
+	/*
+	 * Gets the specific enemies image.
+	 * 
+	 * @return Returns the value of getEnemyImage.
+	 */
 	public String getEnemyImage()
 	{
 		String name = this.enemyName;
@@ -136,7 +141,11 @@ public class Enemy {
 		return imageLink;
 	}
 	
-	
+	/*
+	 * Checks if the enemy has any monsters alive in their team. 
+	 * 
+	 * @return Returns true if the enemy has any monsters alive, false otherwise.
+	 */
 	public boolean checkAnyMonsterAlive()
 	{
 		for (Monster monster: this.enemyTeam)
@@ -148,8 +157,6 @@ public class Enemy {
 		}
 		return false;
 	}
-	
-	
 	
 	/*
 	 * Generates the enemy monsters used to create their teams.
@@ -178,7 +185,6 @@ public class Enemy {
 		String name = this.allEnemyNames[position];
 		return name;	
 	}
-	
 	
 	/*
 	 * Generates enemy teams.

@@ -7,15 +7,25 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.AudioInputStream;
 
-
+/*
+ * This class controls the audio in the game.
+ */
 public class AudioPlayer {
 	
+	/*
+	 * A small clip of an audio track.
+	 */
 	static Clip clip;
 	
-	public void playSoundLoop(String filename)
+	/*
+	 * Plays a looped sound clip.
+	 * 
+	 * @param fileName The name of the file thats audio is being used.
+	 */
+	public void playSoundLoop(String fileName)
 	{
 		//This gets the path to the project, but not into /src for eclipse
-        String path = new File("").getAbsolutePath() + "\\Audios\\" + filename;
+        String path = new File("").getAbsolutePath() + "\\Audios\\" + fileName;
         //Make a File object with a path to the audio file.
         File sound = new File(path);
 
@@ -45,14 +55,18 @@ public class AudioPlayer {
 		} 
 	}
 	
-	
-	public void playSoundOnce(String filename)
+	/*
+	 * Plays a sound clip.
+	 * 
+	 * @param fileName The name of the file that is being played.
+	 */
+	public void playSoundOnce(String fileName)
 	{
 		//This gets the path to the project, but not into /src for eclipse
-        String path = new File("").getAbsolutePath() + "\\Audios\\" + filename;
+        String path = new File("").getAbsolutePath() + "\\Audios\\" + fileName;
         //Make a File object with a path to the audio file.
         File sound = new File(path);
-
+       
         try 
         {
             AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
@@ -76,16 +90,11 @@ public class AudioPlayer {
 	}
 	
 	
-	
+	/*
+	 * Stops sound being played.
+	 */
 	public void stopSound()
 	{
 		clip.stop();
 	}
-	
-	
-    public static void main(String[] args) 
-    {
-    	
-        
-    }
 }

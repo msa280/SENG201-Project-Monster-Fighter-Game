@@ -41,9 +41,11 @@ public class Battle {
 	 */
 	private int experiencePoints = 0;
 	
-	
+	/*
+	 * Updates a string that describes the players last attack (whether or not the enemy fainted), 
+	 * what monster did how much damage.
+	 */
 	private String lastUpdate;
-	
 	
 	/*
 	 * Gets the possible battles from an ArrayList
@@ -64,7 +66,6 @@ public class Battle {
 	{
 		this.player = player;
 	}
-	
 	
 	/*
 	 *  Generates the necessary set up for the battle to occur.
@@ -102,8 +103,6 @@ public class Battle {
 		}
 	}
 	
-	
-	
 	/*
 	 * Starts the battle, calls methods to make player and 
 	 * enemy moves, ends the battle.
@@ -136,8 +135,6 @@ public class Battle {
 		enemy.setAlreadyFought(true);
 		this.battleOver = false;
 	}
-	
-	
 	
 	/*
 	 * Allows the player to have their turn.
@@ -189,10 +186,6 @@ public class Battle {
 		
 		this.lastUpdate = update;
 	}
-	
-	
-	
-	
 	
 	/*
 	 * Simulates the enemy turn
@@ -248,9 +241,6 @@ public class Battle {
 			}
 			enemyFighter.setAttackCount(enemyFighter.getAttackCount()+1);
 		}
-		
-		
-		
 	}
 	
 	/*
@@ -273,7 +263,6 @@ public class Battle {
 		return currentMonster;
 	}
 	
-	
 	/*
 	 * Gets the first monster in the players monster list (their current fighter).
 	 * 
@@ -293,7 +282,6 @@ public class Battle {
 		return currentMonster;
 	}
 	
-	
 	/*
 	 * The visual interface that displays what's happening in the battle.
 	 * 
@@ -305,7 +293,6 @@ public class Battle {
 		System.out.printf("\nName: %s                  Name: %s\n", playerFighter.pickMonsterName(), enemyFighter.pickMonsterName());
 		System.out.printf("Health: %d                           Health: %d\n", playerFighter.getCurrentHealth(), enemyFighter.getCurrentHealth());
 	}
-	
 	
 	/*
 	 * Gets the current value of battleOver. If either the
@@ -369,7 +356,7 @@ public class Battle {
 	 * Gets the amount of experience points gained
 	 * from the battle. 1 gained per enemy monster defeated.
 	 * 
-	 * @return experiencePoints The number of experience points gained total over the battle.
+	 * @return experiencePoints Returns the number of experience points gained total over the battle.
 	 */
 	public int getExperiencePoints() {
 		return experiencePoints;
@@ -384,11 +371,20 @@ public class Battle {
 	public void setExperiencePoints(int experiencePoints) {
 		this.experiencePoints = experiencePoints;
 	}
-
+	/*
+	 * Gets the last player attack update.
+	 * 
+	 * @return lastUpdate Returns the value of last update.
+	 */
 	public String getLastUpdate() {
 		return lastUpdate;
 	}
 
+	/*
+	 * Sets the last player attack update.
+	 * 
+	 * @param lastUpdate The current value of lastUpdate.
+	 */
 	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}

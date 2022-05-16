@@ -19,6 +19,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.MatteBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 
@@ -191,6 +194,7 @@ public class ViewBuySection
 		
 		
 		frmBuySection = new JFrame();
+		frmBuySection.setResizable(false);
 		frmBuySection.getContentPane().setForeground(Color.GREEN);
 		frmBuySection.getContentPane().setBackground(new Color(0, 0, 0));
 		frmBuySection.setTitle("Buy Section");
@@ -199,17 +203,21 @@ public class ViewBuySection
 		frmBuySection.getContentPane().setLayout(null);
 		
 		JTextPane txtpnBuyAMonster = new JTextPane();
+		txtpnBuyAMonster.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.MAGENTA));
+		txtpnBuyAMonster.setEditable(false);
 		txtpnBuyAMonster.setForeground(Color.MAGENTA);
 		txtpnBuyAMonster.setBackground(Color.BLACK);
 		txtpnBuyAMonster.setFont(new Font("Tahoma", Font.BOLD, 18));
-		txtpnBuyAMonster.setText("Buy a monster:");
-		txtpnBuyAMonster.setBounds(10, 11, 144, 28);
+		txtpnBuyAMonster.setText("Buy a Monster");
+		txtpnBuyAMonster.setBounds(10, 11, 138, 28);
 		frmBuySection.getContentPane().add(txtpnBuyAMonster);
 		
 		JTextPane updateArea = new JTextPane();
-		updateArea.setBackground(Color.DARK_GRAY);
+		updateArea.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.MAGENTA));
+		updateArea.setForeground(Color.YELLOW);
+		updateArea.setBackground(Color.BLACK);
 		updateArea.setFont(new Font("Tahoma", Font.BOLD, 16));
-		updateArea.setBounds(238, 748, 611, 43);
+		updateArea.setBounds(238, 736, 611, 62);
 		frmBuySection.getContentPane().add(updateArea);
 		
 		JLabel mimage1 = new JLabel("New label");
@@ -246,6 +254,7 @@ public class ViewBuySection
 		
 		
 		JTextPane mname1 = new JTextPane();
+		mname1.setEditable(false);
 		mname1.setBackground(new Color(0, 0, 0));
 		mname1.setForeground(new Color(255, 204, 0));
 		mname1.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -254,6 +263,7 @@ public class ViewBuySection
 		frmBuySection.getContentPane().add(mname1);
 		
 		JTextPane mname2 = new JTextPane();
+		mname2.setEditable(false);
 		mname2.setBackground(new Color(0, 0, 0));
 		mname2.setForeground(new Color(255, 204, 0));
 		mname2.setText("No Monster");
@@ -262,6 +272,7 @@ public class ViewBuySection
 		frmBuySection.getContentPane().add(mname2);
 		
 		JTextPane mname3 = new JTextPane();
+		mname3.setEditable(false);
 		mname3.setForeground(new Color(255, 204, 0));
 		mname3.setBackground(new Color(0, 0, 0));
 		mname3.setText("No Monster");
@@ -270,6 +281,7 @@ public class ViewBuySection
 		frmBuySection.getContentPane().add(mname3);
 		
 		JTextPane mname4 = new JTextPane();
+		mname4.setEditable(false);
 		mname4.setForeground(new Color(255, 204, 0));
 		mname4.setBackground(new Color(0, 0, 0));
 		mname4.setText("No Monster");
@@ -278,6 +290,7 @@ public class ViewBuySection
 		frmBuySection.getContentPane().add(mname4);
 		
 		JTextPane mname5 = new JTextPane();
+		mname5.setEditable(false);
 		mname5.setForeground(new Color(255, 204, 0));
 		mname5.setBackground(new Color(0, 0, 0));
 		mname5.setText("No Monster");
@@ -323,6 +336,7 @@ public class ViewBuySection
 		
 		
 		JTextPane iname1 = new JTextPane();
+		iname1.setEditable(false);
 		iname1.setBackground(new Color(0, 0, 0));
 		iname1.setForeground(new Color(255, 204, 0));
 		iname1.setText("No Item");
@@ -331,6 +345,7 @@ public class ViewBuySection
 		frmBuySection.getContentPane().add(iname1);
 		
 		JTextPane iname2 = new JTextPane();
+		iname2.setEditable(false);
 		iname2.setForeground(new Color(255, 204, 0));
 		iname2.setBackground(new Color(0, 0, 0));
 		iname2.setText("No Item");
@@ -339,6 +354,7 @@ public class ViewBuySection
 		frmBuySection.getContentPane().add(iname2);
 		
 		JTextPane iname3 = new JTextPane();
+		iname3.setEditable(false);
 		iname3.setForeground(new Color(255, 204, 0));
 		iname3.setBackground(new Color(0, 0, 0));
 		iname3.setText("No Item");
@@ -347,6 +363,7 @@ public class ViewBuySection
 		frmBuySection.getContentPane().add(iname3);
 		
 		JTextPane iname4 = new JTextPane();
+		iname4.setEditable(false);
 		iname4.setForeground(new Color(255, 204, 0));
 		iname4.setBackground(new Color(0, 0, 0));
 		iname4.setText("No Item");
@@ -355,11 +372,12 @@ public class ViewBuySection
 		frmBuySection.getContentPane().add(iname4);
 		
 		JTextPane iname5 = new JTextPane();
+		iname5.setEditable(false);
 		iname5.setForeground(new Color(255, 204, 0));
 		iname5.setBackground(new Color(0, 0, 0));
 		iname5.setText("No Item");
 		iname5.setFont(new Font("Tahoma", Font.BOLD, 14));
-		iname5.setBounds(901, 589, 180, 20);
+		iname5.setBounds(879, 589, 217, 20);
 		frmBuySection.getContentPane().add(iname5);
 		
 		JTextPane inames[] = new JTextPane[5];
@@ -386,6 +404,8 @@ public class ViewBuySection
 		
 		
 		goldLeft = new JTextField();
+		goldLeft.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.YELLOW));
+		goldLeft.setEditable(false);
 		goldLeft.setForeground(new Color(255, 255, 0));
 		goldLeft.setBackground(new Color(0, 0, 0));
 		goldLeft.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -400,9 +420,9 @@ public class ViewBuySection
 				viewMonsterStat(1, updateArea);
 			}
 		});
-		stat1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		stat1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		stat1.setBackground(Color.YELLOW);
-		stat1.setBounds(37, 266, 103, 23);
+		stat1.setBounds(10, 266, 134, 23);
 		frmBuySection.getContentPane().add(stat1);
 		
 		JButton stat2 = new JButton("View Stats");
@@ -411,9 +431,9 @@ public class ViewBuySection
 				viewMonsterStat(2, updateArea);
 			}
 		});
-		stat2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		stat2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		stat2.setBackground(Color.YELLOW);
-		stat2.setBounds(250, 266, 103, 23);
+		stat2.setBounds(224, 266, 138, 23);
 		frmBuySection.getContentPane().add(stat2);
 		
 		JButton stat3 = new JButton("View Stats");
@@ -422,9 +442,9 @@ public class ViewBuySection
 				viewMonsterStat(3, updateArea);
 			}
 		});
-		stat3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		stat3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		stat3.setBackground(Color.YELLOW);
-		stat3.setBounds(476, 266, 103, 23);
+		stat3.setBounds(458, 266, 128, 23);
 		frmBuySection.getContentPane().add(stat3);
 		
 		JButton stat4 = new JButton("View Stats");
@@ -433,9 +453,9 @@ public class ViewBuySection
 				viewMonsterStat(4, updateArea);
 			}
 		});
-		stat4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		stat4.setFont(new Font("Tahoma", Font.BOLD, 16));
 		stat4.setBackground(Color.YELLOW);
-		stat4.setBounds(698, 266, 103, 23);
+		stat4.setBounds(676, 266, 125, 23);
 		frmBuySection.getContentPane().add(stat4);
 		
 		JButton stat5 = new JButton("View Stats");
@@ -444,15 +464,27 @@ public class ViewBuySection
 				viewMonsterStat(5, updateArea);
 			}
 		});
-		stat5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		stat5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		stat5.setBackground(Color.YELLOW);
-		stat5.setBounds(924, 266, 103, 23);
+		stat5.setBounds(911, 266, 128, 23);
 		frmBuySection.getContentPane().add(stat5);
 		
 
 		
 		
 		JButton mbuy1 = new JButton("Buy");
+		mbuy1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				mbuy1.setBackground(Color.GREEN);
+				mbuy1.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				mbuy1.setBackground(Color.BLACK);
+				mbuy1.setForeground(Color.GREEN);
+			}
+		});
 		mbuy1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyMonster(1, updateArea, goldLeft);
@@ -460,64 +492,113 @@ public class ViewBuySection
 		});
 		mbuy1.setForeground(Color.GREEN);
 		mbuy1.setBackground(Color.BLACK);
-		mbuy1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		mbuy1.setBounds(47, 300, 68, 23);
+		mbuy1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		mbuy1.setBounds(30, 300, 85, 31);
 		frmBuySection.getContentPane().add(mbuy1);
 		
 		JButton mbuy2 = new JButton("Buy");
+		mbuy2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				mbuy2.setBackground(Color.GREEN);
+				mbuy2.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				mbuy2.setBackground(Color.BLACK);
+				mbuy2.setForeground(Color.GREEN);
+			}
+		});
 		mbuy2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyMonster(2, updateArea, goldLeft);
 			}
 		});
 		mbuy2.setForeground(Color.GREEN);
-		mbuy2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		mbuy2.setFont(new Font("Tahoma", Font.BOLD, 20));
 		mbuy2.setBackground(Color.BLACK);
-		mbuy2.setBounds(258, 300, 68, 23);
+		mbuy2.setBounds(254, 300, 85, 31);
 		frmBuySection.getContentPane().add(mbuy2);
 		
 		JButton mbuy3 = new JButton("Buy");
+		mbuy3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				mbuy3.setBackground(Color.GREEN);
+				mbuy3.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				mbuy3.setBackground(Color.BLACK);
+				mbuy3.setForeground(Color.GREEN);
+			}
+		});
 		mbuy3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyMonster(3, updateArea, goldLeft);
 			}
 		});
 		mbuy3.setForeground(Color.GREEN);
-		mbuy3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		mbuy3.setFont(new Font("Tahoma", Font.BOLD, 20));
 		mbuy3.setBackground(Color.BLACK);
-		mbuy3.setBounds(486, 300, 68, 23);
+		mbuy3.setBounds(476, 300, 85, 31);
 		frmBuySection.getContentPane().add(mbuy3);
 		
 		JButton mbuy4 = new JButton("Buy");
+		mbuy4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				mbuy4.setBackground(Color.GREEN);
+				mbuy4.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				mbuy4.setBackground(Color.BLACK);
+				mbuy4.setForeground(Color.GREEN);
+			}
+		});
 		mbuy4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyMonster(4, updateArea, goldLeft);
 			}
 		});
 		mbuy4.setForeground(Color.GREEN);
-		mbuy4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		mbuy4.setFont(new Font("Tahoma", Font.BOLD, 20));
 		mbuy4.setBackground(Color.BLACK);
-		mbuy4.setBounds(708, 300, 68, 23);
+		mbuy4.setBounds(698, 300, 91, 31);
 		frmBuySection.getContentPane().add(mbuy4);
 		
 		JButton mbuy5 = new JButton("Buy");
+		mbuy5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				mbuy5.setBackground(Color.GREEN);
+				mbuy5.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				mbuy5.setBackground(Color.BLACK);
+				mbuy5.setForeground(Color.GREEN);
+			}
+		});
 		mbuy5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyMonster(5, updateArea, goldLeft);
 			}
 		});
 		mbuy5.setForeground(Color.GREEN);
-		mbuy5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		mbuy5.setFont(new Font("Tahoma", Font.BOLD, 20));
 		mbuy5.setBackground(Color.BLACK);
-		mbuy5.setBounds(934, 300, 68, 23);
+		mbuy5.setBounds(924, 300, 93, 31);
 		frmBuySection.getContentPane().add(mbuy5);
 		
 		JTextPane txtpnBuyAnItem = new JTextPane();
-		txtpnBuyAnItem.setText("Buy an item:");
+		txtpnBuyAnItem.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.MAGENTA));
+		txtpnBuyAnItem.setText("Buy an Item");
 		txtpnBuyAnItem.setForeground(Color.MAGENTA);
 		txtpnBuyAnItem.setFont(new Font("Tahoma", Font.BOLD, 18));
 		txtpnBuyAnItem.setBackground(Color.BLACK);
-		txtpnBuyAnItem.setBounds(10, 378, 144, 28);
+		txtpnBuyAnItem.setBounds(10, 378, 118, 28);
 		frmBuySection.getContentPane().add(txtpnBuyAnItem);
 		
 
@@ -529,9 +610,9 @@ public class ViewBuySection
 				viewEffect(1, updateArea);
 			}
 		});
-		eff1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		eff1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		eff1.setBackground(Color.YELLOW);
-		eff1.setBounds(37, 620, 103, 23);
+		eff1.setBounds(10, 620, 150, 23);
 		frmBuySection.getContentPane().add(eff1);
 		
 		
@@ -542,9 +623,9 @@ public class ViewBuySection
 				viewEffect(2, updateArea);
 			}
 		});
-		eff2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		eff2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		eff2.setBackground(Color.YELLOW);
-		eff2.setBounds(250, 620, 103, 23);
+		eff2.setBounds(224, 620, 150, 23);
 		frmBuySection.getContentPane().add(eff2);
 		
 		JButton eff3 = new JButton("View Effects");
@@ -553,9 +634,9 @@ public class ViewBuySection
 				viewEffect(3, updateArea);
 			}
 		});
-		eff3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		eff3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		eff3.setBackground(Color.YELLOW);
-		eff3.setBounds(476, 620, 103, 23);
+		eff3.setBounds(448, 620, 150, 23);
 		frmBuySection.getContentPane().add(eff3);
 		
 		JButton eff4 = new JButton("View Effects");
@@ -564,9 +645,9 @@ public class ViewBuySection
 				viewEffect(4, updateArea);
 			}
 		});
-		eff4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		eff4.setFont(new Font("Tahoma", Font.BOLD, 16));
 		eff4.setBackground(Color.YELLOW);
-		eff4.setBounds(711, 620, 103, 23);
+		eff4.setBounds(679, 620, 150, 23);
 		frmBuySection.getContentPane().add(eff4);
 		
 		JButton eff5 = new JButton("View Effects");
@@ -575,9 +656,9 @@ public class ViewBuySection
 				viewEffect(5, updateArea);
 			}
 		});
-		eff5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		eff5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		eff5.setBackground(Color.YELLOW);
-		eff5.setBounds(924, 620, 103, 23);
+		eff5.setBounds(901, 620, 150, 23);
 		frmBuySection.getContentPane().add(eff5);
 		
 		
@@ -586,42 +667,90 @@ public class ViewBuySection
 		
 		
 		JButton ibuy1 = new JButton("Buy");
+		ibuy1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				ibuy1.setBackground(Color.GREEN);
+				ibuy1.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ibuy1.setBackground(Color.BLACK);
+				ibuy1.setForeground(Color.GREEN);
+			}
+		});
 		ibuy1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyItem(1, updateArea, goldLeft);
 			}
 		});
 		ibuy1.setForeground(Color.GREEN);
-		ibuy1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		ibuy1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		ibuy1.setBackground(Color.BLACK);
-		ibuy1.setBounds(47, 654, 68, 23);
+		ibuy1.setBounds(37, 654, 85, 28);
 		frmBuySection.getContentPane().add(ibuy1);
 		
 		JButton ibuy2 = new JButton("Buy");
+		ibuy2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				ibuy2.setBackground(Color.GREEN);
+				ibuy2.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ibuy2.setBackground(Color.BLACK);
+				ibuy2.setForeground(Color.GREEN);
+			}
+		});
 		ibuy2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyItem(2, updateArea, goldLeft);
 			}
 		});
 		ibuy2.setForeground(Color.GREEN);
-		ibuy2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		ibuy2.setFont(new Font("Tahoma", Font.BOLD, 20));
 		ibuy2.setBackground(Color.BLACK);
-		ibuy2.setBounds(271, 654, 68, 23);
+		ibuy2.setBounds(258, 654, 81, 28);
 		frmBuySection.getContentPane().add(ibuy2);
 		
 		JButton ibuy3 = new JButton("Buy");
+		ibuy3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				ibuy3.setBackground(Color.GREEN);
+				ibuy3.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ibuy3.setBackground(Color.BLACK);
+				ibuy3.setForeground(Color.GREEN);
+			}
+		});
 		ibuy3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyItem(3, updateArea, goldLeft);
 			}
 		});
 		ibuy3.setForeground(Color.GREEN);
-		ibuy3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		ibuy3.setFont(new Font("Tahoma", Font.BOLD, 20));
 		ibuy3.setBackground(Color.BLACK);
-		ibuy3.setBounds(496, 654, 68, 23);
+		ibuy3.setBounds(486, 654, 85, 28);
 		frmBuySection.getContentPane().add(ibuy3);
 		
 		JButton ibuy4 = new JButton("Buy");
+		ibuy4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				ibuy4.setBackground(Color.GREEN);
+				ibuy4.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ibuy4.setBackground(Color.BLACK);
+				ibuy4.setForeground(Color.GREEN);
+			}
+		});
 		ibuy4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyItem(4, updateArea, goldLeft);
@@ -632,31 +761,57 @@ public class ViewBuySection
 			}
 		});
 		ibuy4.setForeground(Color.GREEN);
-		ibuy4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		ibuy4.setFont(new Font("Tahoma", Font.BOLD, 20));
 		ibuy4.setBackground(Color.BLACK);
-		ibuy4.setBounds(733, 654, 68, 23);
+		ibuy4.setBounds(708, 654, 85, 28);
 		frmBuySection.getContentPane().add(ibuy4);
 		
 		JButton ibuy5 = new JButton("Buy");
+		ibuy5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				ibuy5.setBackground(Color.GREEN);
+				ibuy5.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ibuy5.setBackground(Color.BLACK);
+				ibuy5.setForeground(Color.GREEN);
+			}
+		});
 		ibuy5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buyItem(5, updateArea, goldLeft);
 			}
 		});
 		ibuy5.setForeground(Color.GREEN);
-		ibuy5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		ibuy5.setFont(new Font("Tahoma", Font.BOLD, 20));
 		ibuy5.setBackground(Color.BLACK);
-		ibuy5.setBounds(948, 654, 68, 23);
+		ibuy5.setBounds(924, 654, 91, 28);
 		frmBuySection.getContentPane().add(ibuy5);
 		
 		JButton backButton = new JButton("Go Back");
+		backButton.setForeground(Color.WHITE);
+		backButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setBackground(Color.GREEN);
+				backButton.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				backButton.setBackground(Color.BLACK);
+				backButton.setForeground(Color.WHITE);
+			}
+		});
+		backButton.setBackground(Color.BLACK);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				goBack();
 			}
 		});
-		backButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		backButton.setBounds(21, 760, 111, 31);
+		backButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		backButton.setBounds(958, 761, 123, 37);
 		frmBuySection.getContentPane().add(backButton);
 		
 	

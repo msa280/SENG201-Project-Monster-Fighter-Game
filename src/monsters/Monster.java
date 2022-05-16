@@ -1,7 +1,10 @@
 package monsters;
 
+import game.AudioPlayer;
+
 public class Monster {
 	
+
 	private String monsterName;
 	private String monsterRename;
 	private String attackName;
@@ -14,6 +17,7 @@ public class Monster {
 	private int price;
 	private boolean isFaint;
 	private int attackCount;
+	private AudioPlayer monsterSound = new AudioPlayer();
 	
 	
 	public Monster(String monsterName, String monsterRename, String attack_name, String special_attack_name, int maxHealth,
@@ -174,6 +178,44 @@ public class Monster {
 			return false;
 		}
 	}
+	
+	
+	
+	public String makeSound()
+	{
+		String imageLink;
+		if (this.monsterName == "Venomhound") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\1.) VenomHound.gif";
+		} 
+		else if (this.monsterName == "Soilscreamer") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\2.) Soilscreamer.gif";
+		}
+		else if (this.monsterName == "Mornpest") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\3.) Mornpest.gif";
+		} 
+		else if (this.monsterName == "Cavernfreak") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\4.) Cavernfreak.gif";
+		} 
+		else if (this.monsterName == "Hollowtree") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\5.) Hollowtree.gif";
+		} 
+		else if (this.monsterName == "Magmataur") 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\6.) Magmataur.gif";
+		} 
+		else 
+		{
+			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\noImage.png";
+		}
+		return imageLink;
+		
+	}
+	
 	
 	
 	public String getMonsterImage()

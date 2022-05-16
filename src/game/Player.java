@@ -101,7 +101,7 @@ public class Player {
 	 * @game An instance of the Game class.
 	 * 
 	 */
-	public void setDaysRemaining(int currentDay, Game game) {
+	public void setDaysRemaining() {
 		this.daysRemaining = this.game.getGameLength() - this.currentDay;
 	}
 	
@@ -283,7 +283,7 @@ public class Player {
 	 * 
 	 * @return Returns true if the player has any ready monsters, else false.
 	 */
-	public boolean monsterReadyBattle()
+	public boolean canFight()
 	{
 		for (Monster monster: this.playersTeam)
 		{
@@ -308,13 +308,13 @@ public class Player {
 		shop.initializeShop();
 		battle.generateBattles();
 		
-		this.setShop(shop);
-		this.setBattle(battle);
+		this.shop = shop;
+		this.battle = battle;
 		
 		int startingGold = (int)(1000 * this.game.getGameDifficulty());
 		this.playerGold = startingGold;
 		this.currentDay = 1;
-		this.setDaysRemaining(startingGold, this.game);
+		this.setDaysRemaining();
 		this.playersTeam.add(this.game.getSelectedMonster());
 	}
 	

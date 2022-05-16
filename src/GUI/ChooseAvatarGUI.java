@@ -16,6 +16,8 @@ import game.Player;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 
@@ -147,6 +149,16 @@ public class ChooseAvatarGUI {
 
 		
 		JToggleButton avatar1 = new JToggleButton("");
+		avatar1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar1.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar1.setBackground(Color.BLACK);
+			}
+		});
 		avatar1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(1);
@@ -161,6 +173,16 @@ public class ChooseAvatarGUI {
 		
 		
 		JToggleButton avatar2 = new JToggleButton("");
+		avatar2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar2.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar2.setBackground(Color.BLACK);
+			}
+		});
 		avatar2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(2);
@@ -173,6 +195,16 @@ public class ChooseAvatarGUI {
 		frmChooseAvatar.getContentPane().add(avatar2);
 		
 		JToggleButton avatar3 = new JToggleButton("");
+		avatar3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar3.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar3.setBackground(Color.BLACK);
+			}
+		});
 		avatar3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(3);
@@ -185,6 +217,16 @@ public class ChooseAvatarGUI {
 		frmChooseAvatar.getContentPane().add(avatar3);
 		
 		JToggleButton avatar4 = new JToggleButton("");
+		avatar4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar4.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar4.setBackground(Color.BLACK);
+			}
+		});
 		avatar4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(4);
@@ -197,6 +239,16 @@ public class ChooseAvatarGUI {
 		frmChooseAvatar.getContentPane().add(avatar4);
 		
 		JToggleButton avatar5 = new JToggleButton("");
+		avatar5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar5.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar5.setBackground(Color.BLACK);
+			}
+		});
 		avatar5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(5);
@@ -209,6 +261,16 @@ public class ChooseAvatarGUI {
 		frmChooseAvatar.getContentPane().add(avatar5);
 		
 		JToggleButton avatar6 = new JToggleButton("");
+		avatar6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar6.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar6.setBackground(Color.BLACK);
+			}
+		});
 		avatar6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(6);
@@ -221,6 +283,16 @@ public class ChooseAvatarGUI {
 		frmChooseAvatar.getContentPane().add(avatar6);
 		
 		JToggleButton avatar7 = new JToggleButton("");
+		avatar7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar7.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar7.setBackground(Color.BLACK);
+			}
+		});
 		avatar7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(7);
@@ -233,6 +305,16 @@ public class ChooseAvatarGUI {
 		frmChooseAvatar.getContentPane().add(avatar7);
 		
 		JToggleButton avatar8 = new JToggleButton("");
+		avatar8.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar8.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar8.setBackground(Color.BLACK);
+			}
+		});
 		avatar8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(8);
@@ -245,6 +327,16 @@ public class ChooseAvatarGUI {
 		frmChooseAvatar.getContentPane().add(avatar8);
 		
 		JToggleButton avatar9 = new JToggleButton("");
+		avatar9.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar9.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar9.setBackground(Color.BLACK);
+			}
+		});
 		avatar9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(9);
@@ -257,6 +349,16 @@ public class ChooseAvatarGUI {
 		frmChooseAvatar.getContentPane().add(avatar9);
 		
 		JToggleButton avatar10 = new JToggleButton("");
+		avatar10.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				avatar10.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				avatar10.setBackground(Color.BLACK);
+			}
+		});
 		avatar10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectAvatar(10);
@@ -290,6 +392,18 @@ public class ChooseAvatarGUI {
 		
 		
 		
+		nextButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				nextButton.setBackground(Color.GREEN);
+				nextButton.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				nextButton.setBackground(Color.BLACK);
+				nextButton.setForeground(Color.WHITE);
+			}
+		});
 		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				openGameSetup();

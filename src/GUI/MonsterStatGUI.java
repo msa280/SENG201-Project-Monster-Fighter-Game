@@ -12,6 +12,9 @@ import monsters.Mornpest;
 import monsters.Soilscreamer;
 import monsters.Venomhound;
 import javax.swing.JTextPane;
+
+import game.AudioPlayer;
+
 import java.awt.Font;
 
 
@@ -23,7 +26,7 @@ public class MonsterStatGUI {
 
 	private JFrame frmMonsterStats;
 	private Monster monster;
-	
+	private AudioPlayer buttonAudio = new AudioPlayer();
 	/*
 	 * Launches the window.
 	 * 
@@ -75,6 +78,7 @@ public class MonsterStatGUI {
 	public MonsterStatGUI(Monster monster) {
 		this.monster = monster;
 		initialize(monster);
+		this.buttonAudio.playSoundOnce("buttonC.wav");
 	}
 
 	/*

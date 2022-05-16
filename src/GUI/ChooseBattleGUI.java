@@ -16,6 +16,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.border.MatteBorder;
 
 public class ChooseBattleGUI {
 
@@ -27,6 +30,7 @@ public class ChooseBattleGUI {
 	
 	public void startFight(int buttonIndex)
 	{
+		this.frame.dispose();
 		Enemy enemy = this.battles.get(buttonIndex);
 		BattleScreen.launchBattleScreen(this.player, enemy, "");
 	}
@@ -157,6 +161,21 @@ public class ChooseBattleGUI {
 		names[4] = name5;
 		
 		b1 = new JButton("");
+		
+		b1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				b1.setFont(new Font("SansSerif", Font.BOLD, 20));
+				b1.setForeground(Color.BLACK);
+				b1.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.YELLOW));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				b1.setFont(new Font("SansSerif", Font.BOLD, 16));
+				b1.setForeground(Color.WHITE);
+				b1.setBorder(null);
+			}
+		});
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startFight(0);
@@ -168,10 +187,25 @@ public class ChooseBattleGUI {
 		b1.setBounds(45, 335, 125, 33);
 		frame.getContentPane().add(b1);
 		
-		JButton btnNewButton_1 = new JButton("Go Back");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton_1.setBounds(27, 467, 108, 23);
-		frame.getContentPane().add(btnNewButton_1);
+		JButton goBack = new JButton("Go Back");
+		
+		goBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				goBack.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.BLUE));
+				goBack.setFont(new Font("Tahoma", Font.BOLD, 16));
+				
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				goBack.setBorder(null);
+				goBack.setFont(new Font("Tahoma", Font.BOLD, 14));
+			}
+		});
+		goBack.setBackground(Color.YELLOW);
+		goBack.setFont(new Font("Tahoma", Font.BOLD, 14));
+		goBack.setBounds(27, 457, 118, 33);
+		frame.getContentPane().add(goBack);
 		
 		JButton b2 = new JButton("");
 		b2.addActionListener(new ActionListener() {
@@ -241,10 +275,24 @@ public class ChooseBattleGUI {
 		{
 			Enemy enemy = this.player.getBattle().getBattles().get(i);
 			
-			eimages[i].setIcon(new ImageIcon(enemy.getEnemyImage()));
-			names[i].setText(enemy.getEnemyName());
-			buttons[i].setText("Battle!");
-			i += 1;
+			if (enemy.getAlreadyFought() == true)
+			{
+				eimages[i].setIcon(new ImageIcon(enemy.getEnemyImage()));
+				names[i].setText(enemy.getEnemyName());
+				buttons[i].setVisible(false);
+				i += 1;
+				
+				
+			}
+			else
+			{
+				eimages[i].setIcon(new ImageIcon(enemy.getEnemyImage()));
+				names[i].setText(enemy.getEnemyName());
+				buttons[i].setText("Battle!");
+				i += 1;
+			}
+			
+			
 		}
 		
 		

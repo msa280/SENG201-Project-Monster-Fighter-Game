@@ -35,6 +35,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DropMode;
 import javax.swing.JRadioButton;
 import java.awt.Choice;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.border.MatteBorder;
 
 /*
  * Sets up the game. Does basic pre-game setup such as naming the player and
@@ -56,8 +59,8 @@ public class SetupMenu {
 	/*
 	 * An instance of the AudioPlayer class.
 	 */
-	AudioPlayer backgroundAudio = new AudioPlayer();
-	AudioPlayer buttonAudio = new AudioPlayer();
+	private AudioPlayer backgroundAudio = new AudioPlayer();
+	private AudioPlayer buttonAudio = new AudioPlayer();
 
 	
 	private Player player;
@@ -76,6 +79,7 @@ public class SetupMenu {
 	 */
 	public void selectMonster(JRadioButton[] buttons, JRadioButton selectedButton, Monster monster)
 	{
+		this.buttonAudio.playSoundOnce("buttonA.wav");
 		if (selectedButton.isSelected()) {
 			this.game.setSelectedMonster(monster);
 			selectedButton.setForeground(Color.GREEN);
@@ -134,6 +138,7 @@ public class SetupMenu {
 	 */
 	public boolean monsterSelectionCheck(JTextPane monsterSelectionError)
 	{
+		this.buttonAudio.playSoundOnce("buttonA.wav");
 		if (this.game.getSelectedMonster() == null) {
 			monsterSelectionError.setText("Error: Please select a monster.");
 			monsterSelectionError.setForeground(Color.RED);
@@ -155,10 +160,10 @@ public class SetupMenu {
 	 */
 	public void finishSetup(String monsterName, int gameLength, String difficulty)
 	{
-		this.backgroundAudio.stopSound();
 		this.game.finishSetup(monsterName, gameLength, difficulty);
 		this.frmGameSetup.dispose();
 		this.player.initialize(this.game);
+		this.player.getBattle().setPlayer(this.player);
 		PlayerHomeGUI.launchMainMenu(this.player);
 	}
 	
@@ -211,7 +216,6 @@ public class SetupMenu {
 		this.player = player;
 		this.game = game;
 		initialize();
-		this.backgroundAudio.playSoundLoop("GameSetup2.wav");
 	}
 	
 
@@ -226,15 +230,15 @@ public class SetupMenu {
 		frmGameSetup.setTitle("Game Setup");
 		frmGameSetup.getContentPane().setBackground(new Color(0, 0, 0));
 		frmGameSetup.getContentPane().setForeground(Color.BLACK);
-		frmGameSetup.setBounds(100, 100, 1174, 613);
+		frmGameSetup.setBounds(100, 100, 1174, 578);
 		frmGameSetup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGameSetup.getContentPane().setLayout(null);
 		
 		JTextArea askFighterName = new JTextArea();
 		askFighterName.setForeground(new Color(255, 255, 255));
-		askFighterName.setBounds(27, 31, 196, 23);
+		askFighterName.setBounds(27, 31, 229, 23);
 		askFighterName.setEditable(false);
-		askFighterName.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		askFighterName.setFont(new Font("Tahoma", Font.BOLD, 18));
 		askFighterName.setText("Enter your fighter name:");
 		askFighterName.setBackground(Color.BLACK);
 		frmGameSetup.getContentPane().add(askFighterName);
@@ -242,9 +246,9 @@ public class SetupMenu {
 		JTextArea askChooseMonster = new JTextArea();
 		askChooseMonster.setEditable(false);
 		askChooseMonster.setForeground(new Color(255, 255, 255));
-		askChooseMonster.setBounds(27, 74, 190, 23);
+		askChooseMonster.setBounds(27, 74, 211, 23);
 		askChooseMonster.setBackground(Color.BLACK);
-		askChooseMonster.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		askChooseMonster.setFont(new Font("Tahoma", Font.BOLD, 18));
 		askChooseMonster.setText("Choose your monster:");
 		frmGameSetup.getContentPane().add(askChooseMonster);
 		
@@ -253,7 +257,7 @@ public class SetupMenu {
 		printNameError.setFont(new Font("Tahoma", Font.BOLD, 15));
 		printNameError.setBackground(Color.BLACK);
 		printNameError.setEditable(false);
-		printNameError.setBounds(448, 31, 601, 23);
+		printNameError.setBounds(468, 31, 680, 23);
 		frmGameSetup.getContentPane().add(printNameError);
 		
 		JTextPane monsterSelectionError = new JTextPane();
@@ -261,40 +265,40 @@ public class SetupMenu {
 		monsterSelectionError.setEditable(false);
 		monsterSelectionError.setBackground(Color.BLACK);
 		monsterSelectionError.setForeground(Color.RED);
-		monsterSelectionError.setBounds(209, 65, 526, 28);
+		monsterSelectionError.setBounds(232, 74, 526, 28);
 		frmGameSetup.getContentPane().add(monsterSelectionError);
 		
 		JTextPane enterName = new JTextPane();
 		enterName.setDropMode(DropMode.INSERT);
 		enterName.setForeground(new Color(0, 0, 128));
-		enterName.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		enterName.setFont(new Font("Tahoma", Font.BOLD, 16));
 		enterName.setBackground(Color.LIGHT_GRAY);
-		enterName.setBounds(233, 31, 205, 23);
+		enterName.setBounds(266, 31, 205, 23);
 		frmGameSetup.getContentPane().add(enterName);
 		
 		JTextArea askMonsterRename = new JTextArea();
 		askMonsterRename.setEditable(false);
 		askMonsterRename.setBackground(new Color(0, 0, 0));
 		askMonsterRename.setForeground(new Color(255, 255, 255));
-		askMonsterRename.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		askMonsterRename.setFont(new Font("Tahoma", Font.BOLD, 18));
 		askMonsterRename.setText("(Optional) Rename your selected monster:");
-		askMonsterRename.setBounds(10, 421, 333, 22);
+		askMonsterRename.setBounds(27, 399, 390, 22);
 		frmGameSetup.getContentPane().add(askMonsterRename);
 		
 		JTextPane enterMonsterRename = new JTextPane();
 		enterMonsterRename.setForeground(new Color(0, 0, 128));
-		enterMonsterRename.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		enterMonsterRename.setFont(new Font("Tahoma", Font.BOLD, 16));
 		enterMonsterRename.setDropMode(DropMode.INSERT);
 		enterMonsterRename.setBackground(Color.LIGHT_GRAY);
-		enterMonsterRename.setBounds(353, 421, 205, 23);
+		enterMonsterRename.setBounds(427, 399, 205, 23);
 		frmGameSetup.getContentPane().add(enterMonsterRename);
 		
 		
 		Choice enterDays = new Choice();
 		enterDays.setForeground(new Color(0, 0, 128));
-		enterDays.setFont(new Font("Times New Roman", Font.BOLD, 12));
+		enterDays.setFont(new Font("Tahoma", Font.BOLD, 16));
 		enterDays.setBackground(Color.LIGHT_GRAY);
-		enterDays.setBounds(365, 473, 53, 20);
+		enterDays.setBounds(443, 444, 71, 26);
 		frmGameSetup.getContentPane().add(enterDays);
 		for (int i = 5; i < 16; i++)
 		{
@@ -303,10 +307,10 @@ public class SetupMenu {
 		
 		
 		Choice enterDifficulty = new Choice();
-		enterDifficulty.setFont(new Font("Times New Roman", Font.BOLD, 12));
+		enterDifficulty.setFont(new Font("Tahoma", Font.BOLD, 16));
 		enterDifficulty.setForeground(new Color(0, 0, 128));
 		enterDifficulty.setBackground(Color.LIGHT_GRAY);
-		enterDifficulty.setBounds(195, 517, 72, 20);
+		enterDifficulty.setBounds(248, 489, 81, 26);
 		frmGameSetup.getContentPane().add(enterDifficulty);
 		enterDifficulty.add("Easy");
 		enterDifficulty.add("Normal");
@@ -316,9 +320,26 @@ public class SetupMenu {
 		
 
 		JButton StartGameButton = new JButton("Start Game");
+		StartGameButton.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.BLUE));
+		StartGameButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				StartGameButton.setBounds(957, 450, 160, 51);
+				StartGameButton.setBackground(Color.GREEN);
+				StartGameButton.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.BLACK));
+				StartGameButton.setForeground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				StartGameButton.setBounds(977, 470, 149, 40);
+				StartGameButton.setBackground(Color.YELLOW);
+				StartGameButton.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.BLUE));
+				StartGameButton.setForeground(Color.BLUE);
+			}
+		});
 		StartGameButton.setBackground(Color.YELLOW);
-		StartGameButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		StartGameButton.setForeground(new Color(0, 0, 128));
+		StartGameButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		StartGameButton.setForeground(Color.BLUE);
 		StartGameButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -330,13 +351,13 @@ public class SetupMenu {
 				}
 			}
 		});
-		StartGameButton.setBounds(994, 497, 133, 40);
+		StartGameButton.setBounds(977, 470, 149, 40);
 		frmGameSetup.getContentPane().add(StartGameButton);
 		
 		
 		JLabel monsterImage1 = new JLabel("New label");
 		monsterImage1.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Monsters Artwork\\1.) VenomHound.gif"));
-		monsterImage1.setBounds(29, 136, 150, 150);
+		monsterImage1.setBounds(27, 136, 150, 150);
 		frmGameSetup.getContentPane().add(monsterImage1);
 		
 		JLabel monsterImage2 = new JLabel("New label");
@@ -360,7 +381,7 @@ public class SetupMenu {
 		frmGameSetup.getContentPane().add(monsterImage5);
 		
 		JRadioButton select1 = new JRadioButton("Select");
-		select1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		select1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		select1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectMonster(buttons, select1, new Venomhound());
@@ -368,12 +389,13 @@ public class SetupMenu {
 		});
 		select1.setForeground(Color.RED);
 		select1.setBackground(new Color(0, 0, 0));
-		select1.setBounds(70, 293, 80, 23);
+		select1.setBounds(66, 297, 105, 23);
 		frmGameSetup.getContentPane().add(select1);
 		
 		
 		
 		JRadioButton select2 = new JRadioButton("Select");
+		select2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		select2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectMonster(buttons, select2, new Soilscreamer());
@@ -381,12 +403,13 @@ public class SetupMenu {
 		});
 		select2.setForeground(Color.RED);
 		select2.setBackground(Color.BLACK);
-		select2.setBounds(317, 300, 80, 23);
+		select2.setBounds(302, 297, 106, 23);
 		frmGameSetup.getContentPane().add(select2);
 		
 		
 		
 		JRadioButton select3 = new JRadioButton("Select");
+		select3.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		select3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectMonster(buttons, select3, new Mornpest());
@@ -394,13 +417,14 @@ public class SetupMenu {
 		});
 		select3.setForeground(Color.RED);
 		select3.setBackground(Color.BLACK);
-		select3.setBounds(559, 300, 80, 23);
+		select3.setBounds(545, 297, 104, 23);
 		frmGameSetup.getContentPane().add(select3);
 		
 		
 		
 		
 		JRadioButton select4 = new JRadioButton("Select");
+		select4.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		select4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectMonster(buttons, select4, new Cavernfreak());
@@ -408,12 +432,13 @@ public class SetupMenu {
 		});
 		select4.setForeground(Color.RED);
 		select4.setBackground(Color.BLACK);
-		select4.setBounds(790, 300, 80, 23);
+		select4.setBounds(775, 297, 98, 23);
 		frmGameSetup.getContentPane().add(select4);
 		
 		
 		
 		JRadioButton select5 = new JRadioButton("Select");
+		select5.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		select5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectMonster(buttons, select5, new Hollowtree());
@@ -421,7 +446,7 @@ public class SetupMenu {
 		});
 		select5.setForeground(Color.RED);
 		select5.setBackground(Color.BLACK);
-		select5.setBounds(1023, 300, 80, 23);
+		select5.setBounds(1009, 297, 102, 23);
 		frmGameSetup.getContentPane().add(select5);
 		
 		
@@ -438,10 +463,10 @@ public class SetupMenu {
 				MonsterStatGUI.launchMonsterStatScreen(new Venomhound());
 			}
 		});
-		view1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		view1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		view1.setBackground(Color.LIGHT_GRAY);
 		view1.setForeground(new Color(0, 0, 128));
-		view1.setBounds(55, 330, 95, 23);
+		view1.setBounds(47, 328, 124, 23);
 		frmGameSetup.getContentPane().add(view1);
 		
 		
@@ -451,10 +476,10 @@ public class SetupMenu {
 				MonsterStatGUI.launchMonsterStatScreen(new Soilscreamer());
 			}
 		});
-		view2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		view2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		view2.setForeground(new Color(0, 0, 128));
 		view2.setBackground(Color.LIGHT_GRAY);
-		view2.setBounds(302, 330, 95, 23);
+		view2.setBounds(284, 327, 124, 23);
 		frmGameSetup.getContentPane().add(view2);
 		
 		
@@ -464,10 +489,10 @@ public class SetupMenu {
 				MonsterStatGUI.launchMonsterStatScreen(new Mornpest());
 			}
 		});
-		view3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		view3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		view3.setForeground(new Color(0, 0, 128));
 		view3.setBackground(Color.LIGHT_GRAY);
-		view3.setBounds(545, 330, 95, 23);
+		view3.setBounds(525, 327, 124, 23);
 		frmGameSetup.getContentPane().add(view3);
 		
 		
@@ -477,15 +502,15 @@ public class SetupMenu {
 				MonsterStatGUI.launchMonsterStatScreen(new Cavernfreak());
 			}
 		});
-		view4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		view4.setFont(new Font("Tahoma", Font.BOLD, 16));
 		view4.setForeground(new Color(0, 0, 128));
 		view4.setBackground(Color.LIGHT_GRAY);
-		view4.setBounds(775, 330, 95, 23);
+		view4.setBounds(754, 327, 130, 23);
 		frmGameSetup.getContentPane().add(view4);
 		
 		
 		JButton view5 = new JButton("View Stats");
-		view5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		view5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		view5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MonsterStatGUI.launchMonsterStatScreen(new Hollowtree());
@@ -493,27 +518,27 @@ public class SetupMenu {
 		});
 		view5.setForeground(new Color(0, 0, 139));
 		view5.setBackground(Color.LIGHT_GRAY);
-		view5.setBounds(1009, 330, 95, 23);
+		view5.setBounds(987, 327, 124, 23);
 		frmGameSetup.getContentPane().add(view5);
 		
 		
 		JTextArea askDays = new JTextArea();
 		askDays.setText("Select the number of days the game will last:");
 		askDays.setForeground(Color.WHITE);
-		askDays.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		askDays.setFont(new Font("Tahoma", Font.BOLD, 18));
 		askDays.setEditable(false);
 		askDays.setBackground(Color.BLACK);
-		askDays.setBounds(10, 473, 349, 22);
+		askDays.setBounds(27, 444, 410, 22);
 		frmGameSetup.getContentPane().add(askDays);
 		
 		
 		JTextArea askGameDifficulty = new JTextArea();
 		askGameDifficulty.setText("Select game difficulty:");
 		askGameDifficulty.setForeground(Color.WHITE);
-		askGameDifficulty.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		askGameDifficulty.setFont(new Font("Tahoma", Font.BOLD, 18));
 		askGameDifficulty.setEditable(false);
 		askGameDifficulty.setBackground(Color.BLACK);
-		askGameDifficulty.setBounds(10, 516, 179, 22);
+		askGameDifficulty.setBounds(27, 489, 211, 32);
 		frmGameSetup.getContentPane().add(askGameDifficulty);
 	}
 }

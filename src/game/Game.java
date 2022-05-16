@@ -206,16 +206,16 @@ public class Game {
 	public String checkNameErrors(boolean numOrSpecialChar, int nameLength, String scannedName) 
 	{
 		if (numOrSpecialChar) {
-			return ("Error: Name '%s' contains numbers, spaces or special characters! Please reenter name.".formatted(scannedName));
+			return ("Error: Name '%s' contains numbers, spaces or special characters!".formatted(scannedName));
 		} 
 		else if (nameLength == 0) {
 			return ("Error: Please enter your name.".formatted(scannedName));
 		}
 		else if (nameLength < 3) {
-			return ("Error: Name '%s' is too short! Please reenter name.".formatted(scannedName));
+			return ("Error: Name '%s' is too short!".formatted(scannedName));
 		} 
 		else if (nameLength > 15) {
-			return ("Error: Name '%s' is too long! Please reenter name.".formatted(scannedName));
+			return ("Error: Name '%s' is too long!".formatted(scannedName));
 		}
 		else {
 			return "OK";

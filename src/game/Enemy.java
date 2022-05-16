@@ -106,6 +106,20 @@ public class Enemy {
 	
 	
 	
+	public boolean canFight()
+	{
+		for (Monster monster: this.enemyTeam)
+		{
+			if (monster.isFaint() == false)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	
 	public String getEnemyImage()
 	{
 		String name = this.enemyName;

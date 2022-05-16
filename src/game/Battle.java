@@ -42,7 +42,7 @@ public class Battle {
 	private int experiencePoints = 0;
 	
 	
-	private String lastUpdate;
+	private String battleUpdate;
 	
 	
 	/*
@@ -104,38 +104,6 @@ public class Battle {
 	
 	
 	
-	/*
-	 * Starts the battle, calls methods to make player and 
-	 * enemy moves, ends the battle.
-	 *
-	 * 
-	 * @param enemy An instance of Enemy.
-	 */
-	public void fight(Enemy enemy)
-	{
-		System.out.print("\nFight has begun!\n\n");
-		while (this.battleOver == false)
-		{
-			this.enemyMove(enemy);
-		}
-		
-		if (this.playerWon == true)
-		{
-			System.out.print("\nAll enemy monsters have fainted!\n");
-			System.out.print("You have won the battle!\n");
-			this.player.setPlayerGold(this.player.getPlayerGold() + this.battleGold);
-			System.out.printf("You have received %d gold and %d points.\n", this.battleGold, this.experiencePoints);	
-		}
-		else
-		{
-			System.out.print("\nAll your monsters have fainted!\n");
-			System.out.print("You have lost the battle!\n");
-			System.out.print("You do not receive any gold or points.\n");
-		}
-		
-		enemy.setAlreadyFought(true);
-		this.battleOver = false;
-	}
 	
 	
 	
@@ -146,12 +114,13 @@ public class Battle {
 	 */
 	public void playerAttack(Monster playerMonster, Monster enemyMonster, String attackType)
 	{
+		this.battleUpdate = "";
 		double difficulty = this.player.getPlayerDifficulty();
 		String update = "";
 			
 		if (attackType == "Attack")
 		{
-			update += ("%s used %s!\n".formatted(playerMonster.pickMonsterName(), playerMonster.getAttackName()));
+			update += ("Your %s used %s!\n".formatted(playerMonster.pickMonsterName(), playerMonster.getAttackName()));
 			if (enemyMonster.getCurrentHealth() - playerMonster.getDamage() > 0)
 			{
 				enemyMonster.setCurrentHealth(enemyMonster.getCurrentHealth() - playerMonster.getDamage());
@@ -171,7 +140,7 @@ public class Battle {
 		{
 			if (playerMonster.getSpecialAttackAvailable() == true)
 			{
-				update += ("%s used %s!\n".formatted(playerMonster.pickMonsterName(), playerMonster.getSpecialAttackName()));
+				update += ("Your %s used %s!\n".formatted(playerMonster.pickMonsterName(), playerMonster.getSpecialAttackName()));
 				if (enemyMonster.getCurrentHealth() - playerMonster.getSpecialDamage() > 0)
 				{
 					enemyMonster.setCurrentHealth(enemyMonster.getCurrentHealth() - playerMonster.getSpecialDamage());
@@ -185,9 +154,10 @@ public class Battle {
 					enemyMonster.setFaint(true);
 				}
 			}
+			playerMonster.setAttackCount(0);
 		}
 		
-		this.lastUpdate = update;
+		this.setBattleUpdate(this.getBattleUpdate() + update);
 	}
 	
 	
@@ -199,55 +169,45 @@ public class Battle {
 	 * 
 	 * @param enemy An instance of Enemy.
 	 */
-	public void enemyMove(Enemy enemy)
+	public void enemyAttack(Monster playerMonster, Monster enemyMonster)
 	{
-		Monster playerFighter = this.getPlayerCurrentFighter();
-		Monster enemyFighter = this.getEnemyCurrentFighter(enemy);
+	
 		double difficulty = this.player.getPlayerDifficulty();
+		String update = "";
 		
-		if (playerFighter == null)
+		if (enemyMonster.getSpecialAttackAvailable() == true)
 		{
-			this.playerWon = false;
-			this.battleOver = true;
-		}
-		else if (enemyFighter == null)
-		{
-			this.playerWon = true;
-			this.battleOver = true;
-		}
 		
-		else if (enemyFighter.getSpecialAttackAvailable() == true)
-		{
-			this.displayBattle(playerFighter, enemyFighter);
-			System.out.printf("\n%s used %s!\n", enemyFighter.pickMonsterName(), enemyFighter.getSpecialAttackName());
-			if (playerFighter.getCurrentHealth() - (int)(enemyFighter.getSpecialDamage() * difficulty) > 0)
+			update += ("\nEnemy %s used %s!\n".formatted(enemyMonster.getMonsterName(), enemyMonster.getSpecialAttackName()));
+			if (playerMonster.getCurrentHealth() - (int)(enemyMonster.getSpecialDamage() * difficulty) > 0)
 			{
-				playerFighter.setCurrentHealth(playerFighter.getCurrentHealth() - (int)(enemyFighter.getSpecialDamage() * difficulty));
+				playerMonster.setCurrentHealth(playerMonster.getCurrentHealth() - (int)(enemyMonster.getSpecialDamage() * difficulty));
 			}
 			else
 			{
-				System.out.print("\nOH NO! Your monster has fainted!\n");
-				playerFighter.setCurrentHealth(0);
-				playerFighter.setFaint(true);
+				update += "OH NO! Your monster had fainted!\n";
+				playerMonster.setCurrentHealth(0);
+				playerMonster.setFaint(true);
 			}	
-			enemyFighter.setAttackCount(0);
+			enemyMonster.setAttackCount(0);
 		}
 		else
 		{
-			this.displayBattle(playerFighter, enemyFighter);
-			System.out.printf("\n%s used %s!\n", enemyFighter.pickMonsterName(), enemyFighter.getAttackName());
-			if (playerFighter.getCurrentHealth() - (int)(playerFighter.getDamage() * difficulty) > 0)
+			update += ("\nEnemy %s used %s!\n".formatted(enemyMonster.pickMonsterName(), enemyMonster.getAttackName()));
+			if (playerMonster.getCurrentHealth() - (int)(playerMonster.getDamage() * difficulty) > 0)
 			{
-				playerFighter.setCurrentHealth(playerFighter.getCurrentHealth() - (int)(playerFighter.getDamage() * difficulty));
+				playerMonster.setCurrentHealth(playerMonster.getCurrentHealth() - (int)(playerMonster.getDamage() * difficulty));
 			}
 			else
 			{
-				System.out.print("\nOH NO! Your monster has fainted!\n");
-				playerFighter.setCurrentHealth(0);
-				playerFighter.setFaint(true);
+				update += "OH NO! Your monster has fainted!\n";
+				playerMonster.setCurrentHealth(0);
+				playerMonster.setFaint(true);
 			}
-			enemyFighter.setAttackCount(enemyFighter.getAttackCount()+1);
+			enemyMonster.setAttackCount(enemyMonster.getAttackCount()+1);
 		}
+		
+		this.setBattleUpdate(this.getBattleUpdate() + update);
 		
 		
 		
@@ -385,12 +345,12 @@ public class Battle {
 		this.experiencePoints = experiencePoints;
 	}
 
-	public String getLastUpdate() {
-		return lastUpdate;
+	public String getBattleUpdate() {
+		return battleUpdate;
 	}
 
-	public void setLastUpdate(String lastUpdate) {
-		this.lastUpdate = lastUpdate;
+	public void setBattleUpdate(String battleUpdate) {
+		this.battleUpdate = battleUpdate;
 	}
 
 }

@@ -42,8 +42,8 @@ public class Battle {
 	private int experiencePoints = 0;
 	
 	/*
-	 * Updates a string that describes the players last attack (whether or not the enemy fainted), 
-	 * what monster did how much damage.
+	 * Updates the player on what is happening in the game via a message in the 
+	 * form of a string.
 	 */
 	private String lastUpdate;
 	

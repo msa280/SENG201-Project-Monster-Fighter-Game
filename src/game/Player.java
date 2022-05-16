@@ -8,9 +8,15 @@ import items.Item;
 import monsters.Monster;
 
 
-
+/*
+ * Creates the player and all of their main attributes.
+ */
 public class Player {
 	
+	/*
+	 * Updates the player on what is happening in the game via a message in the 
+	 * form of a string.
+	 */
 	private String lastUpdate = "";
 
 	/* 
@@ -55,7 +61,9 @@ public class Player {
 	 */
 	private boolean readyForBattle;
 	
-	
+	/*
+	 * The players selected avatar.
+	 */
 	private String selectedAvatar;
 	
 	/* 
@@ -161,6 +169,16 @@ public class Player {
 	public ArrayList<Item> getPlayerItems()
 	{
 		return this.playersItems;
+	}	
+	
+	/*
+	 * Gets the current instance of the Shop class.
+	 * 
+	 * @return Returns the current instance of shop.
+	 */
+	public Shop getShop()
+	{
+		return this.shop;
 	}
 	
 	/* 
@@ -168,13 +186,6 @@ public class Player {
 	 * 
 	 * @return Returns an ArrayList containing the players monsters.
 	 */
-	
-	
-	public Shop getShop()
-	{
-		return this.shop;
-	}
-	
 	public ArrayList<Monster> getPlayerMonsters()
 	{
 		return this.playersTeam;
@@ -255,28 +266,45 @@ public class Player {
 		player.setPlayerGold(1);
 		System.out.print(player.getPlayerGold());
 	}
-
+	/*
+	 * Gets the last update for the player.
+	 * 
+	 * @return Returns the value of lastUpdate.
+	 */
 	public String getLastUpdate() 
 	{
 		return lastUpdate;
 	}
 
+	/*
+	 * Sets the last update or the player.
+	 *
+	 * @param lastUpdate The new lastUpdate.
+	 */
 	public void setLastUpdate(String lastUpdate) 
 	{
 		this.lastUpdate = lastUpdate;
 	}
-
+	
+	/*
+	 * Gets the currently selected avatar.
+	 * 
+	 * @return Returns the avatar.
+	 */
 	public String getSelectedAvatar()
 	{
 		return selectedAvatar;
 	}
-
+	
+	/*
+	 * Sets the avatar.
+	 * 
+	 * @param selectedAvatar The avatar to be set.
+	 */
 	public void setSelectedAvatar(String selectedAvatar) 
 	{
 		this.selectedAvatar = selectedAvatar;
 	}
-	
-	
 	
 	/*
 	 * Checks if the player has any monsters that can battle (haven't fainted).
@@ -295,9 +323,11 @@ public class Player {
 		return false;
 	}
 	
-	
-	
-	
+	/*
+	 * Initializes the game.
+	 * 
+	 * @param game An instance of the Game class.
+	 */
 	public void initialize(Game game)
 	{
 		this.setGame(game);
@@ -318,9 +348,14 @@ public class Player {
 		this.playersTeam.add(this.game.getSelectedMonster());
 	}
 	
-	
-	
-	
+	/*
+	 * Uses one of the players items on a monster from their team.
+	 * 
+	 * @param item The item to be used.
+	 * @param monster The monster that the item will be used on.
+	 * 
+	 * @return Returns true if quantity left < 2, else false.
+	 */
 	public boolean useItem(Item item, Monster monster)
 	{
 		String item_name = item.getItemName();
@@ -384,10 +419,14 @@ public class Player {
 		}
 	}
 	
-	
-	
-	
-	
+	/*
+	 * Purchases an item from the store.
+	 * 
+	 * @param item The item to be purchased
+	 * 
+	 * @return Returns true if the player has enough gold to buy the item,
+	 * and successfully purchases it, else false. 
+	 */
 	public boolean buyItem(Item item)
 	{
 		if (this.playerGold < item.getPrice()) {
@@ -449,9 +488,14 @@ public class Player {
 		this.playersTeam.remove(monster);
 	}
 	
-	
-	
-	
+	/*
+	 * Purchases a monster from the store.
+	 * 
+	 * @param monster The monster to be purchased.
+	 * 
+	 * @return Returns an error message in the form of a string, or "No Error" in the case
+	 * where the purchase succeeds.
+	 */
 	public String buyMonster(Monster monster)
 	{
 		String update;
@@ -472,11 +516,6 @@ public class Player {
 		}
 		return update;
 	}
-	
-	
-	
-	
-
 	
 	/*
 	 * Puts the player and their team to sleep. Increases the current day by one,

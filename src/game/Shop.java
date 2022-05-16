@@ -78,7 +78,7 @@ public class Shop
 	}
 	
 	/*
-	 * Initializes the shop by generating all items and monsters, then
+	 * Initialises the shop by generating all items and monsters, then
 	 * takes a random assortment of them to be for sale.
 	 */
 	public void initializeShop()

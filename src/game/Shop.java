@@ -191,17 +191,4 @@ public class Shop
 		this.allMonsters[3] = new Soilscreamer();
 		this.allMonsters[4] = new Venomhound();
 	}
-	
-	
-	
-
-	
-	
-	/*
-	 * Initializes the shop.
-	 */
-	public static void main(String[] args)
-	{
-		
-	}
 }

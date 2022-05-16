@@ -41,8 +41,9 @@ public class Battle {
 	 */
 	private int experiencePoints = 0;
 	
-
-	
+	/*
+	 * Updates the player on what is occurring in the current battle.
+	 */
 	private String battleUpdate;
 
 	/*
@@ -121,7 +122,7 @@ public class Battle {
 		System.out.print("\nFight has begun!\n\n");
 		while (this.battleOver == false)
 		{
-			this.enemyMove(enemy);
+			//this.enemyMove(enemy);
 		}
 		
 		if (this.playerWon == true)

@@ -106,9 +106,12 @@ public class Enemy {
 		return alreadyFought;
 	}
 	
-
-	
-	
+	/*
+	 * Whether or not the enemy team has any monsters that are not fainted
+	 * that can fight.
+	 * 
+	 * @return Returns true if enemy can fight, else false.
+	 */
 	public boolean canFight()
 	{
 		for (Monster monster: this.enemyTeam)
@@ -121,9 +124,6 @@ public class Enemy {
 		return false;
 	}
 	
-	
-	
-
 	/*
 	 * Gets the specific enemies image.
 	 * 

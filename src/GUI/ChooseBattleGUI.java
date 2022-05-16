@@ -194,12 +194,13 @@ public class ChooseBattleGUI {
 			public void mouseEntered(MouseEvent e) {
 				goBack.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.BLUE));
 				goBack.setFont(new Font("Tahoma", Font.BOLD, 16));
-				
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				goBack.setBorder(null);
 				goBack.setFont(new Font("Tahoma", Font.BOLD, 14));
+				frame.dispose();
+				PlayerHomeGUI.launchMainMenu(player);
 			}
 		});
 		goBack.setBackground(Color.YELLOW);

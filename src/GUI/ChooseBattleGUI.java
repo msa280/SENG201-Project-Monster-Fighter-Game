@@ -22,12 +22,28 @@ import javax.swing.border.MatteBorder;
 
 public class ChooseBattleGUI {
 
+	/*
+	 * The frame that the GUI is displayed on.
+	 */
 	private JFrame frame;
+	/*
+	 * The list of enemies the player can battle.
+	 */
 	private ArrayList<Enemy> battles;
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/* 
+	 * A button.
+	 */
 	private JButton b1;
 	
-	
+	/*
+	 * Starts a fight by launching the battle screen GUI.
+	 * 
+	 * @param buttonIndex The enemy to battle.
+	 */
 	public void startFight(int buttonIndex)
 	{
 		this.frame.dispose();
@@ -35,7 +51,11 @@ public class ChooseBattleGUI {
 		BattleScreen.launchBattleScreen(this.player, enemy, "");
 	}
 	
-	
+	/*
+	 * Launches the choose battle GUI.
+	 * 
+	 * @param player The player.
+	 */
 	public static void launchChooseBattle(Player player)
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -50,9 +70,7 @@ public class ChooseBattleGUI {
 		});
 	}
 	
-	
-
-	/**
+	/*
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -63,8 +81,10 @@ public class ChooseBattleGUI {
 		ChooseBattleGUI.launchChooseBattle(player);
 	}
 
-	/**
-	 * Create the application.
+	/*
+	 * Gets the battle instance.
+	 * 
+	 * @param player The player.
 	 */
 	public ChooseBattleGUI(Player player) {
 		this.player = player;
@@ -72,8 +92,8 @@ public class ChooseBattleGUI {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -281,9 +301,7 @@ public class ChooseBattleGUI {
 				eimages[i].setIcon(new ImageIcon(enemy.getEnemyImage()));
 				names[i].setText(enemy.getEnemyName());
 				buttons[i].setVisible(false);
-				i += 1;
-				
-				
+				i += 1;	
 			}
 			else
 			{
@@ -291,21 +309,14 @@ public class ChooseBattleGUI {
 				names[i].setText(enemy.getEnemyName());
 				buttons[i].setText("Battle!");
 				i += 1;
-			}
-			
-			
-		}
-		
-		
+			}	
+		}	
 		while (i < 5)
 		{
 			eimages[i].setVisible(false);
 			names[i].setVisible(false);
 			buttons[i].setVisible(false);
 			i += 1;
-		}
-		
-		
-
+		}		
 	}
 }

@@ -20,6 +20,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.MatteBorder;
 
+/*
+ * This class allows the player to choose who they want to battle
+ * and launches the battle screen.
+ */
 public class ChooseBattleGUI {
 
 	/*

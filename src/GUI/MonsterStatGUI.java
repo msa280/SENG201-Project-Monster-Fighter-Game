@@ -23,9 +23,18 @@ import java.awt.Font;
  * to the player in the form of a GUI. 
  */
 public class MonsterStatGUI {
-
+	
+	/*
+	 * The monster stats frame.
+	 */
 	private JFrame frmMonsterStats;
+	/*
+	 * The monster.
+	 */
 	private Monster monster;
+	/*
+	 * The audio for the button.
+	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
 	/*
 	 * Launches the window.
@@ -45,11 +54,6 @@ public class MonsterStatGUI {
 			}
 		});
 	}
-	
-	
-	
-	
-	
 
 	/*
 	 * Launches the application.

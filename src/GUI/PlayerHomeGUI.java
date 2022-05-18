@@ -21,17 +21,35 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
+
+/*
+ * This class initializes the player home GUI which has the games
+ * basic functionality such as opening the shop, the players inventory, etc.
+ */
 public class PlayerHomeGUI 
 {
-
+	/*
+	 * The main menu frame.
+	 */
 	private JFrame frmMainMenu;
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/*
+	 * The background audio.
+	 */
 	AudioPlayer backgroundAudio = new AudioPlayer();
+	/*
+	 * The button audio.
+	 */
 	AudioPlayer buttonAudio = new AudioPlayer();
 	
 	
-	/**
-	 * Launch the main menu of the game.
+	/*
+	 * Launches the main menu of the game.
+	 * 
+	 * @param player The player.
 	 */
 	public static void launchMainMenu(Player player)
 	{
@@ -47,9 +65,10 @@ public class PlayerHomeGUI
 		});
 	}
 
-	
-	/**
-	 * Create the application.
+	/*
+	 * Creates the player home GUI.
+	 * 
+	 * @param player The player.
 	 */
 	public PlayerHomeGUI(Player player) 
 	{
@@ -59,13 +78,19 @@ public class PlayerHomeGUI
 		this.backgroundAudio.playSoundLoop("MainMenu.wav");
 	}
 	
-	
+	/*
+	 * Sets the text on the label.
+	 * 
+	 * @param goldPane The text pane that shows the players gold.
+	 */
 	public void setLabel(JTextPane goldPane)
 	{
 		goldPane.setText(Integer.toString(this.player.getPlayerGold()));
 	}
 	
-	
+	/*
+	 * Initializes the GUI.
+	 */
 	public static void main(String[] args)
 	{
 		Game game = new Game();
@@ -78,9 +103,9 @@ public class PlayerHomeGUI
 		
 	} 
 	
-	
-	
-	
+	/*
+	 * The delay timer for when the player sleeps.
+	 */
 	public void sleepTimer() 
 	{	
 		this.backgroundAudio.stopSound();
@@ -92,8 +117,9 @@ public class PlayerHomeGUI
 		}
 	}
 	
-	
-	
+	/*
+	 * Allows the player to sleep.
+	 */
 	public void sleep()
 	{
 		this.buttonAudio.playSoundOnce("buttonA.wav");
@@ -103,7 +129,9 @@ public class PlayerHomeGUI
 		PlayerHomeGUI.launchMainMenu(this.player);
 	}
 	
-	
+	/*
+	 * Launches the team view GUI.
+	 */
 	public void openTeamViewer()
 	{
 		this.backgroundAudio.stopSound();
@@ -112,7 +140,9 @@ public class PlayerHomeGUI
 		ViewTeam.launchTeamViewer(this.player);
 	}
 	
-	
+	/*
+	 * Launches the inventory GUI.
+	 */
 	public void openInventoryViewer()
 	{
 		this.backgroundAudio.stopSound();
@@ -121,6 +151,9 @@ public class PlayerHomeGUI
 		ViewInventory.launchInventoryViewer(this.player);
 	}
 	
+	/*
+	 * Launches the shop GUI.
+	 */
 	public void openShop()
 	{
 		this.backgroundAudio.stopSound();
@@ -130,6 +163,9 @@ public class PlayerHomeGUI
 		ViewBuySection.launchBuySection(player, shop);
 	}
 	
+	/*
+	 * Launches the choose battle GUI.
+	 */
 	public void openBattles()
 	{
 		this.backgroundAudio.stopSound();
@@ -138,7 +174,9 @@ public class PlayerHomeGUI
 		ChooseBattleGUI.launchChooseBattle(this.player);
 	}
 	
-	
+	/*
+	 * Quits the game.
+	 */
 	public void quitGame()
 	{
 		this.backgroundAudio.stopSound();
@@ -150,8 +188,8 @@ public class PlayerHomeGUI
 
 	
 	
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * Initializes the contents of the frame.
 	 */
 	private void initialize() {
 		

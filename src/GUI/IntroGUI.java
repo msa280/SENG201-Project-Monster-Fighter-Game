@@ -18,15 +18,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-
+/*
+ * The IntroGUI displays the pre-game set-up and introduces the player to the game.
+ */
 public class IntroGUI {
-
+	
+	/*
+	 * The Monster Fight intro frame.
+	 */
 	private JFrame frmMonsterFightV;
+	/*
+	 * The background music.
+	 */
 	private AudioPlayer backgroundMusic = new AudioPlayer();
+	/*
+	 * The button sound.
+	 */
 	private AudioPlayer buttonSound = new AudioPlayer();
-	
-	
-	
+		
+	/*
+	 * Opens the selection GUI for choose avatar.
+	 */
 	public void openAvatarSelection()
 	{
 		this.backgroundMusic.stopSound();
@@ -36,7 +48,9 @@ public class IntroGUI {
 		ChooseAvatarGUI.launchChooseAvatar(player);
 	}
 
-	
+	/*
+	 * Launches the intro GUI.
+	 */
 	public static void launchIntro()
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -52,16 +66,16 @@ public class IntroGUI {
 	}
 	
 
-	/**
-	 * Launch the application.
+	/*
+	 * Launches the application.
 	 */
 	public static void main(String[] args)
 	{
 		launchIntro();
 	}
 
-	/**
-	 * Create the application.
+	/*
+	 * Creates the intro GUI.
 	 */
 	public IntroGUI() {
 		
@@ -69,8 +83,8 @@ public class IntroGUI {
 		this.backgroundMusic.playSoundLoop("IntroMusic.wav");
 	}
 
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * Initializes the contents of the frame.
 	 */
 	private void initialize() {
 		frmMonsterFightV = new JFrame();

@@ -82,7 +82,9 @@ public class MonsterStat {
 	 * 
 	 * @param monster The chosen monster.
 	 */
-	public MonsterStat(Monster monster) {
+	public MonsterStat(Monster monster) 
+	{
+		monster.makeSound();
 		this.monster = monster;
 		initialize(monster);
 		this.buttonAudio.playSoundOnce("buttonC.wav");
@@ -94,14 +96,17 @@ public class MonsterStat {
 	 * @param monster The chosen monster.
 	 */
 	private void initialize(Monster monster) {
+		
 		frmMonsterStats = new JFrame();
+		frmMonsterStats.setResizable(false);
 		frmMonsterStats.getContentPane().setForeground(new Color(0, 0, 153));
 		frmMonsterStats.getContentPane().setBackground(new Color(204, 255, 0));
 		frmMonsterStats.getContentPane().setLayout(null);
 		frmMonsterStats.setSize(294, 517);
 		frmMonsterStats.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	
 		
+		
+	
 		JLabel monsterImage = new JLabel("");
 		monsterImage.setForeground(new Color(0, 0, 153));
 		monsterImage.setBounds(62, 24, 150, 150);

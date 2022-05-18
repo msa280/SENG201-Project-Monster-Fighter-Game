@@ -4,9 +4,13 @@ import javax.swing.JFrame;
 import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextPane;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
+
 import javax.swing.border.MatteBorder;
 
 import game.AudioPlayer;
@@ -174,6 +178,9 @@ public class ChooseAvatar {
 		frmChooseAvatar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmChooseAvatar.getContentPane().setLayout(null);
 		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmChooseAvatar.setLocation(dim.width/2-frmChooseAvatar.getSize().width/2, dim.height/2-frmChooseAvatar.getSize().height/2);
+		
 		JTextPane txtpnPickYourAvatar = new JTextPane();
 		txtpnPickYourAvatar.setForeground(Color.WHITE);
 		txtpnPickYourAvatar.setEditable(false);
@@ -190,7 +197,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar1.setBackground(Color.YELLOW);
+				avatar1.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -215,7 +222,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar2.setBackground(Color.YELLOW);
+				avatar2.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -238,7 +245,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar3.setBackground(Color.YELLOW);
+				avatar3.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -261,7 +268,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar4.setBackground(Color.YELLOW);
+				avatar4.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -284,7 +291,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar5.setBackground(Color.YELLOW);
+				avatar5.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -307,7 +314,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar6.setBackground(Color.YELLOW);
+				avatar6.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -330,7 +337,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar7.setBackground(Color.YELLOW);
+				avatar7.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -353,7 +360,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar8.setBackground(Color.YELLOW);
+				avatar8.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -376,7 +383,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar9.setBackground(Color.YELLOW);
+				avatar9.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -399,7 +406,7 @@ public class ChooseAvatar {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				buttonSound.playSoundOnce("buttonHover.wav");
-				avatar10.setBackground(Color.YELLOW);
+				avatar10.setBackground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {

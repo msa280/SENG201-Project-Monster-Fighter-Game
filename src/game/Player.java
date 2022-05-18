@@ -65,6 +65,11 @@ public class Player {
 	
 	private int totalGoldGained;
 	
+	/*
+	 * Battles won in one day.
+	 */
+	private int battlesWon;
+	
 	
 	/*
 	 * The players selected avatar.
@@ -529,13 +534,17 @@ public class Player {
 	 * Puts the player and their team to sleep. Increases the current day by one,
 	 * and decreases day remaining by one. If days remaining is 0, the game ends.
 	 * Heals the players monster party each by their own healing statistic and unfaints them.
-	 * Randomises shop and battles again.
+	 * Randomizes shop and battles again.
 	 * 
 	 */
 	public void playerSleep()
 	{
+		String update = "";
+		
 		this.currentDay += 1;
 		this.daysRemaining -= 1;
+		
+		update += "Good Morning %s!\n".formatted(this.game.getPlayerName());
 		
 		if (this.daysRemaining == 0)
 		{
@@ -549,16 +558,223 @@ public class Player {
 				monster.healUp();
 				monster.setFaint(false);
 			}
+			update += "All your monsters have healed up overnight!\n";
 			
 			// update items and monsters in shop
 			this.shop.setDay(this.currentDay);
 			this.shop.randomGenerateItems();
 			this.shop.randomGenerateMonsters();
 			
+			update += "The shop has been refreshed!\n";
+			
+			// New monsters unlocked message
+			if (this.currentDay == 5 || this.currentDay == 9 || this.currentDay == 12) 
+			{
+				update += "New monsters unlocked in shop!\n";
+			}
+			
 			// update all battles
 			this.battle.generateBattles();	
+			
+			update += "New battles have been generated!\n";
+			
+			
+			// Runs a chance of a monster leaving overnight.
+			update += monsterLeaveOvernight();
+			
+			// Runs a chance of monster joining overnight.
+			update += monsterJoinOvernight();
+			
+			// Runs a chance of a monster leveling up overnight.
+			update += monsterLevelUpOvernight();
+			
+			
+			// resets the battles won in a specific day back to 0.
+			this.battlesWon = 0;
 		}
+		
+		this.lastUpdate = update;
 	}
+	
+	
+	
+	public String monsterLeaveOvernight()
+	{
+		String update = "";
+		
+		// Selecting a random monster in team
+		Random randNum = new Random();
+		int upperbound = this.playersTeam.size();
+		int index = 0;
+		if (upperbound == 0)
+		{
+			return update;
+		}
+		else
+		{
+			index = randNum.nextInt(upperbound); 
+		}
+		
+		// Creating a random chance for monster to leave from 0-9
+		int chance = randNum.nextInt(10);
+		
+		Monster monster = this.playersTeam.get(index);
+		
+		if (monster.isFaint() == true)
+		{
+			if (chance <= 1)
+			{
+				this.playersTeam.remove(monster);  // if monster fainted that day, 2/10 chance of monster leaving the team.
+				update = "OH NO! %s left the team overnight!\n".formatted(monster.pickMonsterName());
+			}	
+		}
+		else
+		{
+			if (chance == 0)
+			{
+				this.playersTeam.remove(monster); // // if monster didn't faint that day, 1/10 chance of monster leaving the team.
+				update = "OH NO! %s left the team overnight!\n".formatted(monster.pickMonsterName());
+			}
+		}
+		
+		return update;
+	}
+	
+	
+	
+	public String monsterJoinOvernight()
+	{
+		String update = "";
+		
+		// Selecting a random monster in team
+		Random randNum = new Random();
+		int teamSize = this.playersTeam.size();
+	
+		// Creating a random chance for monster to join from 0-9
+		int chance = randNum.nextInt(10);
+		
+		// getting a random number from the available monsters and picking a random monster to join overnight.
+		int randomMonster = randNum.nextInt(this.shop.getMonstersForSale().size());
+		Monster monster = this.shop.getMonstersForSale().get(randomMonster);
+		
+		if (teamSize == 0)
+		{
+			if (chance <= 3) 
+			{
+				this.playersTeam.add(monster);  // if player team is empty, there is a 40% chance of monster joining overnight
+				update = "OMG! A wild %s joined the team overnight!\n".formatted(monster.getMonsterName());
+			}	
+		}
+		else if (teamSize == 1)
+		{
+			if (chance <= 2)
+			{
+				this.playersTeam.add(monster); // // if team size is 1, 30% chance of monster joining the team overnight!
+				update = "OMG! A wild %s joined the team overnight!\n".formatted(monster.getMonsterName());
+			}
+		}
+		else if (teamSize == 2)
+		{
+			if (chance <= 1)
+			{
+				this.playersTeam.add(monster); // // if team size is 2, 20% chance of monster joining the team overnight!
+				update = "OMG! A wild %s joined the team overnight!\n".formatted(monster.getMonsterName());
+			}
+		}
+		else if (teamSize == 3)
+		{
+			if (chance == 0)
+			{
+				this.playersTeam.add(monster); // // if team size is 1, 10% chance of monster joining the team overnight!
+				update = "OMG! A wild %s joined the team overnight!\n".formatted(monster.getMonsterName());
+			}
+		}
+		
+		return update;
+	}
+	
+	
+	
+	public String monsterLevelUpOvernight()
+	{
+		String update = "";
+		
+		// Creating a random chance for monster to level up from 0-9
+		Random randNum = new Random();
+		int chance = randNum.nextInt(10);
+		
+		// selecting a random monster to level up
+		int upperbound = this.playersTeam.size();
+		int index = 0;
+		
+		if (upperbound == 0)
+		{
+			return update;
+		}
+		else
+		{
+			index = randNum.nextInt(upperbound); 
+		}
+		
+		Monster monster = this.playersTeam.get(index);
+		
+		if (this.battlesWon == 1)
+		{
+			if (chance == 0)
+			{
+				monster.levelUp();  // 10% chance of monster leveling up if only 1 battle won
+				update = "%s leveled up overnight!\n".formatted(monster.pickMonsterName());
+			}
+		}
+		else if (this.battlesWon == 2)
+		{
+			if (chance <= 1)
+			{
+				monster.levelUp();  // 20% chance of monster leveling up if 2 battles won
+				update = "%s leveled up overnight!\n".formatted(monster.pickMonsterName());
+			}
+		}
+		else if (this.battlesWon == 3)
+		{
+			if (chance <= 2)
+			{
+				monster.levelUp();  // 30% chance of monster leveling up if 3 battles won
+				update = "%s leveled up overnight!\n".formatted(monster.pickMonsterName());
+			}
+		}
+		else if (this.battlesWon == 4)
+		{
+			if (chance <= 3)
+			{
+				monster.levelUp();  // 40% chance of monster leveling up if 4 battles won
+				update = "%s leveled up overnight!\n".formatted(monster.pickMonsterName());
+			}
+		}
+		else if (this.battlesWon == 5)
+		{
+			if (chance <= 5)
+			{
+				monster.levelUp();  // 50% chance of monster leveling up if 5 battles won
+				update = "%s leveled up overnight!\n".formatted(monster.pickMonsterName());
+			}
+		}
+		
+		return update;
+		
+	}
+	
+	
+	public String getGameOverResult()
+	{
+		String a = "Player Name: %s\n".formatted(this.game.getPlayerName());
+		String b = "Game Duration: %d\n".formatted(this.game.getGameLength());
+		String c = "Gold Gained: %d\n".formatted(this.totalGoldGained);
+		String d = "XP Points Earned: %d\n".formatted(this.xpPoints);
+		
+		return (a + b + c + d);
+	}
+	
+	
 
 
 	public void setXpPoints(int xpPoints) {
@@ -577,6 +793,14 @@ public class Player {
 
 	public int getTotalGoldGained() {
 		return this.totalGoldGained;
+	}
+
+	public int getBattlesWon() {
+		return battlesWon;
+	}
+
+	public void setBattlesWon(int battlesWon) {
+		this.battlesWon = battlesWon;
 	}
 }
 

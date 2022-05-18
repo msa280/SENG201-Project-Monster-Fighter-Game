@@ -1,13 +1,17 @@
 package GUI;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextPane;
 
+import game.AudioPlayer;
 import game.Battle;
 import game.Enemy;
 import game.Game;
@@ -24,7 +28,6 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
 import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -53,7 +56,7 @@ public class BattleScreen {
 	/*
 	 * The GUI frame.
 	 */
-	private JFrame frame;
+	private JFrame frmBattleArena;
 	/*
 	 * The text pane responsible for showing the player lastUpdate.
 	 */
@@ -64,6 +67,11 @@ public class BattleScreen {
 	 */
 	private String lastUpdate = "";
 	
+	
+	private AudioPlayer buttonAudio = new AudioPlayer();
+	
+	
+	
 	/*
 	 * The players monster uses an attack on the enemy monster.
 	 * 
@@ -71,12 +79,21 @@ public class BattleScreen {
 	 */
 	public void useAttack(String attackName)
 	{
+		if (attackName == "Attack")
+		{
+			buttonAudio.playSoundOnce("attack.wav");
+		}
+		else
+		{
+			this.playerCurrentMonster.makeSound();
+		}
+		
 		this.battle.playerAttack(this.playerCurrentMonster, this.enemyCurrentMonster, attackName);
 		if (this.enemyCurrentMonster.isFaint() == false)
 		{
 			this.battle.enemyAttack(playerCurrentMonster, enemyCurrentMonster);
 		}
-		this.frame.dispose();
+		this.frmBattleArena.dispose();
 		BattleScreen.launchBattleScreen(this.player, this.enemy, this.battle.getBattleUpdate());
 	}
 	
@@ -115,8 +132,9 @@ public class BattleScreen {
 	 */
 	public void leaveArena()
 	{
-		this.frame.dispose();
-		ChooseBattle.launchChooseBattle(this.player);
+		buttonAudio.playSoundOnce("buttonA.wav");
+		this.frmBattleArena.dispose();
+		PlayerTeam.launchTeamViewer(this.player);
 		BattleOverScreen.launchBattleStats(this.battle);
 	}
 	
@@ -133,7 +151,7 @@ public class BattleScreen {
 			public void run() {
 				try {
 					BattleScreen window = new BattleScreen(player, enemy, update);
-					window.frame.setVisible(true);
+					window.frmBattleArena.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -188,15 +206,21 @@ public class BattleScreen {
 	 */
 	private void initialize() {
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1063, 684);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmBattleArena = new JFrame();
+		frmBattleArena.setResizable(false);
+		frmBattleArena.setTitle("Battle Arena");
+		frmBattleArena.setBounds(100, 100, 1063, 684);
+		frmBattleArena.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmBattleArena.getContentPane().setLayout(null);
+		
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmBattleArena.setLocation(dim.width/2-frmBattleArena.getSize().width/2, dim.height/2-frmBattleArena.getSize().height/2);
 		
 		JLabel playerMonster = new JLabel("New label");
 		playerMonster.setBackground(Color.GRAY);
 		playerMonster.setBounds(71, 342, 152, 150);
-		frame.getContentPane().add(playerMonster);
+		frmBattleArena.getContentPane().add(playerMonster);
 		
 		JProgressBar playerHealthBar = new JProgressBar();
 		playerHealthBar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
@@ -204,12 +228,12 @@ public class BattleScreen {
 		playerHealthBar.setStringPainted(true);
 		playerHealthBar.setForeground(Color.BLACK);
 		playerHealthBar.setBounds(71, 317, 152, 14);
-		frame.getContentPane().add(playerHealthBar);
+		frmBattleArena.getContentPane().add(playerHealthBar);
 		
 		JLabel enemyMonster = new JLabel("New label");
 		enemyMonster.setBackground(Color.GRAY);
 		enemyMonster.setBounds(821, 342, 152, 150);
-		frame.getContentPane().add(enemyMonster);
+		frmBattleArena.getContentPane().add(enemyMonster);
 		
 		JProgressBar enemyHealthBar = new JProgressBar();
 		enemyHealthBar.setBackground(Color.WHITE);
@@ -217,19 +241,29 @@ public class BattleScreen {
 		enemyHealthBar.setForeground(Color.BLACK);
 		enemyHealthBar.setStringPainted(true);
 		enemyHealthBar.setBounds(821, 317, 152, 14);
-		frame.getContentPane().add(enemyHealthBar);
+		frmBattleArena.getContentPane().add(enemyHealthBar);
 		
 		updateArea = new JTextPane();
+		updateArea.setBackground(Color.BLACK);
+		updateArea.setForeground(Color.YELLOW);
 		updateArea.setFont(new Font("Tahoma", Font.BOLD, 18));
 		updateArea.setEditable(false);
-		updateArea.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
-		updateArea.setBounds(314, 234, 419, 226);
+		updateArea.setBorder(new MatteBorder(5, 5, 5, 5, (Color) Color.YELLOW));
+		updateArea.setBounds(321, 214, 419, 167);
 		updateArea.setText(this.lastUpdate);
-		frame.getContentPane().add(updateArea);
+		frmBattleArena.getContentPane().add(updateArea);
 		
 		
 	
 		JButton attackButton = new JButton("");
+		attackButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+			}
+		
+		});
+		attackButton.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.YELLOW));
 		attackButton.setForeground(new Color(255, 255, 255));
 		attackButton.setBackground(new Color(0, 0, 0));
 		attackButton.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -239,12 +273,19 @@ public class BattleScreen {
 			}
 		});
 		attackButton.setBounds(71, 540, 141, 26);
-		frame.getContentPane().add(attackButton);
+		frmBattleArena.getContentPane().add(attackButton);
 		
 		JButton specialAttackButton = new JButton("");
+		specialAttackButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+			}
+		});
+		specialAttackButton.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.RED));
 		specialAttackButton.setVisible(false);
 		specialAttackButton.setForeground(new Color(255, 0, 0));
-		specialAttackButton.setBackground(new Color(255, 255, 0));
+		specialAttackButton.setBackground(Color.BLACK);
 		specialAttackButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		specialAttackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -252,21 +293,23 @@ public class BattleScreen {
 			}
 		});
 		specialAttackButton.setBounds(71, 577, 141, 26);
-		frame.getContentPane().add(specialAttackButton);
+		frmBattleArena.getContentPane().add(specialAttackButton);
 		
 		JTextPane playerMonsterName = new JTextPane();
+		playerMonsterName.setOpaque(false);
 		playerMonsterName.setForeground(Color.YELLOW);
 		playerMonsterName.setBackground(Color.BLACK);
 		playerMonsterName.setEditable(false);
 		playerMonsterName.setFont(new Font("Tahoma", Font.BOLD, 18));
-		playerMonsterName.setBounds(71, 503, 141, 26);
-		frame.getContentPane().add(playerMonsterName);
+		playerMonsterName.setBounds(71, 503, 172, 26);
+		frmBattleArena.getContentPane().add(playerMonsterName);
 		
 		JButton leaveArena = new JButton("Leave Arena");
 		
 		leaveArena.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
 				leaveArena.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
 				leaveArena.setFont(new Font("Tahoma", Font.BOLD, 20));
 				leaveArena.setBackground(Color.GREEN);
@@ -287,48 +330,49 @@ public class BattleScreen {
 		leaveArena.setBackground(Color.YELLOW);
 		leaveArena.setFont(new Font("Tahoma", Font.BOLD, 18));
 		leaveArena.setBounds(453, 532, 172, 52);
-		frame.getContentPane().add(leaveArena);
+		frmBattleArena.getContentPane().add(leaveArena);
 		
 		JLabel playerImage = new JLabel("New label");
 		playerImage.setBounds(48, 11, 200, 212);
 		playerImage.setIcon(new ImageIcon(this.player.getSelectedAvatar()));
-		frame.getContentPane().add(playerImage);
+		frmBattleArena.getContentPane().add(playerImage);
 		
 		JLabel enemyImage = new JLabel("New label");
 		enemyImage.setBounds(787, 11, 200, 212);
 		enemyImage.setIcon(new ImageIcon(this.enemy.getEnemyImage()));
-		frame.getContentPane().add(enemyImage);
+		frmBattleArena.getContentPane().add(enemyImage);
 		
 		JTextPane playerName = new JTextPane();
 		playerName.setForeground(Color.YELLOW);
 		playerName.setOpaque(false);
 		playerName.setEditable(false);
 		playerName.setFont(new Font("Tahoma", Font.BOLD, 18));
-		playerName.setBounds(112, 234, 122, 26);
+		playerName.setBounds(91, 234, 152, 26);
 		playerName.setText(this.player.getGame().getPlayerName());
-		frame.getContentPane().add(playerName);
+		frmBattleArena.getContentPane().add(playerName);
 		
 		JTextPane enemyName = new JTextPane();
 		enemyName.setForeground(Color.YELLOW);
 		enemyName.setOpaque(false);
 		enemyName.setEditable(false);
 		enemyName.setFont(new Font("Tahoma", Font.BOLD, 18));
-		enemyName.setBounds(859, 234, 142, 26);
+		enemyName.setBounds(831, 234, 177, 26);
 		enemyName.setText(this.enemy.getEnemyName());
-		frame.getContentPane().add(enemyName);
+		frmBattleArena.getContentPane().add(enemyName);
 		
 		JTextPane enemyMonsterName = new JTextPane();
+		enemyMonsterName.setOpaque(false);
 		enemyMonsterName.setBackground(Color.BLACK);
 		enemyMonsterName.setForeground(Color.YELLOW);
 		enemyMonsterName.setEditable(false);
 		enemyMonsterName.setFont(new Font("Tahoma", Font.BOLD, 18));
-		enemyMonsterName.setBounds(831, 503, 142, 26);
-		frame.getContentPane().add(enemyMonsterName);
+		enemyMonsterName.setBounds(831, 503, 177, 26);
+		frmBattleArena.getContentPane().add(enemyMonsterName);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Images\\BattleArea.jpg"));
 		lblNewLabel.setBounds(-139, 0, 1186, 645);
-		frame.getContentPane().add(lblNewLabel);
+		frmBattleArena.getContentPane().add(lblNewLabel);
 		
 		
 		
@@ -370,6 +414,8 @@ public class BattleScreen {
 		
 		if (this.enemy.canFight() == false)
 	    {
+			buttonAudio.playSoundOnce("battleOver.wav");
+			this.player.setBattlesWon(this.player.getBattlesWon() + 1);
 			this.battle.setPlayerWon(true);
 			this.enemy.setAlreadyFought(true);
 			lastUpdate += "\nAll enemy monsters have fainted!\nBattle Over!";
@@ -387,6 +433,7 @@ public class BattleScreen {
 		
 		if (this.player.canFight() == false)
 	    {
+			buttonAudio.playSoundOnce("battleOver.wav");
 			this.battle.setPlayerWon(false);
 			this.enemy.setAlreadyFought(true);
 			lastUpdate += "\nAll your monsters have fainted!\nBattle Over!";

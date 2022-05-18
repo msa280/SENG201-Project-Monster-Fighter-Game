@@ -95,7 +95,7 @@ public class Shop
 	}
 	
 	/*
-	 * Initialises the shop by generating all items and monsters, then
+	 * Initializes the shop by generating all items and monsters, then
 	 * takes a random assortment of them to be for sale.
 	 */
 	public void initializeShop()
@@ -139,7 +139,7 @@ public class Shop
 			{
 				position = randNum.nextInt(5); // produces number from 0 to 4   (First 5 monsters unlocked)
 			}
-			else if (this.currentDay >= 6 && this.currentDay <= 8)
+			else if (this.currentDay >= 5 && this.currentDay <= 8)
 			{
 				position = randNum.nextInt(7); // First 7 monster unlocked
 			}

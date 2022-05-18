@@ -11,7 +11,10 @@ import game.Enemy;
 import game.Player;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -26,7 +29,7 @@ public class ChooseBattle {
 	/*
 	 * The frame that the GUI is displayed on.
 	 */
-	private JFrame frame;
+	private JFrame frmEnemySelection;
 	/*
 	 * The list of enemies the player can battle.
 	 */
@@ -66,7 +69,7 @@ public class ChooseBattle {
 		else
 		{
 			buttonAudio.playSoundOnce("buttonA.wav");
-			this.frame.dispose();
+			this.frmEnemySelection.dispose();
 			Enemy enemy = this.battles.get(buttonIndex);
 			this.player.getBattle().setEnemy(enemy);
 			
@@ -79,7 +82,7 @@ public class ChooseBattle {
 	public void goBack()
 	{
 		buttonAudio.playSoundOnce("buttonA.wav");
-		this.frame.dispose();
+		this.frmEnemySelection.dispose();
 		MainMenu.launchMainMenu(this.player);
 	}
 	
@@ -94,7 +97,7 @@ public class ChooseBattle {
 			public void run() {
 				try {
 					ChooseBattle window = new ChooseBattle(player);
-					window.frame.setVisible(true);
+					window.frmEnemySelection.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -128,11 +131,18 @@ public class ChooseBattle {
 	 * initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.DARK_GRAY);
-		frame.setBounds(100, 100, 1280, 553);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmEnemySelection = new JFrame();
+		frmEnemySelection.setTitle("Enemy Selection");
+		frmEnemySelection.setResizable(false);
+		frmEnemySelection.getContentPane().setBackground(Color.DARK_GRAY);
+		frmEnemySelection.setBounds(100, 100, 1280, 553);
+		frmEnemySelection.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmEnemySelection.getContentPane().setLayout(null);
+		
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmEnemySelection.setLocation(dim.width/2-frmEnemySelection.getSize().width/2, dim.height/2-frmEnemySelection.getSize().height/2);
+		
 		
 		JTextPane txtpnChooseAnEnemy = new JTextPane();
 		txtpnChooseAnEnemy.setBorder(null);
@@ -141,27 +151,27 @@ public class ChooseBattle {
 		txtpnChooseAnEnemy.setFont(new Font("Tahoma", Font.BOLD, 16));
 		txtpnChooseAnEnemy.setText("Choose an enemy to battle:");
 		txtpnChooseAnEnemy.setBounds(10, 11, 232, 23);
-		frame.getContentPane().add(txtpnChooseAnEnemy);
+		frmEnemySelection.getContentPane().add(txtpnChooseAnEnemy);
 		
 		JLabel eimage1 = new JLabel("");
 		eimage1.setBounds(10, 73, 200, 212);
-		frame.getContentPane().add(eimage1);
+		frmEnemySelection.getContentPane().add(eimage1);
 		
 		JLabel eimage2 = new JLabel("");
 		eimage2.setBounds(257, 73, 200, 212);
-		frame.getContentPane().add(eimage2);
+		frmEnemySelection.getContentPane().add(eimage2);
 		
 		JLabel eimage3 = new JLabel("");
 		eimage3.setBounds(513, 73, 200, 212);
-		frame.getContentPane().add(eimage3);
+		frmEnemySelection.getContentPane().add(eimage3);
 		
 		JLabel eimage4 = new JLabel("");
 		eimage4.setBounds(768, 73, 200, 212);
-		frame.getContentPane().add(eimage4);
+		frmEnemySelection.getContentPane().add(eimage4);
 		
 		JLabel eimage5 = new JLabel("");
 		eimage5.setBounds(1033, 73, 200, 212);
-		frame.getContentPane().add(eimage5);
+		frmEnemySelection.getContentPane().add(eimage5);
 		
 		
 		JLabel eimages[] = new JLabel[5];
@@ -176,35 +186,35 @@ public class ChooseBattle {
 		name1.setForeground(Color.WHITE);
 		name1.setBackground(Color.DARK_GRAY);
 		name1.setBounds(45, 296, 125, 28);
-		frame.getContentPane().add(name1);
+		frmEnemySelection.getContentPane().add(name1);
 		
 		JTextPane name2 = new JTextPane();
 		name2.setForeground(Color.WHITE);
 		name2.setFont(new Font("Tahoma", Font.BOLD, 18));
 		name2.setBackground(Color.DARK_GRAY);
 		name2.setBounds(296, 296, 125, 28);
-		frame.getContentPane().add(name2);
+		frmEnemySelection.getContentPane().add(name2);
 		
 		JTextPane name3 = new JTextPane();
 		name3.setForeground(Color.WHITE);
 		name3.setFont(new Font("Tahoma", Font.BOLD, 18));
 		name3.setBackground(Color.DARK_GRAY);
 		name3.setBounds(547, 296, 125, 28);
-		frame.getContentPane().add(name3);
+		frmEnemySelection.getContentPane().add(name3);
 		
 		JTextPane name4 = new JTextPane();
 		name4.setForeground(Color.WHITE);
 		name4.setFont(new Font("Tahoma", Font.BOLD, 18));
 		name4.setBackground(Color.DARK_GRAY);
 		name4.setBounds(805, 296, 125, 28);
-		frame.getContentPane().add(name4);
+		frmEnemySelection.getContentPane().add(name4);
 		
 		JTextPane name5 = new JTextPane();
 		name5.setForeground(Color.WHITE);
 		name5.setFont(new Font("Tahoma", Font.BOLD, 18));
 		name5.setBackground(Color.DARK_GRAY);
 		name5.setBounds(1062, 296, 125, 28);
-		frame.getContentPane().add(name5);
+		frmEnemySelection.getContentPane().add(name5);
 		
 		JTextPane names[] = new JTextPane[5];
 		names[0] = name1;
@@ -238,7 +248,7 @@ public class ChooseBattle {
 		b1.setBackground(new Color(255, 51, 51));
 		b1.setFont(new Font("SansSerif", Font.BOLD, 16));
 		b1.setBounds(45, 335, 125, 33);
-		frame.getContentPane().add(b1);
+		frmEnemySelection.getContentPane().add(b1);
 		
 		JButton goBack = new JButton("Go Back");
 		goBack.setForeground(Color.YELLOW);
@@ -264,14 +274,14 @@ public class ChooseBattle {
 				goBack.setFont(new Font("Tahoma", Font.BOLD, 14));
 				goBack.setBackground(Color.BLACK);
 				goBack.setForeground(Color.YELLOW);
-				frame.dispose();
+				frmEnemySelection.dispose();
 				MainMenu.launchMainMenu(player);
 			}
 		});
 		goBack.setBackground(Color.BLACK);
 		goBack.setFont(new Font("Tahoma", Font.BOLD, 14));
 		goBack.setBounds(27, 457, 118, 33);
-		frame.getContentPane().add(goBack);
+		frmEnemySelection.getContentPane().add(goBack);
 		
 		JButton b2 = new JButton("");
 		b2.addMouseListener(new MouseAdapter() {
@@ -298,7 +308,7 @@ public class ChooseBattle {
 		b2.setFont(new Font("SansSerif", Font.BOLD, 16));
 		b2.setBackground(new Color(255, 51, 51));
 		b2.setBounds(296, 335, 125, 33);
-		frame.getContentPane().add(b2);
+		frmEnemySelection.getContentPane().add(b2);
 		
 		JButton b3 = new JButton("");
 		b3.addMouseListener(new MouseAdapter() {
@@ -325,7 +335,7 @@ public class ChooseBattle {
 		b3.setFont(new Font("SansSerif", Font.BOLD, 16));
 		b3.setBackground(new Color(255, 51, 51));
 		b3.setBounds(547, 335, 125, 33);
-		frame.getContentPane().add(b3);
+		frmEnemySelection.getContentPane().add(b3);
 		
 		JButton b4 = new JButton("");
 		b4.addMouseListener(new MouseAdapter() {
@@ -352,7 +362,7 @@ public class ChooseBattle {
 		b4.setFont(new Font("SansSerif", Font.BOLD, 16));
 		b4.setBackground(new Color(255, 51, 51));
 		b4.setBounds(805, 335, 125, 33);
-		frame.getContentPane().add(b4);
+		frmEnemySelection.getContentPane().add(b4);
 		
 		JButton b5 = new JButton("");
 		b5.addMouseListener(new MouseAdapter() {
@@ -379,7 +389,7 @@ public class ChooseBattle {
 		b5.setFont(new Font("SansSerif", Font.BOLD, 16));
 		b5.setBackground(new Color(255, 51, 51));
 		b5.setBounds(1062, 335, 125, 33);
-		frame.getContentPane().add(b5);
+		frmEnemySelection.getContentPane().add(b5);
 		
 		JButton buttons[] = new JButton[5];
 		buttons[0] = b1;
@@ -395,7 +405,7 @@ public class ChooseBattle {
 		updateArea.setBackground(Color.BLACK);
 		updateArea.setFont(new Font("Tahoma", Font.BOLD, 16));
 		updateArea.setBounds(437, 467, 430, 23);
-		frame.getContentPane().add(updateArea);
+		frmEnemySelection.getContentPane().add(updateArea);
 		
 		
 		int i = 0;

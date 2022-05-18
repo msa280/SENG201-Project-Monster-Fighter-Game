@@ -12,7 +12,10 @@ import items.Item;
 import monsters.Monster;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -117,6 +120,7 @@ public class ViewBuySection
 	 */
 	public void goBack()
 	{
+		buttonAudio.playSoundOnce("buttonA.wav");
 		this.frmBuySection.dispose();
 		MainMenu.launchMainMenu(this.player);
 	}
@@ -154,16 +158,19 @@ public class ViewBuySection
 			
 				if (update == "No_Gold")
 				{
+					buttonAudio.playSoundOnce("error.wav");
 					updateArea.setForeground(Color.RED);
 					updateArea.setText("You don't have enough gold to buy %s!\n".formatted(monster.getMonsterName()));
 				} 
 				else if (update == "Team_Full") 
 				{
+					buttonAudio.playSoundOnce("error.wav");
 					updateArea.setForeground(Color.RED);
 					updateArea.setText("Team Full! You don't have enough space in your team!\n");
 				} 
 				else 
 				{
+					buttonAudio.playSoundOnce("purchaseSound.wav");
 					updateArea.setForeground(Color.GREEN);
 					updateArea.setText("%s bought!\n%s has been added to the team.\n".formatted(monster.getMonsterName(), monster.getMonsterName()));	
 				}
@@ -194,11 +201,13 @@ public class ViewBuySection
 				
 				if (purchaseSuccessful == false) 
 				{
+					buttonAudio.playSoundOnce("error.wav");
 					updateArea.setForeground(Color.RED);
 					updateArea.setText("You do not have enough gold to buy %s!".formatted(item.getItemName()));
 				} 
 				else 
 				{
+					buttonAudio.playSoundOnce("purchaseSound.wav");
 					updateArea.setForeground(Color.GREEN);
 					updateArea.setText("%s bought!\n%s has been added to the inventory!\n".formatted(item.getItemName(), item.getItemName()));
 				}
@@ -235,11 +244,14 @@ public class ViewBuySection
 		frmBuySection = new JFrame();
 		frmBuySection.setResizable(false);
 		frmBuySection.getContentPane().setForeground(Color.GREEN);
-		frmBuySection.getContentPane().setBackground(new Color(0, 0, 0));
+		frmBuySection.getContentPane().setBackground(Color.BLACK);
 		frmBuySection.setTitle("Buy Section");
 		frmBuySection.setBounds(100, 100, 1122, 860);
 		frmBuySection.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBuySection.getContentPane().setLayout(null);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmBuySection.setLocation(dim.width/2-frmBuySection.getSize().width/2, dim.height/2-frmBuySection.getSize().height/2);
 		
 		
 		
@@ -296,7 +308,7 @@ public class ViewBuySection
 		
 		JTextPane mname1 = new JTextPane();
 		mname1.setEditable(false);
-		mname1.setBackground(new Color(0, 0, 0));
+		mname1.setBackground(Color.BLACK);
 		mname1.setForeground(new Color(255, 204, 0));
 		mname1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		mname1.setText("No Monster");
@@ -305,7 +317,7 @@ public class ViewBuySection
 		
 		JTextPane mname2 = new JTextPane();
 		mname2.setEditable(false);
-		mname2.setBackground(new Color(0, 0, 0));
+		mname2.setBackground(Color.BLACK);
 		mname2.setForeground(new Color(255, 204, 0));
 		mname2.setText("No Monster");
 		mname2.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -315,7 +327,7 @@ public class ViewBuySection
 		JTextPane mname3 = new JTextPane();
 		mname3.setEditable(false);
 		mname3.setForeground(new Color(255, 204, 0));
-		mname3.setBackground(new Color(0, 0, 0));
+		mname3.setBackground(Color.BLACK);
 		mname3.setText("No Monster");
 		mname3.setFont(new Font("Tahoma", Font.BOLD, 14));
 		mname3.setBounds(448, 235, 208, 20);
@@ -324,7 +336,7 @@ public class ViewBuySection
 		JTextPane mname4 = new JTextPane();
 		mname4.setEditable(false);
 		mname4.setForeground(new Color(255, 204, 0));
-		mname4.setBackground(new Color(0, 0, 0));
+		mname4.setBackground(Color.BLACK);
 		mname4.setText("No Monster");
 		mname4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		mname4.setBounds(666, 235, 203, 20);
@@ -333,7 +345,7 @@ public class ViewBuySection
 		JTextPane mname5 = new JTextPane();
 		mname5.setEditable(false);
 		mname5.setForeground(new Color(255, 204, 0));
-		mname5.setBackground(new Color(0, 0, 0));
+		mname5.setBackground(Color.BLACK);
 		mname5.setText("No Monster");
 		mname5.setFont(new Font("Tahoma", Font.BOLD, 14));
 		mname5.setBounds(901, 235, 195, 20);
@@ -378,7 +390,7 @@ public class ViewBuySection
 		
 		JTextPane iname1 = new JTextPane();
 		iname1.setEditable(false);
-		iname1.setBackground(new Color(0, 0, 0));
+		iname1.setBackground(Color.BLACK);
 		iname1.setForeground(new Color(255, 204, 0));
 		iname1.setText("No Item");
 		iname1.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -388,7 +400,7 @@ public class ViewBuySection
 		JTextPane iname2 = new JTextPane();
 		iname2.setEditable(false);
 		iname2.setForeground(new Color(255, 204, 0));
-		iname2.setBackground(new Color(0, 0, 0));
+		iname2.setBackground(Color.BLACK);
 		iname2.setText("No Item");
 		iname2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		iname2.setBounds(213, 589, 195, 20);
@@ -397,7 +409,7 @@ public class ViewBuySection
 		JTextPane iname3 = new JTextPane();
 		iname3.setEditable(false);
 		iname3.setForeground(new Color(255, 204, 0));
-		iname3.setBackground(new Color(0, 0, 0));
+		iname3.setBackground(Color.BLACK);
 		iname3.setText("No Item");
 		iname3.setFont(new Font("Tahoma", Font.BOLD, 14));
 		iname3.setBounds(442, 589, 214, 20);
@@ -406,7 +418,7 @@ public class ViewBuySection
 		JTextPane iname4 = new JTextPane();
 		iname4.setEditable(false);
 		iname4.setForeground(new Color(255, 204, 0));
-		iname4.setBackground(new Color(0, 0, 0));
+		iname4.setBackground(Color.BLACK);
 		iname4.setText("No Item");
 		iname4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		iname4.setBounds(669, 589, 200, 20);
@@ -415,7 +427,7 @@ public class ViewBuySection
 		JTextPane iname5 = new JTextPane();
 		iname5.setEditable(false);
 		iname5.setForeground(new Color(255, 204, 0));
-		iname5.setBackground(new Color(0, 0, 0));
+		iname5.setBackground(Color.BLACK);
 		iname5.setText("No Item");
 		iname5.setFont(new Font("Tahoma", Font.BOLD, 14));
 		iname5.setBounds(879, 589, 217, 20);
@@ -514,15 +526,19 @@ public class ViewBuySection
 		
 		
 		JButton mbuy1 = new JButton("Buy");
+		mbuy1.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 		mbuy1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				mbuy1.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				mbuy1.setBackground(Color.GREEN);
 				mbuy1.setForeground(Color.BLACK);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				mbuy1.setBackground(Color.BLACK);
+				mbuy1.setBorder(null);
 				mbuy1.setForeground(Color.GREEN);
 			}
 		});
@@ -541,12 +557,15 @@ public class ViewBuySection
 		mbuy2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				mbuy2.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				mbuy2.setBackground(Color.GREEN);
 				mbuy2.setForeground(Color.BLACK);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				mbuy2.setBackground(Color.BLACK);
+				mbuy2.setBorder(null);
 				mbuy2.setForeground(Color.GREEN);
 			}
 		});
@@ -565,12 +584,15 @@ public class ViewBuySection
 		mbuy3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
 				mbuy3.setBackground(Color.GREEN);
+				mbuy3.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				mbuy3.setForeground(Color.BLACK);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				mbuy3.setBackground(Color.BLACK);
+				mbuy3.setBorder(null);
 				mbuy3.setForeground(Color.GREEN);
 			}
 		});
@@ -589,11 +611,14 @@ public class ViewBuySection
 		mbuy4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
 				mbuy4.setBackground(Color.GREEN);
+				mbuy4.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				mbuy4.setForeground(Color.BLACK);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
+				mbuy4.setBorder(null);
 				mbuy4.setBackground(Color.BLACK);
 				mbuy4.setForeground(Color.GREEN);
 			}
@@ -613,12 +638,15 @@ public class ViewBuySection
 		mbuy5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				mbuy5.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				mbuy5.setBackground(Color.GREEN);
 				mbuy5.setForeground(Color.BLACK);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				mbuy5.setBackground(Color.BLACK);
+				mbuy5.setBorder(null);
 				mbuy5.setForeground(Color.GREEN);
 			}
 		});
@@ -711,12 +739,15 @@ public class ViewBuySection
 		ibuy1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				ibuy1.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				ibuy1.setBackground(Color.GREEN);
 				ibuy1.setForeground(Color.BLACK);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				ibuy1.setBackground(Color.BLACK);
+				ibuy1.setBorder(null);
 				ibuy1.setForeground(Color.GREEN);
 			}
 		});
@@ -735,6 +766,8 @@ public class ViewBuySection
 		ibuy2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				ibuy2.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				ibuy2.setBackground(Color.GREEN);
 				ibuy2.setForeground(Color.BLACK);
 			}
@@ -742,6 +775,7 @@ public class ViewBuySection
 			public void mouseExited(MouseEvent e) {
 				ibuy2.setBackground(Color.BLACK);
 				ibuy2.setForeground(Color.GREEN);
+				ibuy2.setBorder(null);
 			}
 		});
 		ibuy2.addActionListener(new ActionListener() {
@@ -759,6 +793,8 @@ public class ViewBuySection
 		ibuy3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				ibuy3.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				ibuy3.setBackground(Color.GREEN);
 				ibuy3.setForeground(Color.BLACK);
 			}
@@ -766,6 +802,7 @@ public class ViewBuySection
 			public void mouseExited(MouseEvent e) {
 				ibuy3.setBackground(Color.BLACK);
 				ibuy3.setForeground(Color.GREEN);
+				ibuy3.setBorder(null);
 			}
 		});
 		ibuy3.addActionListener(new ActionListener() {
@@ -783,6 +820,8 @@ public class ViewBuySection
 		ibuy4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				ibuy4.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				ibuy4.setBackground(Color.GREEN);
 				ibuy4.setForeground(Color.BLACK);
 			}
@@ -790,6 +829,7 @@ public class ViewBuySection
 			public void mouseExited(MouseEvent e) {
 				ibuy4.setBackground(Color.BLACK);
 				ibuy4.setForeground(Color.GREEN);
+				ibuy4.setBorder(null);
 			}
 		});
 		ibuy4.addActionListener(new ActionListener() {
@@ -811,6 +851,8 @@ public class ViewBuySection
 		ibuy5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				ibuy5.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 				ibuy5.setBackground(Color.GREEN);
 				ibuy5.setForeground(Color.BLACK);
 			}
@@ -818,6 +860,7 @@ public class ViewBuySection
 			public void mouseExited(MouseEvent e) {
 				ibuy5.setBackground(Color.BLACK);
 				ibuy5.setForeground(Color.GREEN);
+				ibuy5.setBorder(null);
 			}
 		});
 		ibuy5.addActionListener(new ActionListener() {
@@ -832,17 +875,21 @@ public class ViewBuySection
 		frmBuySection.getContentPane().add(ibuy5);
 		
 		JButton backButton = new JButton("Go Back");
-		backButton.setForeground(Color.WHITE);
+		backButton.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+		backButton.setForeground(Color.YELLOW);
 		backButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				backButton.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
 				backButton.setBackground(Color.GREEN);
 				backButton.setForeground(Color.BLACK);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				backButton.setBackground(Color.BLACK);
-				backButton.setForeground(Color.WHITE);
+				backButton.setForeground(Color.YELLOW);
+				backButton.setBorder(null);
 			}
 		});
 		backButton.setBackground(Color.BLACK);
@@ -851,7 +898,7 @@ public class ViewBuySection
 				goBack();
 			}
 		});
-		backButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		backButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		backButton.setBounds(958, 761, 123, 37);
 		frmBuySection.getContentPane().add(backButton);
 		

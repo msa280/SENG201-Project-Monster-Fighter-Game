@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextPane;
 import game.AudioPlayer;
 import game.Player;
@@ -11,6 +13,8 @@ import items.CursedSkull;
 import items.Item;
 import monsters.Monster;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -98,6 +102,7 @@ public class PlayerInventory {
 	
 	public void goBack()
 	{
+		buttonAudio.playSoundOnce("buttonA.wav");
 		this.inventoryViewer.dispose();
 		MainMenu.launchMainMenu(this.player);
 	}
@@ -186,9 +191,13 @@ public class PlayerInventory {
 		/** this.audioPlayer.playSound("InventoryViewer.wav"); */
 		
 		inventoryViewer = new JFrame();
+		inventoryViewer.setResizable(false);
 		inventoryViewer.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 20));
 		inventoryViewer.getContentPane().setBackground(Color.DARK_GRAY);
 		inventoryViewer.getContentPane().setLayout(null);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		inventoryViewer.setLocation(dim.width/2-inventoryViewer.getSize().width/2, dim.height/2-inventoryViewer.getSize().height/2);
 		
 		JTextPane txtpnYourCurrentTeam = new JTextPane();
 		txtpnYourCurrentTeam.setBorder(null);

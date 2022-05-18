@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import game.AudioPlayer;
 import game.Battle;
 import game.Enemy;
 import game.Game;
@@ -25,7 +26,14 @@ public class BattleOverScreen {
 
 	private JFrame frmBattleStats;
 	private Battle battle;
+	private AudioPlayer buttonAudio = new AudioPlayer();
+
 	
+	public void finishGame()
+	{
+		buttonAudio.playSoundOnce("buttonA.wav");
+		frmBattleStats.dispose();
+	}
 	
 	public static void launchBattleStats(Battle battle)
 	{
@@ -78,6 +86,7 @@ public class BattleOverScreen {
 	 */
 	private void initialize() {
 		frmBattleStats = new JFrame();
+		frmBattleStats.setResizable(false);
 		frmBattleStats.getContentPane().setBackground(Color.BLACK);
 		frmBattleStats.setTitle("Battle Stats");
 		frmBattleStats.setBounds(100, 100, 333, 609);
@@ -88,9 +97,14 @@ public class BattleOverScreen {
 		winner.setBackground(Color.BLACK);
 		winner.setOpaque(true);
 		winner.setBounds(49, 30, 200, 212);
-		if (this.battle.getPlayerWon() == true) {
+		if (this.battle.getPlayerWon() == true) 
+		{
+			buttonAudio.playSoundOnce("battleWon.wav");
 			winner.setIcon(new ImageIcon(this.battle.getPlayer().getSelectedAvatar()));
-		} else {
+		} 
+		else 
+		{
+			buttonAudio.playSoundOnce("battleLost.wav");
 			winner.setIcon(new ImageIcon(this.battle.getEnemy().getEnemyImage()));
 		}
 		frmBattleStats.getContentPane().add(winner);
@@ -107,12 +121,13 @@ public class BattleOverScreen {
 		JButton okay = new JButton("Okay");
 		okay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmBattleStats.dispose();
+				finishGame();
 			}
 		});
 		okay.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
 				okay.setFont(new Font("Tahoma", Font.BOLD, 16));
 				okay.setForeground(Color.BLACK);
 				okay.setBackground(Color.GREEN);

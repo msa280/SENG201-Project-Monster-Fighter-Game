@@ -4,7 +4,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
@@ -83,7 +86,8 @@ public class Intro {
 	public Intro() 
 	{
 		initialize();
-		this.backgroundMusic.playSoundLoop("IntroMusic.wav");
+		this.backgroundMusic.playSoundLoop("Intro.wav");
+		this.buttonSound.playSoundOnce("MonsterFighter.wav");
 	}
 
 	/*
@@ -91,10 +95,15 @@ public class Intro {
 	 */
 	private void initialize() {
 		frmMonsterFightV = new JFrame();
+		frmMonsterFightV.setResizable(false);
 		frmMonsterFightV.setTitle("Monster Fight (Version 1.0)");
 		frmMonsterFightV.setBounds(100, 100, 1200, 720);
 		frmMonsterFightV.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMonsterFightV.getContentPane().setLayout(null);
+		
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmMonsterFightV.setLocation(dim.width/2-frmMonsterFightV.getSize().width/2, dim.height/2-frmMonsterFightV.getSize().height/2);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);

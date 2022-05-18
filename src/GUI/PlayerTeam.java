@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextPane;
 
 
@@ -13,6 +15,8 @@ import monsters.Monster;
 import monsters.Venomhound;
 
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -22,6 +26,9 @@ import javax.swing.JProgressBar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.MatteBorder;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import java.awt.Choice;
 
 public class PlayerTeam {
 
@@ -54,9 +61,13 @@ public class PlayerTeam {
 		{
 			progressbar.setForeground(Color.YELLOW);
 		}
-		else 
+		else if (health < 25 && health > 1) 
 		{
 			progressbar.setForeground(Color.RED);
+		}
+		else
+		{
+			progressbar.setBackground(Color.RED);
 		}
 	}
 	
@@ -65,10 +76,45 @@ public class PlayerTeam {
 
 	public void viewMonsterStat(int buttonIndex)
 	{
-		
 		Monster monster = this.player.getPlayerMonsters().get(buttonIndex-1);
 		update.setText("Viewing %s stats.".formatted(monster.pickMonsterName()));
 		MonsterStat.launchMonsterStatScreen(monster);
+	}
+	
+	
+	public void renameMonster(String chosenMonsterName, String newName)
+	{
+		if (newName.length() == 0)
+		{
+			buttonAudio.playSoundOnce("error.wav");
+			update.setText("Enter a name!");
+			update.setForeground(Color.RED);
+			return;
+		}
+	    else if (newName.length() >= 16)
+		{
+			buttonAudio.playSoundOnce("error.wav");
+			update.setForeground(Color.RED);
+			update.setText("Name too long! Please choose a shorter name.");
+			return;
+		}
+		else
+		{
+			buttonAudio.playSoundOnce("buttonA.wav");
+			
+			for (Monster monster: this.player.getPlayerMonsters())
+			{
+				if (monster.pickMonsterName() == chosenMonsterName)
+				{
+					monster.setMonsterRename(newName);
+					this.player.setLastUpdate("Monster has been renamed!");
+					break;
+				}
+			}
+			
+			this.teamViewer.dispose();
+			PlayerTeam.launchTeamViewer(this.player);
+		}
 	}
 	
 	
@@ -76,6 +122,7 @@ public class PlayerTeam {
 	
 	public void sellMonster(int buttonIndex, JTextPane updateArea)
 	{
+		buttonAudio.playSoundOnce("purchaseSound.wav");
 		int i = 0;
 		for (Monster monster: this.player.getPlayerMonsters())
 		{
@@ -116,6 +163,7 @@ public class PlayerTeam {
 	
 	public void goBack()
 	{
+		buttonAudio.playSoundOnce("buttonA.wav");
 		this.player.setLastUpdate("");
 		this.teamViewer.dispose();
 		MainMenu.launchMainMenu(this.player);
@@ -152,26 +200,32 @@ public class PlayerTeam {
 	{
 		teamViewer = new JFrame();
 		teamViewer.setResizable(false);
-		teamViewer.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 20));
+		teamViewer.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 12));
 		teamViewer.getContentPane().setBackground(Color.DARK_GRAY);
 		teamViewer.getContentPane().setLayout(null);
 		
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		teamViewer.setLocation(dim.width/2-teamViewer.getSize().width/2, dim.height/2-teamViewer.getSize().height/2);
+		
+		
 		JTextPane text = new JTextPane();
+		text.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.MAGENTA));
 		text.setEditable(false);
-		text.setBackground(Color.DARK_GRAY);
-		text.setForeground(Color.WHITE);
-		text.setFont(new Font("Tahoma", Font.BOLD, 22));
+		text.setBackground(Color.BLACK);
+		text.setForeground(Color.MAGENTA);
+		text.setFont(new Font("Tahoma", Font.BOLD, 18));
 		text.setText("Your team:");
-		text.setBounds(56, 22, 144, 31);
+		text.setBounds(56, 22, 108, 28);
 		teamViewer.getContentPane().add(text);
 		
 		
-		update.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.MAGENTA));
+		update.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(255, 0, 255)));
 		update.setEditable(false);
 		update.setFont(new Font("Tahoma", Font.BOLD, 16));
 		update.setForeground(Color.GREEN);
 		update.setBackground(Color.DARK_GRAY);
-		update.setBounds(328, 526, 496, 63);
+		update.setBounds(318, 721, 496, 63);
 		update.setText(this.player.getLastUpdate());
 		teamViewer.getContentPane().add(update);
 		
@@ -202,28 +256,28 @@ public class PlayerTeam {
 		JTextPane name1 = new JTextPane();
 		name1.setBackground(Color.DARK_GRAY);
 		name1.setForeground(new Color(255, 255, 255));
-		name1.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		name1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		name1.setBounds(68, 299, 132, 31);
 		teamViewer.getContentPane().add(name1);
 		
 		
 		JTextPane name2 = new JTextPane();
 		name2.setForeground(Color.WHITE);
-		name2.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		name2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		name2.setBackground(Color.DARK_GRAY);
 		name2.setBounds(328, 299, 132, 31);
 		teamViewer.getContentPane().add(name2);
 		
 		JTextPane name3 = new JTextPane();
 		name3.setForeground(Color.WHITE);
-		name3.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		name3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		name3.setBackground(Color.DARK_GRAY);
 		name3.setBounds(576, 299, 132, 31);
 		teamViewer.getContentPane().add(name3);
 		
 		JTextPane name4 = new JTextPane();
 		name4.setForeground(Color.WHITE);
-		name4.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		name4.setFont(new Font("Tahoma", Font.BOLD, 12));
 		name4.setBackground(Color.DARK_GRAY);
 		name4.setBounds(814, 299, 132, 31);
 		teamViewer.getContentPane().add(name4);
@@ -235,6 +289,19 @@ public class PlayerTeam {
 		paneList[3] = name4;
 		
 		JButton button1 = new JButton("View Stats");
+		button1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				button1.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+				button1.setFont(new Font("Tahoma", Font.BOLD, 12));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				button1.setBorder(null);
+				button1.setFont(new Font("Tahoma", Font.BOLD, 11));
+			}
+		});
 		button1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -246,6 +313,19 @@ public class PlayerTeam {
 		teamViewer.getContentPane().add(button1);
 		
 		JButton button2 = new JButton("View Stats");
+		button2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				button2.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+				button2.setFont(new Font("Tahoma", Font.BOLD, 12));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				button2.setBorder(null);
+				button2.setFont(new Font("Tahoma", Font.BOLD, 11));
+			}
+		});
 		button2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		button2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -257,6 +337,19 @@ public class PlayerTeam {
 		teamViewer.getContentPane().add(button2);
 		
 		JButton button3 = new JButton("View Stats");
+		button3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				button3.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+				button3.setFont(new Font("Tahoma", Font.BOLD, 12));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				button3.setBorder(null);
+				button3.setFont(new Font("Tahoma", Font.BOLD, 11));
+			}
+		});
 		button3.setFont(new Font("Tahoma", Font.BOLD, 11));
 		button3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -268,6 +361,19 @@ public class PlayerTeam {
 		teamViewer.getContentPane().add(button3);
 		
 		JButton button4 = new JButton("View Stats");
+		button4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				button4.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+				button4.setFont(new Font("Tahoma", Font.BOLD, 12));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				button4.setBorder(null);
+				button4.setFont(new Font("Tahoma", Font.BOLD, 11));
+			}
+		});
 		button4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		button4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -356,7 +462,7 @@ public class PlayerTeam {
 			}
 		});
 		back.setFont(new Font("Tahoma", Font.BOLD, 14));
-		back.setBounds(35, 552, 132, 37);
+		back.setBounds(49, 747, 132, 37);
 		teamViewer.getContentPane().add(back);
 		
 		
@@ -493,7 +599,7 @@ public class PlayerTeam {
 			public void mouseExited(MouseEvent e) {
 				sell2.setForeground(Color.WHITE);
 				sell2.setFont(new Font("Tahoma", Font.BOLD, 14));
-				sell1.setBorder(null);
+				sell2.setBorder(null);
 			}
 		});
 		sell2.addActionListener(new ActionListener() {
@@ -514,13 +620,13 @@ public class PlayerTeam {
 				sell3.setForeground(Color.BLACK);
 				buttonAudio.playSoundOnce("buttonHover.wav");
 				sell3.setFont(new Font("Tahoma", Font.BOLD, 16));
-				sell1.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+				sell3.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				sell3.setForeground(Color.WHITE);
 				sell3.setFont(new Font("Tahoma", Font.BOLD, 14));
-				sell1.setBorder(null);
+				sell3.setBorder(null);
 			}
 		});
 		sell3.addActionListener(new ActionListener() {
@@ -541,13 +647,13 @@ public class PlayerTeam {
 				sell4.setForeground(Color.BLACK);
 				buttonAudio.playSoundOnce("buttonHover.wav");
 				sell4.setFont(new Font("Tahoma", Font.BOLD, 16));
-				sell1.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+				sell4.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				sell4.setForeground(Color.WHITE);
 				sell4.setFont(new Font("Tahoma", Font.BOLD, 14));
-				sell1.setBorder(null);
+				sell4.setBorder(null);
 			}
 		});
 		sell4.addActionListener(new ActionListener() {
@@ -580,6 +686,91 @@ public class PlayerTeam {
 		teamViewer.getContentPane().add(gold);
 		
 		
+		
+		
+		
+		JTextPane txtpnChooseMonster = new JTextPane();
+		txtpnChooseMonster.setEditable(false);
+		txtpnChooseMonster.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(255, 0, 255)));
+		txtpnChooseMonster.setForeground(Color.MAGENTA);
+		txtpnChooseMonster.setBackground(Color.BLACK);
+		txtpnChooseMonster.setFont(new Font("Tahoma", Font.BOLD, 16));
+		txtpnChooseMonster.setText("Choose Monster");
+		txtpnChooseMonster.setBounds(278, 501, 135, 23);
+		teamViewer.getContentPane().add(txtpnChooseMonster);
+		
+		JTextPane txtpnRenameAMonster = new JTextPane();
+		txtpnRenameAMonster.setEditable(false);
+		txtpnRenameAMonster.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.MAGENTA));
+		txtpnRenameAMonster.setBackground(Color.BLACK);
+		txtpnRenameAMonster.setForeground(Color.MAGENTA);
+		txtpnRenameAMonster.setFont(new Font("Tahoma", Font.BOLD, 16));
+		txtpnRenameAMonster.setText("Rename a monster:");
+		txtpnRenameAMonster.setBounds(22, 535, 167, 27);
+		teamViewer.getContentPane().add(txtpnRenameAMonster);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setFont(new Font("Tahoma", Font.BOLD, 16));
+		textPane.setForeground(Color.BLACK);
+		textPane.setBackground(Color.LIGHT_GRAY);
+		textPane.setBounds(518, 535, 230, 27);
+		teamViewer.getContentPane().add(textPane);
+		
+		JTextPane txtpnNewName = new JTextPane();
+		txtpnNewName.setEditable(false);
+		txtpnNewName.setText("New Name");
+		txtpnNewName.setForeground(Color.MAGENTA);
+		txtpnNewName.setFont(new Font("Tahoma", Font.BOLD, 16));
+		txtpnNewName.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(255, 0, 255)));
+		txtpnNewName.setBackground(Color.BLACK);
+		txtpnNewName.setBounds(576, 501, 93, 23);
+		teamViewer.getContentPane().add(txtpnNewName);
+		
+		Choice choice = new Choice();
+		choice.setFont(new Font("Dialog", Font.BOLD, 16));
+		choice.setForeground(Color.BLACK);
+		choice.setBounds(207, 535, 292, 31);
+		teamViewer.getContentPane().add(choice);
+		
+		for (Monster monster: this.player.getPlayerMonsters())
+		{
+			choice.add(monster.pickMonsterName());
+		}
+		
+		
+		
+		JButton btnNewButton = new JButton("Rename");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				renameMonster(choice.getSelectedItem(), textPane.getText());
+			}
+		});
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) 
+			{
+				buttonAudio.playSoundOnce("buttonHover.wav");
+				btnNewButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
+				btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+				btnNewButton.setBackground(Color.GREEN);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) 
+			{
+				btnNewButton.setBorder(null);
+				btnNewButton.setBackground(Color.LIGHT_GRAY);
+				btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+			}
+		});
+		
+		btnNewButton.setBackground(Color.LIGHT_GRAY);
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton.setBounds(765, 539, 108, 28);
+		teamViewer.getContentPane().add(btnNewButton);
+		
+		
+		
+		
 		int i = 0;
 		while (i < this.player.getPlayersTeamLength()) {
 			Monster monster = this.player.getPlayerMonsters().get(i);
@@ -604,7 +795,7 @@ public class PlayerTeam {
 		
 		
 		teamViewer.setTitle("Team Viewer");
-		teamViewer.setBounds(100, 100, 1080, 639);
+		teamViewer.setBounds(100, 100, 1080, 834);
 		teamViewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 }

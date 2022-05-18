@@ -2,7 +2,10 @@ package GUI;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
@@ -225,12 +228,17 @@ public class GameSetup {
 		JRadioButton[] buttons = new JRadioButton[5];
 		
 		frmGameSetup = new JFrame();
+		frmGameSetup.setResizable(false);
 		frmGameSetup.setTitle("Game Setup");
 		frmGameSetup.getContentPane().setBackground(Color.DARK_GRAY);
 		frmGameSetup.getContentPane().setForeground(Color.BLACK);
 		frmGameSetup.setBounds(100, 100, 1174, 578);
 		frmGameSetup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGameSetup.getContentPane().setLayout(null);
+		
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmGameSetup.setLocation(dim.width/2-frmGameSetup.getSize().width/2, dim.height/2-frmGameSetup.getSize().height/2);
 		
 		JTextArea askFighterName = new JTextArea();
 		askFighterName.setForeground(new Color(255, 255, 255));
@@ -454,6 +462,17 @@ public class GameSetup {
 		
 		
 		JButton view1 = new JButton("View Stats");
+		view1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonSound.playSoundOnce("buttonHover.wav");
+				view1.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				view1.setBorder(null);
+			}
+		});
 		view1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MonsterStat.launchMonsterStatScreen(new Venomhound());
@@ -467,6 +486,17 @@ public class GameSetup {
 		
 		
 		JButton view2 = new JButton("View Stats");
+		view2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonSound.playSoundOnce("buttonHover.wav");
+				view2.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				view2.setBorder(null);
+			}
+		});
 		view2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MonsterStat.launchMonsterStatScreen(new Soilscreamer());
@@ -480,6 +510,17 @@ public class GameSetup {
 		
 		
 		JButton view3 = new JButton("View Stats");
+		view3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonSound.playSoundOnce("buttonHover.wav");
+				view3.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				view3.setBorder(null);
+			}
+		});
 		view3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MonsterStat.launchMonsterStatScreen(new Mornpest());
@@ -493,6 +534,17 @@ public class GameSetup {
 		
 		
 		JButton view4 = new JButton("View Stats");
+		view4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonSound.playSoundOnce("buttonHover.wav");
+				view4.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				view4.setBorder(null);
+			}
+		});
 		view4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MonsterStat.launchMonsterStatScreen(new Cavernfreak());
@@ -506,6 +558,17 @@ public class GameSetup {
 		
 		
 		JButton view5 = new JButton("View Stats");
+		view5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				buttonSound.playSoundOnce("buttonHover.wav");
+				view5.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 0, 0)));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				view5.setBorder(null);
+			}
+		});
 		view5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		view5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

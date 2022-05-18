@@ -1,5 +1,7 @@
 package monsters;
 
+import java.awt.Component;
+
 import game.AudioPlayer;
 
 public class Monster {
@@ -146,18 +148,7 @@ public class Monster {
 		}
 	}
 	
-	
-	public String pickMonsterName()
-	{
-		if (this.monsterRename == null)
-		{
-			return this.monsterName;
-		}
-		else
-		{
-			return this.monsterRename;
-		}
-	}
+
 	
 	
 	
@@ -176,6 +167,54 @@ public class Monster {
 		else
 		{
 			return false;
+		}
+	}
+	
+	public void makeSound()
+	{
+		if (this.monsterName == "Venomhound")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Venomhound.wav");
+		}
+		else if (this.monsterName == "Soilscreamer")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Soilscreamer.wav");
+		}
+		else if (this.monsterName == "Mornpest")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Mornpest.wav");
+		}
+		else if (this.monsterName == "Cavernfreak")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Cavernfreak.wav");
+		}
+		else if (this.monsterName == "Hollowtree")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Hollowtree.wav");
+		}
+		else if (this.monsterName == "ManicBoy")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Manicboy.wav");
+		}
+		else if (this.monsterName == "Magmataur")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Magmataur.wav");
+		}
+		else if (this.monsterName == "ShapeShifter")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Shapeshifter.wav");
+		}
+		else if (this.monsterName == "SkullDiablo")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Skulldiablo.wav");
+		}
+		else if (this.monsterName == "SleepDemon")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Sleepdemon.wav");
+		}
+		else if (this.monsterName == "SpineEater")
+		{
+			this.monsterSound.playSoundOnce("Monster Audio\\Spineeater.wav");
 		}
 	}
 	
@@ -235,6 +274,14 @@ public class Monster {
 	}
 	
 	
+	public void levelUp()
+	{
+		this.currentHealth = this.maxHealth;
+		this.damage += 5;
+		this.specialDamage += 5;
+	}
+	
+	
 	
 	/*
 	 * Displays the monsters statistics.
@@ -254,5 +301,42 @@ public class Monster {
 		String monsterDetails = a + b + c + d + d1 + e;
 		return monsterDetails;
 	}
+	
+	
+	
+	
+	public String pickMonsterName() 
+	{
+		if (this.monsterRename == null)
+		{
+			return this.monsterName;
+		}
+		else
+		{
+			return this.monsterRename;
+		}
+	}
+
+	public static void main(String[] args)
+	{
+		Monster a = new Venomhound();
+		a.makeSound();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

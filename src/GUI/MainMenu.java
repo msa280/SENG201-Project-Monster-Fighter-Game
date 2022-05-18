@@ -11,7 +11,9 @@ import monsters.Venomhound;
 
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
@@ -117,7 +119,7 @@ public class MainMenu
 		this.backgroundAudio.stopSound();
 		// implement sleeping time
 		long start = System.currentTimeMillis();
-		long end = start + 5*1000;
+		long end = start + 3*1000;
 		while (System.currentTimeMillis() < end) 
 		{
 		}
@@ -129,11 +131,18 @@ public class MainMenu
 	public void sleep()
 	{
 		this.buttonAudio.playSoundOnce("buttonA.wav");
-		this.player.playerSleep();
 		this.frmMainMenu.dispose();
-		MainMenu.launchMainMenu(this.player);
-		GoodMorningGUI.launchGoodMorning(this.player);
+		this.player.playerSleep();
 		
+		if (this.player.getGame().getGameOver() == true)
+		{
+			GameOver.launchGameOver(this.player);
+		}
+		else
+		{
+			MainMenu.launchMainMenu(this.player);
+			GoodMorningGUI.launchGoodMorning(this.player);
+		}	
 	}
 	
 	/*
@@ -191,6 +200,16 @@ public class MainMenu
 	}
 	
 	
+	public void gameOver()
+	{
+		this.frmMainMenu.dispose();
+		this.backgroundAudio.stopSound();
+		GameOver.launchGameOver(this.player);
+		
+		
+	}
+	
+	
 
 	
 	
@@ -201,12 +220,17 @@ public class MainMenu
 		
 		
 		frmMainMenu = new JFrame();
+		frmMainMenu.setResizable(false);
 		frmMainMenu.getContentPane().setForeground(Color.WHITE);
 		frmMainMenu.getContentPane().setBackground(Color.BLACK);
 		frmMainMenu.setTitle("Main Menu");
 		frmMainMenu.setBounds(100, 100, 1080, 720);
 		frmMainMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmMainMenu.getContentPane().setLayout(null);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmMainMenu.setLocation(dim.width/2-frmMainMenu.getSize().width/2, dim.height/2-frmMainMenu.getSize().height/2);
+		
 		
 		JFormattedTextField goldField = new JFormattedTextField();
 		goldField.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.YELLOW));

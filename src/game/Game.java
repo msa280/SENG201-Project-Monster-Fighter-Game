@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JTextPane;
 
-import GUI.IntroGUI;
+import GUI.Intro;
 import monsters.Monster;
 
 
@@ -302,7 +302,7 @@ public class Game {
 	 */
 	public static void main(String[] args)
 	{
-		IntroGUI.launchIntro();
+		Intro.launchIntro();
 	}
 
 }

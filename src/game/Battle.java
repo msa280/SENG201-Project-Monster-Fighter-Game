@@ -19,6 +19,7 @@ public class Battle {
 	 * The player.
 	 */
 	private Player player;
+	private Enemy enemy;
 	/*
 	 * Generates a stream of pseudorandom numbers.
 	 */
@@ -41,6 +42,21 @@ public class Battle {
 	 */
 	private int experiencePoints = 0;
 	
+
+	private int hitsTaken = 0;
+	
+	private int hitsGiven = 0;
+	
+	private int totalDamageTaken = 0;
+	
+	private int totalDamageDone = 0;
+	
+	private int currentDay;
+	private double difficutly;
+	
+
+	
+
 	/*
 	 * Updates the player on what is occurring in the current battle.
 	 */
@@ -83,7 +99,25 @@ public class Battle {
 		boolean generationComplete = false;
 		
 		int upperbound = 3;
-		int battleOptions = 3 + random.nextInt(upperbound); // getting a random size of team between 3 and 5.
+		int battleOptions;
+		
+		// The battles are generated somewhat randomly, but largely influenced by the current day.
+		
+		int currentDay = this.currentDay;
+		
+		if (currentDay <= 5)
+		{
+			 battleOptions = 3 + random.nextInt(upperbound-2); // getting a battle size of 3 members only
+		}
+		else if (currentDay > 5 && currentDay <= 10)
+		{
+			 battleOptions = 3 + random.nextInt(upperbound-1); // getting a battle size between 3 and 4 members
+		}
+		else
+		{
+			 battleOptions = 4 + random.nextInt(upperbound); // getting a battle size between 4 and 5 members
+		}
+		
 		
 		ArrayList<String> selectedNames = new ArrayList<String>();
 		
@@ -103,12 +137,14 @@ public class Battle {
 				}
 				selectedNames.add(enemyName);
 				newEnemy.setEnemyName(enemyName);
+				newEnemy.setDifficulty(this.difficutly);
 				newEnemy.generateEnemyTeam();
 				this.battles.add(newEnemy);
 			}
 		}
 	}
 	
+
 
 	/*
 	 * Starts the battle, calls methods to make player and 
@@ -143,6 +179,7 @@ public class Battle {
 		this.battleOver = false;
 	}
 
+
 	
 	/*
 	 * Allows the player to have their turn.
@@ -152,7 +189,7 @@ public class Battle {
 	public void playerAttack(Monster playerMonster, Monster enemyMonster, String attackType)
 	{
 		this.battleUpdate = "";
-		double difficulty = this.player.getPlayerDifficulty();
+		double difficulty = this.difficutly;
 		String update = "";
 			
 		if (attackType == "Attack")
@@ -161,16 +198,17 @@ public class Battle {
 			if (enemyMonster.getCurrentHealth() - playerMonster.getDamage() > 0)
 			{
 				enemyMonster.setCurrentHealth(enemyMonster.getCurrentHealth() - playerMonster.getDamage());
-				this.battleGold += (int)(playerMonster.getDamage() * difficulty);
+				this.battleGold += (int)(playerMonster.getDamage() - (difficulty * 10));
 			}
 			else
 			{
 				update += ("Effective! Enemy monster has fainted!\n");
-				this.experiencePoints += 1;
+				this.experiencePoints += 1 + difficulty;
 				enemyMonster.setCurrentHealth(0);
 				enemyMonster.setFaint(true);
 			}
 			playerMonster.setAttackCount(playerMonster.getAttackCount()+1);
+			this.totalDamageDone += playerMonster.getDamage();
 		} 
 		
 		else
@@ -181,20 +219,22 @@ public class Battle {
 				if (enemyMonster.getCurrentHealth() - playerMonster.getSpecialDamage() > 0)
 				{
 					enemyMonster.setCurrentHealth(enemyMonster.getCurrentHealth() - playerMonster.getSpecialDamage());
-					this.battleGold += (int)(playerMonster.getSpecialDamage() * difficulty);
+					this.battleGold += (int)(playerMonster.getSpecialDamage() - (difficulty * 10));
 				}
 				else
 				{
 					update += ("Effective! Enemy monster has fainted!\n");
-					this.experiencePoints += 1;
+					this.experiencePoints += 1 + difficulty;
 					enemyMonster.setCurrentHealth(0);
 					enemyMonster.setFaint(true);
 				}
 			}
 			playerMonster.setAttackCount(0);
+			this.totalDamageDone += playerMonster.getSpecialDamage();
 		}
 		
 		this.setBattleUpdate(this.getBattleUpdate() + update);
+		this.hitsGiven += 1;
 	}
 	
 	/*
@@ -205,16 +245,16 @@ public class Battle {
 	public void enemyAttack(Monster playerMonster, Monster enemyMonster)
 	{
 	
-		double difficulty = this.player.getPlayerDifficulty();
+		double difficulty = this.difficutly;
 		String update = "";
 		
 		if (enemyMonster.getSpecialAttackAvailable() == true)
 		{
 		
 			update += ("\nEnemy %s used %s!\n".formatted(enemyMonster.getMonsterName(), enemyMonster.getSpecialAttackName()));
-			if (playerMonster.getCurrentHealth() - (int)(enemyMonster.getSpecialDamage() * difficulty) > 0)
+			if (playerMonster.getCurrentHealth() - (int)(enemyMonster.getSpecialDamage() + difficulty) > 0)
 			{
-				playerMonster.setCurrentHealth(playerMonster.getCurrentHealth() - (int)(enemyMonster.getSpecialDamage() * difficulty));
+				playerMonster.setCurrentHealth(playerMonster.getCurrentHealth() - (int)(enemyMonster.getSpecialDamage() + difficulty));
 			}
 			else
 			{
@@ -223,13 +263,14 @@ public class Battle {
 				playerMonster.setFaint(true);
 			}	
 			enemyMonster.setAttackCount(0);
+			this.totalDamageTaken += enemyMonster.getSpecialDamage();
 		}
 		else
 		{
 			update += ("\nEnemy %s used %s!\n".formatted(enemyMonster.pickMonsterName(), enemyMonster.getAttackName()));
-			if (playerMonster.getCurrentHealth() - (int)(playerMonster.getDamage() * difficulty) > 0)
+			if (playerMonster.getCurrentHealth() - (int)(playerMonster.getDamage() + difficulty) > 0)
 			{
-				playerMonster.setCurrentHealth(playerMonster.getCurrentHealth() - (int)(playerMonster.getDamage() * difficulty));
+				playerMonster.setCurrentHealth(playerMonster.getCurrentHealth() - (int)(playerMonster.getDamage() + difficulty));
 			}
 			else
 			{
@@ -238,65 +279,45 @@ public class Battle {
 				playerMonster.setFaint(true);
 			}
 			enemyMonster.setAttackCount(enemyMonster.getAttackCount()+1);
+			this.totalDamageTaken += enemyMonster.getDamage();
 		}
 		
 		this.setBattleUpdate(this.getBattleUpdate() + update);
+		this.hitsTaken += 1;
+	}
+	
+	
+	
+	public String getBattleStats()
+	{
+		String a;
+		String a1;
+		if (this.playerWon == false)
+		{
+			a1 = "\nYou have lost the battle!\n";
+			a = "Battle Winner: %s\n\n".formatted(this.enemy.getEnemyName());
+		}
+		else
+		{
+			a1 = "You have won the battle!\n";
+			a = "Battle Winner: %s\n\n".formatted(this.player.getGame().getPlayerName());
+		}
 		
+		String b = "Your Battle Gold Earned: %d\n".formatted(this.battleGold);
+		String c = "Your XP Earned: %d\n".formatted(this.experiencePoints);
+		String d = "Your Hits taken: %d\n".formatted(this.hitsTaken);
+		String e = "Your Hits given: %d\n".formatted(this.hitsGiven);
+		String f = "Your Total Damage Taken: %d\n".formatted(this.totalDamageTaken);
+		String g = "Your Total Damage Done: %d\n".formatted(this.totalDamageDone);
 		
+		return (a1 + a + b + c + d + e + f + g);
+	}
+	
+	
+	
+	
+	
 
-	}
-	
-	/*
-	 * Gets the first monster in the enemies monster list (their current fighter).
-	 * 
-	 * @param enemy An instance of Enemy.
-	 * @return Returns the first monster in the enemies monster list.
-	 */
-	public Monster getEnemyCurrentFighter(Enemy enemy)
-	{
-		Monster currentMonster = null;
-		for (Monster monster: enemy.getEnemyTeam())
-		{
-			if (monster.isFaint() == false)
-			{
-				currentMonster = monster;
-				return currentMonster;
-			}
-		}
-		return currentMonster;
-	}
-	
-	/*
-	 * Gets the first monster in the players monster list (their current fighter).
-	 * 
-	 * @return Returns the first monster in the players monster list.
-	 */
-	public Monster getPlayerCurrentFighter()
-	{
-		Monster currentMonster = null;
-		for (Monster monster: this.player.getPlayerMonsters())
-		{
-			if (monster.isFaint() == false)
-			{
-				currentMonster = monster;
-				return currentMonster;
-			}
-		}
-		return currentMonster;
-	}
-	
-	/*
-	 * The visual interface that displays what's happening in the battle.
-	 * 
-	 * @param playerFighter The players current monster that is fighting.
-	 * @param enemyFighter The enemies current monster that is fighting.
-	 */
-	public void displayBattle(Monster playerFighter, Monster enemyFighter)
-	{
-		System.out.printf("\nName: %s                  Name: %s\n", playerFighter.pickMonsterName(), enemyFighter.pickMonsterName());
-		System.out.printf("Health: %d                           Health: %d\n", playerFighter.getCurrentHealth(), enemyFighter.getCurrentHealth());
-	}
-	
 	/*
 	 * Gets the current value of battleOver. If either the
 	 * player or the enemy has no monsters remaining who have not fainted,
@@ -401,6 +422,35 @@ public class Battle {
 	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
 
+	}
+
+	public Enemy getEnemy() {
+		return enemy;
+	}
+
+	public void setEnemy(Enemy enemy) {
+		this.enemy = enemy;
+	}
+	
+	public Player getPlayer()
+	{
+		return this.player;
+	}
+
+	public int getCurrentDay() {
+		return currentDay;
+	}
+
+	public void setCurrentDay(int currentDay) {
+		this.currentDay = currentDay;
+	}
+
+	public double getDifficutly() {
+		return difficutly;
+	}
+
+	public void setDifficutly(double difficutly) {
+		this.difficutly = difficutly;
 	}
 
 }

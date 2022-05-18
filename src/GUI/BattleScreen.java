@@ -30,16 +30,45 @@ import java.awt.event.MouseEvent;
 
 public class BattleScreen {
 	
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/*
+	 * The enemy.
+	 */
 	private Enemy enemy;
+	/*
+	 * A battle instance.
+	 */
 	private Battle battle;
+	/*
+	 * The players current monster (first in team).
+	 */
 	private Monster playerCurrentMonster;
+	/*
+	 * The enemies current monster (first in team).
+	 */
 	private Monster enemyCurrentMonster;
+	/*
+	 * The GUI frame.
+	 */
 	private JFrame frame;
+	/*
+	 * The text pane responsible for showing the player lastUpdate.
+	 */
 	private JTextPane updateArea;
+	/*
+	 * Updates the player on what is happening in the game via a message in the 
+	 * form of a string.
+	 */
 	private String lastUpdate = "";
 	
-	
+	/*
+	 * The players monster uses an attack on the enemy monster.
+	 * 
+	 * @param attackName The name of the attack being used.
+	 */
 	public void useAttack(String attackName)
 	{
 		this.battle.playerAttack(this.playerCurrentMonster, this.enemyCurrentMonster, attackName);
@@ -51,35 +80,39 @@ public class BattleScreen {
 		BattleScreen.launchBattleScreen(this.player, this.enemy, this.battle.getBattleUpdate());
 	}
 	
-	
-
-	public void setHealthBar(Monster monster, JProgressBar progressbar) {
-		progressbar.setMinimum(0);
-		progressbar.setMaximum(monster.getMaxHealth());
-		progressbar.setValue(monster.getCurrentHealth());
-		int health = progressbar.getValue();
+	/*
+	 * Sets a monsters health bar colour.
+	 * 
+	 * @param monster The monster.
+	 * @param progressBar The colour of the monsters health bar.
+	 */
+	public void setHealthBar(Monster monster, JProgressBar progressBar) {
+		progressBar.setMinimum(0);
+		progressBar.setMaximum(monster.getMaxHealth());
+		progressBar.setValue(monster.getCurrentHealth());
+		int health = progressBar.getValue();
 		
 		if (health >= 75)
 		{
-			progressbar.setForeground(Color.GREEN);
+			progressBar.setForeground(Color.GREEN);
 		} 
 		else if (health >= 50 && health < 75)
 		{
-			progressbar.setForeground(Color.ORANGE);
+			progressBar.setForeground(Color.ORANGE);
 		}
 		else if (health >= 25 && health < 50)
 		{
-			progressbar.setForeground(Color.YELLOW);
+			progressBar.setForeground(Color.YELLOW);
 		}
 		else 
 		{
-			progressbar.setForeground(Color.RED);
+			progressBar.setForeground(Color.RED);
 		}
 	}
 	
-	
-	
-	
+	/*
+	 * Leaves the battle arena GUI.
+	 */
 	public void leaveArena()
 	{
 		this.frame.dispose();
@@ -87,7 +120,13 @@ public class BattleScreen {
 		BattleOverScreen.launchBattleStats(this.battle);
 	}
 	
-	
+	/*
+	 * Launches the battle screen GUI.
+	 * 
+	 * @param player The player.
+	 * @param enemy The enemy.
+	 * @param update The update to send to the player.
+	 */
 	public static void launchBattleScreen(Player player, Enemy enemy, String update)
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -103,7 +142,7 @@ public class BattleScreen {
 	}
 	
 
-	/**
+	/*
 	 * Launch the application.
 	 */
 	public static void main(String[] args) 
@@ -124,8 +163,14 @@ public class BattleScreen {
 
 	
 	
-	/**
+	/*
 	 * Create the application.
+	 * 
+	 * Creates the battle screen GUI.
+	 * 
+	 * @param player The player.
+	 * @param enemy The enemy.
+	 * @param update The update to send to the player.
 	 */
 	public BattleScreen(Player player, Enemy enemy, String update) {
 
@@ -138,8 +183,8 @@ public class BattleScreen {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * Initialises the contents of the frame.
 	 */
 	private void initialize() {
 		

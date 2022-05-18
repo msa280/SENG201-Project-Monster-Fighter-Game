@@ -17,7 +17,7 @@ import monsters.Monster;
 
 
 /*
- * A class that initializes the game and stores information pertaining to the game.
+ * A class that initialises the game and stores information pertaining to the game.
  */
 public class Game {
 

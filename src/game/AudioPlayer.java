@@ -89,7 +89,6 @@ public class AudioPlayer {
 		
 	}
 	
-	
 	/*
 	 * Stops sound being played.
 	 */

@@ -95,7 +95,7 @@ public class Shop
 	}
 	
 	/*
-	 * Initializes the shop by generating all items and monsters, then
+	 * Initialises the shop by generating all items and monsters, then
 	 * takes a random assortment of them to be for sale.
 	 */
 	public void initializeShop()
@@ -232,18 +232,5 @@ public class Shop
 		this.allMonsters[9] = new Sleepdemon();
 		this.allMonsters[10] = new Spineeater();
 	}
-		
-	
-	
-	
 
-	
-	
-	/*
-	 * Initializes the shop.
-	 */
-	public static void main(String[] args)
-	{
-		
-	}
 }

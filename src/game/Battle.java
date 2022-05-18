@@ -42,6 +42,7 @@ public class Battle {
 	 */
 	private int experiencePoints = 0;
 	
+
 	private int hitsTaken = 0;
 	
 	private int hitsGiven = 0;
@@ -55,6 +56,10 @@ public class Battle {
 	
 
 	
+
+	/*
+	 * Updates the player on what is occurring in the current battle.
+	 */
 	private String battleUpdate;
 
 	/*
@@ -139,6 +144,41 @@ public class Battle {
 		}
 	}
 	
+
+
+	/*
+	 * Starts the battle, calls methods to make player and 
+	 * enemy moves, ends the battle.
+	 *
+	 * 
+	 * @param enemy An instance of Enemy.
+	 */
+	public void fight(Enemy enemy)
+	{
+		System.out.print("\nFight has begun!\n\n");
+		while (this.battleOver == false)
+		{
+			//this.enemyMove(enemy);
+		}
+		
+		if (this.playerWon == true)
+		{
+			System.out.print("\nAll enemy monsters have fainted!\n");
+			System.out.print("You have won the battle!\n");
+			this.player.setPlayerGold(this.player.getPlayerGold() + this.battleGold);
+			System.out.printf("You have received %d gold and %d points.\n", this.battleGold, this.experiencePoints);	
+		}
+		else
+		{
+			System.out.print("\nAll your monsters have fainted!\n");
+			System.out.print("You have lost the battle!\n");
+			System.out.print("You do not receive any gold or points.\n");
+		}
+		
+		enemy.setAlreadyFought(true);
+		this.battleOver = false;
+	}
+
 
 	
 	/*

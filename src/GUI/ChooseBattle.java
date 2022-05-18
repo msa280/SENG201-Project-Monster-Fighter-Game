@@ -23,14 +23,32 @@ import javax.swing.border.MatteBorder;
 
 public class ChooseBattle {
 
+	/*
+	 * The frame that the GUI is displayed on.
+	 */
 	private JFrame frame;
+	/*
+	 * The list of enemies the player can battle.
+	 */
 	private ArrayList<Enemy> battles;
+
 	JTextPane updateArea = new JTextPane();
+
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/* 
+	 * A button.
+	 */
 	private JButton b1;
 	private AudioPlayer buttonAudio = new AudioPlayer();
 	
-	
+	/*
+	 * Starts a fight by launching the battle screen GUI.
+	 * 
+	 * @param buttonIndex The enemy to battle.
+	 */
 	public void startFight(int buttonIndex)
 	{
 		if (this.player.getPlayersTeamLength() == 0)
@@ -65,7 +83,11 @@ public class ChooseBattle {
 		MainMenu.launchMainMenu(this.player);
 	}
 	
-	
+	/*
+	 * Launches the choose battle GUI.
+	 * 
+	 * @param player The player.
+	 */
 	public static void launchChooseBattle(Player player)
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -80,9 +102,7 @@ public class ChooseBattle {
 		});
 	}
 	
-	
-
-	/**
+	/*
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -93,8 +113,10 @@ public class ChooseBattle {
 		ChooseBattle.launchChooseBattle(player);
 	}
 
-	/**
-	 * Create the application.
+	/*
+	 * Gets the battle instance.
+	 * 
+	 * @param player The player.
 	 */
 	public ChooseBattle(Player player) {
 		this.player = player;
@@ -102,8 +124,8 @@ public class ChooseBattle {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -242,6 +264,8 @@ public class ChooseBattle {
 				goBack.setFont(new Font("Tahoma", Font.BOLD, 14));
 				goBack.setBackground(Color.BLACK);
 				goBack.setForeground(Color.YELLOW);
+				frame.dispose();
+				MainMenu.launchMainMenu(player);
 			}
 		});
 		goBack.setBackground(Color.BLACK);
@@ -385,9 +409,7 @@ public class ChooseBattle {
 				eimages[i].setIcon(new ImageIcon(enemy.getEnemyImage()));
 				names[i].setText(enemy.getEnemyName());
 				buttons[i].setVisible(false);
-				i += 1;
-				
-				
+				i += 1;	
 			}
 			else
 			{
@@ -395,21 +417,14 @@ public class ChooseBattle {
 				names[i].setText(enemy.getEnemyName());
 				buttons[i].setText("Battle!");
 				i += 1;
-			}
-			
-			
-		}
-		
-		
+			}	
+		}	
 		while (i < 5)
 		{
 			eimages[i].setVisible(false);
 			names[i].setVisible(false);
 			buttons[i].setVisible(false);
 			i += 1;
-		}
-		
-		
-
+		}		
 	}
 }

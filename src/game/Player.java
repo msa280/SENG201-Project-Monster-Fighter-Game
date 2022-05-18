@@ -528,8 +528,8 @@ public class Player {
 	/*
 	 * Puts the player and their team to sleep. Increases the current day by one,
 	 * and decreases day remaining by one. If days remaining is 0, the game ends.
-	 * Heals the players monster party each by their own healing stat and unfaints them,=.
-	 * Randomizes shop and battles again.
+	 * Heals the players monster party each by their own healing statistic and unfaints them.
+	 * Randomises shop and battles again.
 	 * 
 	 */
 	public void playerSleep()

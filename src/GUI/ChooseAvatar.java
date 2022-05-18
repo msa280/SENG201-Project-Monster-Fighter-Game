@@ -22,17 +22,47 @@ import java.awt.event.MouseEvent;
 
 
 
-public class ChooseAvatar {
 
+/*
+ * This class allows the player to choose what avatar they would like to use as their image.
+ */
+public class ChooseAvatar {
+	
+	/*
+	 * The choose avatar GUI frame.
+	 */
 	private JFrame frmChooseAvatar;
-	private AudioPlayer backgroundMusic;
+	/*
+	 * The next button.
+	 */
+
 	private JButton nextButton = new JButton("Next");
+	/*
+	 * The buttons for the avatars. 
+	 */
 	private JToggleButton[] avatarButtons = new JToggleButton[10];
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/*
+	 * All of the avatars.
+	 */
 	private String[] allAvatars = new String[10];
+
+	
+	/*
+	 * The background music.
+	 */
+	private AudioPlayer backgroundMusic = new AudioPlayer();
+	/*
+	 * The button sound.
+	 */
 	private AudioPlayer buttonSound = new AudioPlayer();
 	
-	
+	/*
+	 * Generate the avatars.
+	 */
 	public void generateAvatars()
 	{
 		this.allAvatars[0] = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Player Avatars\\Avatar1.png";
@@ -47,8 +77,9 @@ public class ChooseAvatar {
 		this.allAvatars[9] = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Player Avatars\\Avatar10.png";
 	}
 	
-	
-	
+	/*
+	 * Selects the avatar.
+	 */
 	public void selectAvatar(int buttonIndex)
 	{
 		this.buttonSound.playSoundOnce("buttonA.wav");
@@ -76,8 +107,9 @@ public class ChooseAvatar {
 		}
 	}
 	
-	
-	
+	/*
+	 * Launches the setup menu.
+	 */
 	public void openGameSetup()
 	{
 		this.frmChooseAvatar.dispose();
@@ -86,8 +118,11 @@ public class ChooseAvatar {
 		GameSetup.launchSetupMenu(this.player, game);
 	}
 	
-	
-	
+	/*
+	 * Launches the choose avatar GUI window.
+	 * 
+	 * @param player The player.
+	 */
 	public static void launchChooseAvatar(Player player)
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -104,7 +139,7 @@ public class ChooseAvatar {
 	
 	
 
-	/**
+	/*
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -113,8 +148,10 @@ public class ChooseAvatar {
 	}
 	
 
-	/**
-	 * Creates the application.
+	/*
+	 * Initialises the choose avatar GUI.
+	 * 
+	 * @param player The player.
 	 */
 	public ChooseAvatar(Player player) {
 		this.player = player;

@@ -38,16 +38,8 @@ public class GoodMorningGUI {
 	private AudioPlayer buttonAudio = new AudioPlayer();
 	
 	
-<<<<<<< Updated upstream
-	/*
-	 * The morning message that is shown after the player has slept.
-	 * 
-	 * @param The morning message.
-	 */
-	public String morningMessage()
-=======
+
 	public void okay()
->>>>>>> Stashed changes
 	{
 		buttonAudio.playSoundOnce("buttonA.wav");
 		this.frmGoodMorning.dispose();

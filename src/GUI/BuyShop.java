@@ -26,20 +26,8 @@ import javax.swing.border.MatteBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-<<<<<<< Updated upstream:src/GUI/BuyShop.java
 
-
-
-
-
-public class BuyShop 
-=======
-/*
- * This class allows the player to view the buy section and to purchase
- * monsters and items from it.
- */
-public class ViewBuySection 
->>>>>>> Stashed changes:src/GUI/ViewBuySection.java
+public class BuyShop
 {
 
 	/*
@@ -76,19 +64,16 @@ public class ViewBuySection
 		initialize();
 	}
 
-<<<<<<< Updated upstream:src/GUI/BuyShop.java
-	
-	
-	public static void launchBuySection(Player player)
-=======
+
+
+
 	/*
 	 * Launches the buy section.
 	 * 
 	 * @param player The player.
 	 * @param buySection The buy section frame.
 	 */
-	public static void launchBuySection(Player player, ViewBuySection buySection)
->>>>>>> Stashed changes:src/GUI/ViewBuySection.java
+	public static void launchBuySection(Player player)
 	{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

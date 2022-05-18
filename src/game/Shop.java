@@ -29,7 +29,6 @@ import monsters.Venomhound;
  */
 public class Shop 
 {
-	
 	/*
 	 * An array containing all of the monsters that are purchasable by the player.
 	 */
@@ -47,10 +46,16 @@ public class Shop
 	 */
 	private Item allItems[] = new Item[5];
 	
-	
+	/*
+	 *  The current day the shop is on
+	 */
 	private int currentDay;
 	
-	
+	/*
+	 * Sets the current day for the shop
+	 * 
+	 * @param currentDay
+	 */
 	public void setDay(int currentDay)
 	{
 		this.currentDay = currentDay;
@@ -63,7 +68,8 @@ public class Shop
 	 * 
 	 * @return Returns the value of monstersForSale.
 	 */
-	public ArrayList<Monster> getMonstersForSale() {
+	public ArrayList<Monster> getMonstersForSale()
+	{
 		return monstersForSale;
 	}
 	
@@ -72,7 +78,8 @@ public class Shop
 	 * 
 	 * @return Returns the value of itemsForSale.
 	 */
-	public ArrayList<Item> getItemsForSale() {
+	public ArrayList<Item> getItemsForSale() 
+	{
 		return itemsForSale;
 	}
 	
@@ -81,7 +88,8 @@ public class Shop
 	 * 
 	 * @param itemsForSale The items that are for sale.
 	 */
-	public void setItemsForSale(ArrayList<Item> itemsForSale) {
+	public void setItemsForSale(ArrayList<Item> itemsForSale) 
+	{
 		this.itemsForSale = itemsForSale;
 	}
 
@@ -90,7 +98,8 @@ public class Shop
 	 * 
 	 * @param monstersForSale The monsters that are for sale.
 	 */
-	public void setMonstersForSale(ArrayList<Monster> monstersForSale) {
+	public void setMonstersForSale(ArrayList<Monster> monstersForSale) 
+	{
 		this.monstersForSale = monstersForSale;
 	}
 	
@@ -232,5 +241,4 @@ public class Shop
 		this.allMonsters[9] = new Sleepdemon();
 		this.allMonsters[10] = new Spineeater();
 	}
-
 }

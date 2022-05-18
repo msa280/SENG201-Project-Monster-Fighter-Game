@@ -23,11 +23,6 @@ import javax.swing.border.MatteBorder;
  * This class can show the images and statistics of each of the monsters in the game
  * to the player in the form of a GUI. 
  */
-public class MonsterStatGUI {
-	
-	/*
-	 * The monster stats frame.
-	 */
 public class MonsterStat {
 
 	private JFrame frmMonsterStats;

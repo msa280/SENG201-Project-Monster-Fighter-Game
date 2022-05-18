@@ -11,14 +11,13 @@ import monsters.Monster;
 /*
  * Creates the player and all of their main attributes.
  */
-public class Player {
-	
+public class Player 
+{
 	/*
 	 * Updates the player on what is happening in the game via a message in the 
 	 * form of a string.
 	 */
 	private String lastUpdate = "";
-
 	/* 
 	 * Players gold.
 	 */
@@ -35,7 +34,6 @@ public class Player {
 	 * Players team of monsters.
 	 */
 	private ArrayList<Monster> playersTeam = new ArrayList<Monster>();
-	
 	/* 
 	 * An instance of the Battle class.
 	 */
@@ -60,17 +58,18 @@ public class Player {
 	 * Whether or not the player is ready for battle.
 	 */
 	private boolean readyForBattle;
-	
+	/*
+	 * The experience points earned by the player
+	 */
 	private int xpPoints;
-	
+	/*
+	 * The total gold earned by the player.
+	 */
 	private int totalGoldGained;
-	
 	/*
 	 * Battles won in one day.
 	 */
 	private int battlesWon;
-	
-	
 	/*
 	 * The players selected avatar.
 	 */
@@ -81,7 +80,8 @@ public class Player {
 	 * 
 	 * @return Returns the players gold value.
 	 */
-	public int getPlayerGold() {
+	public int getPlayerGold() 
+	{
 		return playerGold;
 	}
 	
@@ -90,7 +90,8 @@ public class Player {
 	 * 
 	 * @param playerGold The amount of gold the player will start with.
 	 */
-	public void setPlayerGold(int playerGold) {
+	public void setPlayerGold(int playerGold) 
+	{
 		this.playerGold = playerGold;
 	}
 	
@@ -99,7 +100,8 @@ public class Player {
 	 * 
 	 * @param currentDay The current day for the player.
 	 */
-	public void setCurrentDay(int currentDay) {
+	public void setCurrentDay(int currentDay)
+	{
 		this.currentDay = currentDay;
 	}
 	
@@ -108,7 +110,8 @@ public class Player {
 	 * 
 	 * @return Returns the value of currentDay.
 	 */
-	public int getCurrentDay() {
+	public int getCurrentDay() 
+	{
 		return currentDay;
 	}
 	
@@ -119,7 +122,8 @@ public class Player {
 	 * @game An instance of the Game class.
 	 * 
 	 */
-	public void setDaysRemaining() {
+	public void setDaysRemaining() 
+	{
 		this.daysRemaining = this.game.getGameLength() - this.currentDay;
 	}
 	
@@ -216,7 +220,8 @@ public class Player {
 	 * 
 	 * @return Returns an instance of the Battle class.
 	 */
-	public Battle getBattle() {
+	public Battle getBattle() 
+	{
 		return battle;
 	}
 	
@@ -225,7 +230,8 @@ public class Player {
 	 * 
 	 * @param battle An instance of the Battle class.
 	 */
-	public void setBattle(Battle battle) {
+	public void setBattle(Battle battle)
+	{
 		this.battle = battle;
 	}
 	
@@ -254,7 +260,8 @@ public class Player {
 	 * 
 	 * @return Returns true if at least one of the players monsters have not fainted, else fale.
 	 */
-	public boolean isReadyForBattle() {
+	public boolean isReadyForBattle() 
+	{
 		return readyForBattle;
 	}
 	
@@ -263,7 +270,8 @@ public class Player {
 	 * 
 	 * @param readyForBattle Whether or not the player is ready for battle.
 	 */
-	public void setReadyForBattle(boolean readyForBattle) {
+	public void setReadyForBattle(boolean readyForBattle) 
+	{
 		this.readyForBattle = readyForBattle;
 	}
 	
@@ -315,6 +323,65 @@ public class Player {
 	{
 		this.selectedAvatar = selectedAvatar;
 	}
+	
+	
+	 /*
+     * Sets the xp points of the player
+     * 
+     *@param xpPoints
+     */
+	public void setXpPoints(int xpPoints)
+	{
+		this.xpPoints = xpPoints;
+	}
+
+	/*
+	 * Gets the xp points of the player
+	 */
+	public int getXpPoints()
+	{
+		return this.xpPoints;
+	}
+
+
+	/*
+	 * Sets the total gold gained by the player
+	 * 
+	 * @param totalGoldGained
+	 */
+	public void setTotalGoldGained(int totalGoldGained) 
+	{
+		this.totalGoldGained = totalGoldGained;
+	}
+
+	/*
+	 * Gets the total gold gained by the player
+	 */
+	public int getTotalGoldGained() 
+	{
+		return this.totalGoldGained;
+	}
+
+	/*
+	 * Gets the battles won during that day
+	 */
+	public int getBattlesWon() 
+	{
+		return battlesWon;
+	}
+
+	/*
+	 * Sets the battles won during that day
+	 * 
+	 * @param battlesWon
+	 */
+	public void setBattlesWon(int battlesWon)
+	{
+		this.battlesWon = battlesWon;
+	}
+	
+	
+	
 	
 	/*
 	 * Checks if the player has any monsters that can battle (haven't fainted).
@@ -597,7 +664,11 @@ public class Player {
 	}
 	
 	
-	
+	/*
+	 * It controls the chances of a monster leaving overnight. The chances are low 
+	 * and are affected by wether the monster fainted that day or not.
+	 * 
+	 */
 	public String monsterLeaveOvernight()
 	{
 		String update = "";
@@ -641,7 +712,10 @@ public class Player {
 	}
 	
 	
-	
+	/*
+	 * Controls the chances of a random monster joining the team overnight.
+	 * Chances increase if the team size is less.
+	 */
 	public String monsterJoinOvernight()
 	{
 		String update = "";
@@ -694,7 +768,10 @@ public class Player {
 	}
 	
 	
-	
+	/*
+	 * Control the chances of a monster leveling up overnight.
+	 * The chances of a monster levelling up increases with the battles won during that day.
+	 */
 	public String monsterLevelUpOvernight()
 	{
 		String update = "";
@@ -764,43 +841,16 @@ public class Player {
 	}
 	
 	
+	/*
+	 * Once the game is over, it prepares the end game result text.
+	 */
 	public String getGameOverResult()
 	{
 		String a = "Player Name: %s\n".formatted(this.game.getPlayerName());
 		String b = "Game Duration: %d\n".formatted(this.game.getGameLength());
 		String c = "Gold Gained: %d\n".formatted(this.totalGoldGained);
 		String d = "XP Points Earned: %d\n".formatted(this.xpPoints);
-		
 		return (a + b + c + d);
-	}
-	
-	
-
-
-	public void setXpPoints(int xpPoints) {
-		this.xpPoints = xpPoints;
-	}
-
-	public int getXpPoints()
-	{
-		return this.xpPoints;
-	}
-
-
-	public void setTotalGoldGained(int totalGoldGained) {
-		this.totalGoldGained = totalGoldGained;
-	}
-
-	public int getTotalGoldGained() {
-		return this.totalGoldGained;
-	}
-
-	public int getBattlesWon() {
-		return battlesWon;
-	}
-
-	public void setBattlesWon(int battlesWon) {
-		this.battlesWon = battlesWon;
 	}
 }
 

@@ -362,3 +362,7 @@
 /PlayerTeam$21.class
 /BattleScreen$6.class
 /BattleScreen$7.class
+/BuyShop$ViewBuySection.class
+/IntroGUI$Intro.class
+/MonsterStatGUI$MonsterStat.class
+/PlayerHomeGUI$MainMenu.class

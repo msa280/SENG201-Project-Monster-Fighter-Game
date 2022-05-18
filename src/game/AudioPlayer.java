@@ -10,8 +10,8 @@ import javax.sound.sampled.AudioInputStream;
 /*
  * This class controls the audio in the game.
  */
-public class AudioPlayer {
-	
+public class AudioPlayer 
+{
 	/*
 	 * A small clip of an audio track.
 	 */
@@ -38,15 +38,18 @@ public class AudioPlayer {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             Thread.sleep(1000);
         }
-        catch (IOException ex){
+        catch (IOException ex)
+        {
             System.out.println("Sorry but there has been a problem reading your file.");
             ex.printStackTrace();
         }
-        catch (UnsupportedAudioFileException ex1){
+        catch (UnsupportedAudioFileException ex1)
+        {
             System.out.println("Sorry but the audio file format you are using is not     supported.");
             ex1.printStackTrace();
         }
-        catch (LineUnavailableException ex2){
+        catch (LineUnavailableException ex2)
+        {
             System.out.println("Sorry but there are audio line problems.");
             ex2.printStackTrace();
         } catch (InterruptedException e) {
@@ -74,16 +77,16 @@ public class AudioPlayer {
             clip.open(ais); //Clip opens AudioInputStream
             clip.start(); //Start playing audio
         }
-        catch (IOException ex){
-            System.out.println("Sorry but there has been a problem reading your file.");
+        catch (IOException ex)
+        {
             ex.printStackTrace();
         }
-        catch (UnsupportedAudioFileException ex1){
-            System.out.println("Sorry but the audio file format you are using is not     supported.");
+        catch (UnsupportedAudioFileException ex1)
+        {
             ex1.printStackTrace();
         }
-        catch (LineUnavailableException ex2){
-            System.out.println("Sorry but there are audio line problems.");
+        catch (LineUnavailableException ex2)
+        {
             ex2.printStackTrace();
         } 
 		

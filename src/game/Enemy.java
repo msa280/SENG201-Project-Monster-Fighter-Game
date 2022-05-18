@@ -13,7 +13,8 @@ import monsters.Venomhound;
  * Generates enemies, and their monster teams.
  */
 
-public class Enemy {
+public class Enemy 
+{
 	
 	/*
 	 *  The name of the Enemy.
@@ -36,16 +37,22 @@ public class Enemy {
 	 */
 	private String allEnemyNames[] = {"Angela", "Arnold", "Cameron", "Haider", "Haru", "MonsterKing", "Saima", "Sarah", "Zack", "Jonathan"};
 	
-
+    /*
+     * The difficulty of the enemy
+     */
 	private double difficulty;
 	
 	
+	/*
+	 * Sets the difficulty of game so Enemy can use it to create monsters
+	 * 
+	 * @param difficutly 
+	 * 
+	 */
 	public void setDifficulty(double difficutly)
 	{
 		this.difficulty = difficutly;
 	}
-	
-	
 	
 	/*
 	 * Sets the value of haveFought.
@@ -102,7 +109,8 @@ public class Enemy {
 	 * 
 	 * @param alreadyFought Whether or not the player has already fought the enemy.
 	 */
-	public void setAlreadyFought(boolean alreadyFought) {
+	public void setAlreadyFought(boolean alreadyFought) 
+	{
 		this.alreadyFought = alreadyFought;
 	}
 	
@@ -112,7 +120,8 @@ public class Enemy {
 	 * 
 	 * @return Returns the value of alreadyFought.
 	 */
-	public boolean getAlreadyFought() {
+	public boolean getAlreadyFought() 
+	{
 		return alreadyFought;
 	}
 	
@@ -145,28 +154,46 @@ public class Enemy {
 		String name = this.enemyName;
 		String imageLink;
 		
-		if (name == "Angela") {
+		if (name == "Angela") 
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Angela.png";
-		} else if (name == "Arnold") {
+		} 
+		else if (name == "Arnold") 
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Arnold.png";
-		} else if (name == "Cameron") {
+		} 
+		else if (name == "Cameron") 
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Cameron.png";
-		} else if (name == "Haider") {
+		} 
+		else if (name == "Haider") 
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Haider.png";
-		} else if (name == "Haru") {
+		} 
+		else if (name == "Haru") 
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Haru.png";
-		} else if (name == "MonsterKing") {
+		} 
+		else if (name == "MonsterKing")
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\MonsterKing.png";
-		} else if (name == "Saima") {
+		} 
+		else if (name == "Saima") 
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Saima.png";
-		} else if (name == "Sarah") {
+		} 
+		else if (name == "Sarah") 
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Sarah.png";
-		} else if (name == "Zack") {
+		} 
+		else if (name == "Zack") 
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Zack.png";
-		} else {
+		} 
+		else
+		{
 			imageLink = "C:\\Users\\GGPC\\OneDrive\\Desktop\\UC 2022 Semester 1\\SENG201 - Software Engineering I\\Project\\SENG201-Project-Monster-Fighter\\src\\Enemies Artwork\\Jonathan.png";
 		}
-		
 		return imageLink;
 	}
 	
@@ -247,7 +274,6 @@ public class Enemy {
 		{
 			teamSize = 4; // if difficulty is boss, all enemies will have 4 monsters to fight with for the whole game
 		}
-		
 		 
 		
 		while (generationComplete == false)

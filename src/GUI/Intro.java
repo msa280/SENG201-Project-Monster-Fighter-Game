@@ -21,14 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/*
- * The IntroGUI displays the pre-game set-up and introduces the player to the game.
- */
-public class IntroGUI {
-	
-	/*
-	 * The Monster Fight intro frame.
-	 */
+
 
 public class Intro {
 

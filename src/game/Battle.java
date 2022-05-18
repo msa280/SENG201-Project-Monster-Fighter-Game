@@ -9,8 +9,8 @@ import monsters.Monster;
  * Generates battles between the player and the enemy.
  */
 
-public class Battle {
-	
+public class Battle 
+{
 	/*
 	 * The list of enemies the player will verse.
 	 */
@@ -19,6 +19,10 @@ public class Battle {
 	 * The player.
 	 */
 	private Player player;
+	
+	/*
+	 *  The enemy
+	 */
 	private Enemy enemy;
 	/*
 	 * Generates a stream of pseudorandom numbers.
@@ -41,21 +45,224 @@ public class Battle {
 	 * The amount of experience gained.
 	 */
 	private int experiencePoints = 0;
-	
-
+    /*
+     *  The amount of hits taken
+     */
 	private int hitsTaken = 0;
 	
+	/*
+     *  The amount of hits given
+     */
 	private int hitsGiven = 0;
 	
+	/*
+     *  The amount of damage taken by the player
+     */
 	private int totalDamageTaken = 0;
 	
+	/*
+     *  The amount of damage done by the player
+     */
 	private int totalDamageDone = 0;
 	
+	/*
+     *  The day on which the battle is being done
+     */
 	private int currentDay;
+	
+	/*
+     *  This is the battle difficutly
+     */
 	private double difficutly;
 	
 
+	/*
+	 * Gets the current value of battleOver. If either the
+	 * player or the enemy has no monsters remaining who have not fainted,
+	 * will return true, else false.
+	 * 
+	 * @return The value of battleOver.
+	 */
+	public boolean getBattleOver() 
+	{
+		return battleOver;
+	}
+
+	/*
+	 * Sets the value of battleOver.
+	 * 
+	 * @param battleOver Whether the battle is over or not.
+	 */
+	public void setBattleOver(boolean battleOver)
+	{
+		this.battleOver = battleOver;
+	}
+
+	/*
+	 * Gets whether or not the player won the battle.
+	 * If the player won, will return true, else false.
+	 * 
+	 * @return The value of playerWon
+	 */
+	public boolean getPlayerWon() 
+	{
+		return playerWon;
+	}
+
+	/*
+	 * Sets the value of playerWon.
+	 * 
+	 * @param playerWon Whether the player won or not.
+	 */
+	public void setPlayerWon(boolean playerWon)
+	{
+		this.playerWon = playerWon;
+	}
+
+	/*
+	 * Gets the gold gained from the battle.
+	 * 
+	 * @return battleGold The amount of gold.
+	 */
+	public int getBattleGold()
+	{
+		return battleGold;
+	}
+
+	/*
+	 * Sets the gold gained from the battle. This is dependent on
+	 * difficulty settings, and damage dealt during the battle.
+	 * 
+	 * @param battleGold The amount of gold given from the battle.
+	 */
+	public void setBattleGold(int battleGold)
+	{
+		this.battleGold = battleGold;
+	}
+
+	/*
+	 * Gets the amount of experience points gained
+	 * from the battle. 1 gained per enemy monster defeated.
+	 * 
+	 * @return experiencePoints Returns the number of experience points gained total over the battle.
+	 */
+	public int getExperiencePoints()
+	{
+		return experiencePoints;
+	}
+
+	/*
+	 * Sets the amount of experience points gained
+	 * from the battle.
+	 * 
+	 * @param experiencePoints The number of experience points.
+	 */
+	public void setExperiencePoints(int experiencePoints)
+	{
+		this.experiencePoints = experiencePoints;
+	}
+
+
+	/*
+	 * Gets the new update message from the battle.
+	 */
+	public String getBattleUpdate() 
+	{
+		return battleUpdate;
+	}
+
 	
+	/*
+	 * Sets the new update message for the battle.
+	 */
+	public void setBattleUpdate(String battleUpdate)
+	{
+		this.battleUpdate = battleUpdate;
+	}
+
+	/*
+	 * Gets the last player attack update.
+	 * 
+	 * @return lastUpdate Returns the value of last update.
+	 */
+	public String getLastUpdate()
+	{
+		return lastUpdate;
+	}
+
+	/*
+	 * Sets the last player attack update.
+	 * 
+	 * @param lastUpdate The current value of lastUpdate.
+	 */
+	public void setLastUpdate(String lastUpdate)
+	{
+		this.lastUpdate = lastUpdate;
+
+	}
+    
+	/*
+	 * Gets the battle enemy
+	 */
+	public Enemy getEnemy() 
+	{
+		return enemy;
+	}
+
+	/*
+	 * Sets the battle enemy
+	 * 
+	 * @param enemy
+	 */
+	public void setEnemy(Enemy enemy) 
+	{
+		this.enemy = enemy;
+	}
+	
+	/*
+	 * Gets the battle player
+	 */
+	public Player getPlayer()
+	{
+		return this.player;
+	}
+
+	/*
+	 * Gets the current day
+	 */
+	public int getCurrentDay() 
+	{
+		return currentDay;
+	}
+
+	/*
+	 * Sets the current day.
+	 * 
+	 * @params currentDay
+	 */
+	public void setCurrentDay(int currentDay) 
+	{
+		this.currentDay = currentDay;
+	}
+
+	/*
+	 * Gets the difficutly.
+	 */
+	public double getDifficutly() 
+	{
+		return difficutly;
+	}
+
+	/*
+	 * Sets the difficulty
+	 * 
+	 * @params difficutly
+	 */
+	public void setDifficutly(double difficutly)
+	{
+		this.difficutly = difficutly;
+	}
+
 
 	/*
 	 * Updates the player on what is occurring in the current battle.
@@ -79,6 +286,7 @@ public class Battle {
 		return this.battles;
 	}
 	
+	
 	/*
 	 * Creates the player instance.
 	 * 
@@ -88,6 +296,7 @@ public class Battle {
 	{
 		this.player = player;
 	}
+	
 	
 	/*
 	 *  Generates the necessary set up for the battle to occur.
@@ -237,6 +446,8 @@ public class Battle {
 		this.hitsGiven += 1;
 	}
 	
+	
+	
 	/*
 	 * Simulates the enemy turn
 	 * 
@@ -288,6 +499,11 @@ public class Battle {
 	
 	
 	
+	/*
+	 * 
+	 * Gives the battle stats after the battle has concluded.
+	 * 
+	 */
 	public String getBattleStats()
 	{
 		String a;
@@ -318,139 +534,5 @@ public class Battle {
 	
 	
 
-	/*
-	 * Gets the current value of battleOver. If either the
-	 * player or the enemy has no monsters remaining who have not fainted,
-	 * will return true, else false.
-	 * 
-	 * @return The value of battleOver.
-	 */
-	public boolean getBattleOver() {
-		return battleOver;
-	}
-
-	/*
-	 * Sets the value of battleOver.
-	 * 
-	 * @param battleOver Whether the battle is over or not.
-	 */
-	public void setBattleOver(boolean battleOver) {
-		this.battleOver = battleOver;
-	}
-
-	/*
-	 * Gets whether or not the player won the battle.
-	 * If the player won, will return true, else false.
-	 * 
-	 * @return The value of playerWon
-	 */
-	public boolean getPlayerWon() {
-		return playerWon;
-	}
-
-	/*
-	 * Sets the value of playerWon.
-	 * 
-	 * @param playerWon Whether the player won or not.
-	 */
-	public void setPlayerWon(boolean playerWon) {
-		this.playerWon = playerWon;
-	}
-
-	/*
-	 * Gets the gold gained from the battle.
-	 * 
-	 * @return battleGold The amount of gold.
-	 */
-	public int getBattleGold() {
-		return battleGold;
-	}
-
-	/*
-	 * Sets the gold gained from the battle. This is dependent on
-	 * difficulty settings, and damage dealt during the battle.
-	 * 
-	 * @param battleGold The amount of gold given from the battle.
-	 */
-	public void setBattleGold(int battleGold) {
-		this.battleGold = battleGold;
-	}
-
-	/*
-	 * Gets the amount of experience points gained
-	 * from the battle. 1 gained per enemy monster defeated.
-	 * 
-	 * @return experiencePoints Returns the number of experience points gained total over the battle.
-	 */
-	public int getExperiencePoints() {
-		return experiencePoints;
-	}
-
-	/*
-	 * Sets the amount of experience points gained
-	 * from the battle.
-	 * 
-	 * @param experiencePoints The number of experience points.
-	 */
-	public void setExperiencePoints(int experiencePoints) {
-		this.experiencePoints = experiencePoints;
-	}
-
-
-	public String getBattleUpdate() {
-		return battleUpdate;
-	}
-
-	public void setBattleUpdate(String battleUpdate) {
-		this.battleUpdate = battleUpdate;
-	}
-
-	/*
-	 * Gets the last player attack update.
-	 * 
-	 * @return lastUpdate Returns the value of last update.
-	 */
-	public String getLastUpdate() {
-		return lastUpdate;
-	}
-
-	/*
-	 * Sets the last player attack update.
-	 * 
-	 * @param lastUpdate The current value of lastUpdate.
-	 */
-	public void setLastUpdate(String lastUpdate) {
-		this.lastUpdate = lastUpdate;
-
-	}
-
-	public Enemy getEnemy() {
-		return enemy;
-	}
-
-	public void setEnemy(Enemy enemy) {
-		this.enemy = enemy;
-	}
 	
-	public Player getPlayer()
-	{
-		return this.player;
-	}
-
-	public int getCurrentDay() {
-		return currentDay;
-	}
-
-	public void setCurrentDay(int currentDay) {
-		this.currentDay = currentDay;
-	}
-
-	public double getDifficutly() {
-		return difficutly;
-	}
-
-	public void setDifficutly(double difficutly) {
-		this.difficutly = difficutly;
-	}
-
 }

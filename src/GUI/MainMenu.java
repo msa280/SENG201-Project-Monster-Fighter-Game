@@ -26,11 +26,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
 
-/*
- * This class initializes the player home GUI which has the games
- * basic functionality such as opening the shop, the players inventory, etc.
- */
-public class PlayerHomeGUI 
 public class MainMenu 
 {
 	/*

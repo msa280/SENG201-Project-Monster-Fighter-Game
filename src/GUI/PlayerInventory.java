@@ -30,24 +30,14 @@ import java.awt.event.MouseEvent;
 
 
 
-
-public class PlayerInventory {
+public class PlayerInventory
+{
 
 	private JFrame inventoryViewer;
-	private String lastUpdate;
 	private Player player;
-	private AudioPlayer backgroundAudio = new AudioPlayer();
 	private AudioPlayer buttonAudio = new AudioPlayer();
 	private JTextField gold;;
 
-	
-	
-	public void setLastUpdate(String update)
-	{
-		this.lastUpdate = update;
-	}
-	
-	
 	
 	public void setHealthBar(Monster monster, JProgressBar progressbar) 
 	{

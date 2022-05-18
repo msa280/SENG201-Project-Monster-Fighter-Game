@@ -1,7 +1,5 @@
 package monsters;
 
-import java.awt.Component;
-
 import game.AudioPlayer;
 
 public class Monster {

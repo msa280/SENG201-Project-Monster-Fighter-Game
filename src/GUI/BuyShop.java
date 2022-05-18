@@ -5,9 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextPane;
 
 import game.AudioPlayer;
-import game.Battle;
 import game.Player;
-import game.Shop;
 import items.Item;
 import monsters.Monster;
 
@@ -42,10 +40,6 @@ public class BuyShop
 	 * The player.
 	 */
 	private Player player;
-	/*
-	 * The background audio.
-	 */
-	private AudioPlayer backgroundAudio = new AudioPlayer();
 	/*
 	 * The button audio.
 	 */
@@ -203,21 +197,6 @@ public class BuyShop
 		goldDisplay.setText("Available Gold: " + Integer.toString(this.player.getPlayerGold()));
 	}
 	
-	/*
-	 *  CHECK!! Is this a test?? Should I delete?
-	 */
-	public static void main(String[] args)
-	{
-		Player player = new Player();
-
-		Battle battle = new Battle();
-		player.setBattle(battle);
-
-		player.setPlayerGold(5000);
-		
-		BuyShop newSection = new BuyShop(player);
-
-	}
 
 	/*
 	 * Initializes the contents of the frame.

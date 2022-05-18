@@ -3,10 +3,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 import game.AudioPlayer;
-import game.Battle;
 import game.Game;
 import game.Player;
-import game.Shop;
 import monsters.Venomhound;
 
 import javax.swing.JButton;
@@ -21,7 +19,6 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.border.MatteBorder;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 

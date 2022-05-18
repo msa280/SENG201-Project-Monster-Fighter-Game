@@ -26,8 +26,6 @@ import javax.swing.JProgressBar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.MatteBorder;
-import javax.swing.JList;
-import javax.swing.JComboBox;
 import java.awt.Choice;
 
 public class PlayerTeam {

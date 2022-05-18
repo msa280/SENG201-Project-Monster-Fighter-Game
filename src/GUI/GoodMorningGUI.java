@@ -14,7 +14,6 @@ import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;

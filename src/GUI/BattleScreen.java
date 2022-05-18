@@ -1,6 +1,5 @@
 package GUI;
 import java.awt.EventQueue;
-import java.awt.Graphics;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -21,13 +20,10 @@ import monsters.Venomhound;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
-import javax.swing.JScrollBar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

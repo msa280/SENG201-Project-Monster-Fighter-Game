@@ -12,10 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 
 import game.AudioPlayer;
-import game.Battle;
 import game.Game;
 import game.Player;
-import game.Shop;
 import monsters.Cavernfreak;
 import monsters.Hollowtree;
 import monsters.Monster;
@@ -24,17 +22,7 @@ import monsters.Soilscreamer;
 import monsters.Venomhound;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DropMode;
 import javax.swing.JRadioButton;
 import java.awt.Choice;

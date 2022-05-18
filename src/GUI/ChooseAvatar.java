@@ -30,7 +30,8 @@ import java.awt.event.MouseEvent;
 /*
  * This class allows the player to choose what avatar they would like to use as their image.
  */
-public class ChooseAvatar {
+public class ChooseAvatar 
+{
 	
 	/*
 	 * The choose avatar GUI frame.
@@ -53,12 +54,6 @@ public class ChooseAvatar {
 	 * All of the avatars.
 	 */
 	private String[] allAvatars = new String[10];
-
-	
-	/*
-	 * The background music.
-	 */
-	private AudioPlayer backgroundMusic = new AudioPlayer();
 	/*
 	 * The button sound.
 	 */
@@ -142,14 +137,6 @@ public class ChooseAvatar {
 	}
 	
 	
-
-	/*
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		Player player = new Player();
-
-	}
 	
 
 	/*

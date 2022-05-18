@@ -12,11 +12,25 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JPanel;
 
+/*
+ * Deals with sleep and wishes the player good morning.
+ */
 public class GoodMorningGUI {
-
+	
+	/*
+	 * The frame the GUI is displayed on.
+	 */
 	private JFrame frmGoodMorning;
+	/*
+	 * The player.
+	 */
 	private Player player;
 	
+	/*
+	 * The morning message that is shown after the player has slept.
+	 * 
+	 * @param The morning message.
+	 */
 	public String morningMessage()
 	{
 		String line1 = "Good Morning %s!\n".formatted(this.player);
@@ -26,7 +40,11 @@ public class GoodMorningGUI {
 		return (line1 + line2 + line3 + line4);
 	}
 	
-	
+	/*
+	 * Launches the good morning GUI.
+	 * 
+	 * @param player The player.
+	 */
 	public static void launchGoodMorning(Player player)
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -41,24 +59,25 @@ public class GoodMorningGUI {
 		});
 	}
 	
-
-	/**
+	/*
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		
 	}
 
-	/**
-	 * Create the application.
+	/*
+	 * The good morning GUI.
+	 * 
+	 * @param player The player.
 	 */
 	public GoodMorningGUI(Player player) {
 		this.player = player;
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * Initializes the contents of the frame.
 	 */
 	private void initialize() {
 		frmGoodMorning = new JFrame();

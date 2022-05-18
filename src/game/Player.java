@@ -61,6 +61,11 @@ public class Player {
 	 */
 	private boolean readyForBattle;
 	
+	private int xpPoints;
+	
+	private int totalGoldGained;
+	
+	
 	/*
 	 * The players selected avatar.
 	 */
@@ -331,21 +336,24 @@ public class Player {
 	public void initialize(Game game)
 	{
 		this.setGame(game);
-		
-		Shop shop = new Shop();
-		Battle battle = new Battle();
-		
-		shop.initializeShop();
-		battle.generateBattles();
-		
-		this.shop = shop;
-		this.battle = battle;
-		
-		int startingGold = (int)(1000 * this.game.getGameDifficulty());
+		int startingGold = (int)(4000 - this.game.getGameDifficulty() * 1000);
 		this.playerGold = startingGold;
+		this.totalGoldGained += startingGold;
 		this.currentDay = 1;
 		this.setDaysRemaining();
 		this.playersTeam.add(this.game.getSelectedMonster());
+		
+		Battle battle = new Battle();
+		battle.setDifficutly(this.getPlayerDifficulty());
+		battle.setCurrentDay(this.currentDay);
+		battle.generateBattles();
+		this.battle = battle;
+		
+		Shop shop = new Shop();
+		shop.setDay(this.currentDay);
+		shop.initializeShop();
+		this.shop = shop;
+		
 	}
 	
 	/*
@@ -543,12 +551,32 @@ public class Player {
 			}
 			
 			// update items and monsters in shop
+			this.shop.setDay(this.currentDay);
 			this.shop.randomGenerateItems();
 			this.shop.randomGenerateMonsters();
 			
 			// update all battles
 			this.battle.generateBattles();	
 		}
+	}
+
+
+	public void setXpPoints(int xpPoints) {
+		this.xpPoints = xpPoints;
+	}
+
+	public int getXpPoints()
+	{
+		return this.xpPoints;
+	}
+
+
+	public void setTotalGoldGained(int totalGoldGained) {
+		this.totalGoldGained = totalGoldGained;
+	}
+
+	public int getTotalGoldGained() {
+		return this.totalGoldGained;
 	}
 }
 

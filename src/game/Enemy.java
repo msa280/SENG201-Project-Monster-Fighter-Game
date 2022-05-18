@@ -36,6 +36,16 @@ public class Enemy {
 	 */
 	private String allEnemyNames[] = {"Angela", "Arnold", "Cameron", "Haider", "Haru", "MonsterKing", "Saima", "Sarah", "Zack", "Jonathan"};
 	
+
+	private double difficulty;
+	
+	
+	public void setDifficulty(double difficutly)
+	{
+		this.difficulty = difficutly;
+	}
+	
+	
 	
 	/*
 	 * Sets the value of haveFought.
@@ -219,7 +229,26 @@ public class Enemy {
 		
 		Random randomSize = new Random();
 		int upperbound = 2;
-		int teamSize = 2 + randomSize.nextInt(upperbound); // getting a random size of team between 2 and 4.
+		
+		double difficulty = this.difficulty;
+		int teamSize;
+		
+		// Enemy team member amount is optionally developed using the difficulty setting used
+		
+		if (difficulty < 1.5)
+		{
+			teamSize = 2; // getting a size of team with only 2 members for easy and casual difficulties
+		}
+		else if (difficulty >= 1.5 && difficulty <= 2.0)
+		{
+			teamSize = 3 + randomSize.nextInt(upperbound); // getting a random teamsize between 3 and 4 monster for normal and hard difficulties   
+		}
+		else
+		{
+			teamSize = 4; // if difficulty is boss, all enemies will have 4 monsters to fight with for the whole game
+		}
+		
+		 
 		
 		while (generationComplete == false)
 		{
@@ -248,4 +277,5 @@ public class Enemy {
 			}
 		}
 	}
+
 }

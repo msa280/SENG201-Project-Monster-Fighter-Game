@@ -15,7 +15,7 @@ public class AudioPlayer {
 	/*
 	 * A small clip of an audio track.
 	 */
-	static Clip clip;
+	Clip clip;
 	
 	/*
 	 * Plays a looped sound clip.

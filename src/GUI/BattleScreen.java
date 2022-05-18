@@ -83,7 +83,8 @@ public class BattleScreen {
 	public void leaveArena()
 	{
 		this.frame.dispose();
-		ChooseBattleGUI.launchChooseBattle(this.player);
+		ChooseBattle.launchChooseBattle(this.player);
+		BattleOverScreen.launchBattleStats(this.battle);
 	}
 	
 	
@@ -127,10 +128,13 @@ public class BattleScreen {
 	 * Create the application.
 	 */
 	public BattleScreen(Player player, Enemy enemy, String update) {
+
 		this.player = player;
+		
 		this.enemy = enemy;
 		this.lastUpdate = update;
 		this.battle = this.player.getBattle();
+		
 		initialize();
 	}
 
@@ -288,10 +292,6 @@ public class BattleScreen {
 		{
 			if (monster.isFaint() == false)
 			{
-				if (monster.getCurrentHealth() == monster.getMaxHealth())
-				{
-					this.updateArea.setText("You: Go %s!\n".formatted(monster.pickMonsterName()));
-				}
 				this.playerCurrentMonster = monster;
 				playerMonster.setIcon(new ImageIcon(monster.getMonsterImage()));
 				playerMonsterName.setText(monster.pickMonsterName());
@@ -325,9 +325,13 @@ public class BattleScreen {
 		
 		if (this.enemy.canFight() == false)
 	    {
+			this.battle.setPlayerWon(true);
 			this.enemy.setAlreadyFought(true);
-			this.lastUpdate += "\nAll enemy monsters have fainted!\nBattle Over!";
-			this.updateArea.setText(this.lastUpdate);
+			lastUpdate += "\nAll enemy monsters have fainted!\nBattle Over!";
+			updateArea.setText(lastUpdate);
+			this.player.setTotalGoldGained(this.player.getTotalGoldGained() + this.battle.getBattleGold());
+			this.player.setPlayerGold(this.player.getPlayerGold() + this.battle.getBattleGold());
+			this.player.setXpPoints(this.player.getXpPoints() + this.battle.getExperiencePoints());
 			attackButton.setVisible(false);
 			specialAttackButton.setVisible(false);
 			leaveArena.setVisible(true);
@@ -338,9 +342,10 @@ public class BattleScreen {
 		
 		if (this.player.canFight() == false)
 	    {
+			this.battle.setPlayerWon(false);
 			this.enemy.setAlreadyFought(true);
-			this.lastUpdate += "\nAll your monsters have fainted!\nBattle Over!";
-			this.updateArea.setText(this.lastUpdate);
+			lastUpdate += "\nAll your monsters have fainted!\nBattle Over!";
+			updateArea.setText(lastUpdate);
 			attackButton.setVisible(false);
 			specialAttackButton.setVisible(false);
 			leaveArena.setVisible(true);

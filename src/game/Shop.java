@@ -11,8 +11,14 @@ import items.VirilityGem;
 import monsters.Monster;
 import monsters.Cavernfreak;
 import monsters.Hollowtree;
+import monsters.Magmataur;
+import monsters.Manicboy;
 import monsters.Mornpest;
+import monsters.Shapeshifter;
+import monsters.Skulldiablo;
+import monsters.Sleepdemon;
 import monsters.Soilscreamer;
+import monsters.Spineeater;
 import monsters.Venomhound;
 
 
@@ -35,11 +41,22 @@ public class Shop
 	/*
 	 * A list containing all of the monsters in the game.
 	 */
-	private Monster allMonsters[] = new Monster[5];
+	private Monster allMonsters[] = new Monster[11];
 	/*
 	 * A list containing all of the items in the game.
 	 */
 	private Item allItems[] = new Item[5];
+	
+	
+	private int currentDay;
+	
+	
+	public void setDay(int currentDay)
+	{
+		this.currentDay = currentDay;
+	}
+	
+
 
 	/*
 	 * Gets all of the monsters that are for sale by the shop.
@@ -115,8 +132,26 @@ public class Shop
 		while (generationComplete == false)
 		{
 			Random randNum = new Random();
-			int upperbound = 5;
-			int position = randNum.nextInt(upperbound);
+
+            // rarity system used, Rarer monsters becoming more common (or being unlocked) in later days
+			int position;
+			if (this.currentDay < 5)
+			{
+				position = randNum.nextInt(5); // produces number from 0 to 4   (First 5 monsters unlocked)
+			}
+			else if (this.currentDay >= 6 && this.currentDay <= 8)
+			{
+				position = randNum.nextInt(7); // First 7 monster unlocked
+			}
+			else if (this.currentDay >= 9 && this.currentDay < 12)
+			{
+				position = randNum.nextInt(9); // First 9 monster unlocked
+			}
+			else
+			{
+				position = randNum.nextInt(11); // All monsters unlocked on day 12
+			} 
+			
 			
 			if (this.getMonstersForSale().size() >= 5)
 			{
@@ -190,7 +225,14 @@ public class Shop
 		this.allMonsters[2] = new Mornpest();
 		this.allMonsters[3] = new Soilscreamer();
 		this.allMonsters[4] = new Venomhound();
+		this.allMonsters[5] = new Magmataur();
+		this.allMonsters[6] = new Manicboy();
+		this.allMonsters[7] = new Shapeshifter();
+		this.allMonsters[8] = new Skulldiablo();
+		this.allMonsters[9] = new Sleepdemon();
+		this.allMonsters[10] = new Spineeater();
 	}
+		
 	
 	
 	

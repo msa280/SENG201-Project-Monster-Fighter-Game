@@ -23,24 +23,49 @@ import javax.swing.border.MatteBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+<<<<<<< Updated upstream:src/GUI/BuyShop.java
 
 
 
 
 
 public class BuyShop 
+=======
+/*
+ * This class allows the player to view the buy section and to purchase
+ * monsters and items from it.
+ */
+public class ViewBuySection 
+>>>>>>> Stashed changes:src/GUI/ViewBuySection.java
 {
 
+	/*
+	 * The buy section frame.
+	 */
 	private JFrame frmBuySection;
+	/*
+	 * The amount of gold that the player has left.
+	 */
 	private JTextField goldLeft;
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/*
+	 * The background audio.
+	 */
 	private AudioPlayer backgroundAudio = new AudioPlayer();
+	/*
+	 * The button audio.
+	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
 	
 	
 	
-	/**
-	 * Create the application.
+	/*
+	 * Views the buy section.
+	 * 
+	 * @param player The player.
 	 */
 	public BuyShop(Player player) 
 	{
@@ -48,9 +73,19 @@ public class BuyShop
 		initialize();
 	}
 
+<<<<<<< Updated upstream:src/GUI/BuyShop.java
 	
 	
 	public static void launchBuySection(Player player)
+=======
+	/*
+	 * Launches the buy section.
+	 * 
+	 * @param player The player.
+	 * @param buySection The buy section frame.
+	 */
+	public static void launchBuySection(Player player, ViewBuySection buySection)
+>>>>>>> Stashed changes:src/GUI/ViewBuySection.java
 	{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -64,11 +99,12 @@ public class BuyShop
 		});
 	}
 
-	
-	
-
-	
-	
+	/*
+	 * Views the effect of the chosen item.
+	 * 
+	 * @param buttonIndex The index of the button the player chose.
+	 * @param updateArea Updates the text on the text pane.
+	 */
 	public void viewEffect(int buttonIndex, JTextPane updateArea)
 	{
 		String update = this.player.getShop().getItemsForSale().get(buttonIndex-1).getItemEffect();
@@ -76,14 +112,21 @@ public class BuyShop
 		updateArea.setText(update);
 	}
 	
-	
+	/*
+	 * Allows the player to go back a screen to the main menu.
+	 */
 	public void goBack()
 	{
 		this.frmBuySection.dispose();
 		MainMenu.launchMainMenu(this.player);
 	}
 	
-	
+	/*
+	 * Launches the monster stat screen.
+	 * 
+	 * @param buttonIndex The index of the button the player chose.
+	 * @param errorField Updates the text on the text pane.
+	 */
 	public void viewMonsterStat(int buttonIndex, JTextPane errorField)
 	{
 		Monster monster = this.player.getShop().getMonstersForSale().get(buttonIndex-1);
@@ -92,8 +135,13 @@ public class BuyShop
 		MonsterStat.launchMonsterStatScreen(monster);
 	}
 	
-	
-	
+	/*
+	 * Purchases a monster.
+	 * 
+	 * @param buttonIndex The index of the button the player chose.
+	 * @param updateArea The text panel that will update the player on the outcome of their action.
+	 * @param goldDisplay Displays the players gold.
+	 */
 	public void buyMonster(int buttonIndex, JTextPane updateArea, JTextField goldDisplay)
 	{
 		int i = 1;
@@ -126,9 +174,14 @@ public class BuyShop
 		goldDisplay.setText("Available Gold: " + Integer.toString(this.player.getPlayerGold()));
 	}
 	
-
-	
-	
+	/*
+	 * Purchases an item.
+	 * 
+	 * @param buttonIndex The index of the button the player chose.
+	 * @param updateArea The text panel that will update the player on the outcome of their action.
+	 * @param goldDisplay Displays the players gold.
+	 * 
+	 */
 	public void buyItem(int buttonIndex, JTextPane updateArea, JTextField goldDisplay)
 	{
 		int i = 1;
@@ -156,15 +209,8 @@ public class BuyShop
 		goldDisplay.setText("Available Gold: " + Integer.toString(this.player.getPlayerGold()));
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 *  Used for testing purposes only!
+	/*
+	 *  CHECK!! Is this a test?? Should I delete?
 	 */
 	public static void main(String[] args)
 	{
@@ -179,13 +225,8 @@ public class BuyShop
 
 	}
 
-	
-	
-
-	
-	
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * Initializes the contents of the frame.
 	 */
 	private void initialize()
 	{

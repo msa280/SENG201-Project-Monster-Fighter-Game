@@ -191,19 +191,15 @@ public class MainMenu
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 	}
 	
-	
+	/*
+	 * Ends the game by launching the game over screen.
+	 */
 	public void gameOver()
 	{
 		this.frmMainMenu.dispose();
 		this.backgroundAudio.stopSound();
 		GameOver.launchGameOver(this.player);
-		
-		
 	}
-	
-	
-
-	
 	
 	/*
 	 * Initializes the contents of the frame.

@@ -62,8 +62,9 @@ public class BattleScreen {
 	 * form of a string.
 	 */
 	private String lastUpdate = "";
-	
-	
+	/*
+	 * The button audio.
+	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
 	
 	

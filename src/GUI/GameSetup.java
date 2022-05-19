@@ -36,8 +36,14 @@ import javax.swing.border.MatteBorder;
  */
 public class GameSetup {
 	
-
+	/*
+	 * The game setup frame.
+	 */
 	private JFrame frmGameSetup;
+	/*
+	 * A text pane that shows if the name that was input
+	 * is invalid.
+	 */
 	private JTextPane printNameError;
 	/*
 	 * An instance of the Game class.
@@ -51,13 +57,10 @@ public class GameSetup {
 	 * An instance of the AudioPlayer class.
 	 */
 	private AudioPlayer buttonSound = new AudioPlayer();
-
-	
+	/*
+	 * The player.
+	 */
 	private Player player;
-	
-	
-	
-	
 	
 	
 	/*
@@ -87,10 +90,6 @@ public class GameSetup {
 			selectedButton.setText("Select");
 		}	
 	}
-	
-	
-	
-	
 	
 	/*
 	 * Checks whether the name passed the error check or not. If it did, name is accepted,
@@ -156,30 +155,11 @@ public class GameSetup {
 		MainMenu.launchMainMenu(this.player);
 	}
 	
-	
-	
-	
-	
-	/*
-	 * Starts the game.
-	 */
-	public void startGame()
-	{
-		
-	
-		
-	} 
-	
-	
-	
-	
-	
-
-	
 	/*
 	 * Launches the game setup screen.
 	 * 
-	 * @param window The setup window.
+	 * @param player The player.
+	 * @param game The current instance of Game.
 	 */
 	public static void launchSetupMenu(Player player, Game game) 
 	{
@@ -196,10 +176,11 @@ public class GameSetup {
 	}
 	
 	
-	
-
 	/*
 	 * Creates the game setup screen.
+	 * 
+	 * @param player The player.
+	 * @param game The current instance of Game.
 	 */
 	public GameSetup(Player player, Game game) {
 		this.player = player;

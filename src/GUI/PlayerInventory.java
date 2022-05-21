@@ -717,7 +717,7 @@ public class PlayerInventory
 			labelList[i].setIcon(new ImageIcon(myItem.getItemImage()));
 			paneList[i].setText(myItem.getItemName());
 			quantities[i].setText("Quantity: " + Integer.toString(amount));
-			sellButtons[i].setText("Sell (+%d Gold)".formatted(myItem.getResalePrice()));
+			sellButtons[i].setText("Sell (+%d Gold)".formatted(myItem.getResellPrice()));
 			i += 1;
 		}
 		

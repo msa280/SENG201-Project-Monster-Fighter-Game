@@ -3,13 +3,24 @@ package items;
 import monsters.Monster;
 import java.util.Random;
 
+/*
+ * Creates an item in the game.
+ */
 public class CursedSkull extends Item{
 
+	/*
+	 * Creates the item and specifies what it does.
+	 */
 	public CursedSkull() 
 	{
 		super("Cursed Skull", "May increase or decrease a monsters max health by 30.", 300);
 	}
 	
+	/*
+	 * Uses the item.
+	 * 
+	 * @param monster The monster to use the item on.
+	 */
 	public void useCursedSkull(Monster monster)
 	{
 		Random randNum = new Random();

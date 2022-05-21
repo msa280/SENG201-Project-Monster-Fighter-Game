@@ -29,49 +29,68 @@ import javax.swing.border.MatteBorder;
 import java.awt.Choice;
 
 public class PlayerTeam {
-
+	/*
+	 * The team viewer frame.
+	 */
 	private JFrame teamViewer;
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/*
+	 * The button audio.
+	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
+	/*
+	 * The player update text pane.
+	 */
 	JTextPane update = new JTextPane();
+	/*
+	 * The players gold.
+	 */
 	private JTextField gold;
 
-
-
-	
-	public void setHealthBar(Monster monster, JProgressBar progressbar)
+	/*
+	 * Sets the monsters health bar.
+	 * 
+	 * @param monster The monster.
+	 * @param progressBar The health bar of the monster.
+	 */
+	public void setHealthBar(Monster monster, JProgressBar progressBar)
 	{
-		progressbar.setMinimum(0);
-		progressbar.setMaximum(monster.getMaxHealth());
-		progressbar.setValue(monster.getCurrentHealth());
+		progressBar.setMinimum(0);
+		progressBar.setMaximum(monster.getMaxHealth());
+		progressBar.setValue(monster.getCurrentHealth());
 		
-		int health = progressbar.getValue();
+		int health = progressBar.getValue();
 		
 		if (health >= 75)
 		{
-			progressbar.setForeground(Color.GREEN);
+			progressBar.setForeground(Color.GREEN);
 		} 
 		else if (health >= 50 && health < 75)
 		{
-			progressbar.setForeground(Color.ORANGE);
+			progressBar.setForeground(Color.ORANGE);
 		}
 		else if (health >= 25 && health < 50)
 		{
-			progressbar.setForeground(Color.YELLOW);
+			progressBar.setForeground(Color.YELLOW);
 		}
 		else if (health < 25 && health > 1) 
 		{
-			progressbar.setForeground(Color.RED);
+			progressBar.setForeground(Color.RED);
 		}
 		else
 		{
-			progressbar.setBackground(Color.RED);
+			progressBar.setBackground(Color.RED);
 		}
 	}
 	
-	
-	
-
+	/*
+	 * Views the monsters statistics.
+	 * 
+	 * @param buttonIndex The index for the chosen button.
+	 */
 	public void viewMonsterStat(int buttonIndex)
 	{
 		Monster monster = this.player.getPlayerMonsters().get(buttonIndex-1);
@@ -79,7 +98,12 @@ public class PlayerTeam {
 		MonsterStat.launchMonsterStatScreen(monster);
 	}
 	
-	
+	/*
+	 * Renames a monster.
+	 * 
+	 * @param chosenMonsterName The current name of the monster that the player wants to rename.
+	 * @param newName The new name.
+	 */
 	public void renameMonster(String chosenMonsterName, String newName)
 	{
 		if (newName.length() == 0)
@@ -115,9 +139,12 @@ public class PlayerTeam {
 		}
 	}
 	
-	
-	
-	
+	/*
+	 * Sells a monster.
+	 * 
+	 * @param buttonIndex The index of the chosen button.
+	 * @param updateArea A text panel that updates the player.
+	 */
 	public void sellMonster(int buttonIndex, JTextPane updateArea)
 	{
 		buttonAudio.playSoundOnce("purchaseSound.wav");
@@ -137,12 +164,11 @@ public class PlayerTeam {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
+	/*
+	 * Launches the team viewer.
+	 * 
+	 * @param player The player.
+	 */
 	public static void launchTeamViewer(Player player)
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -157,8 +183,9 @@ public class PlayerTeam {
 		});
 	}
 	
-	
-	
+	/*
+	 * Goes back to the main menu.
+	 */
 	public void goBack()
 	{
 		buttonAudio.playSoundOnce("buttonA.wav");
@@ -167,9 +194,7 @@ public class PlayerTeam {
 		MainMenu.launchMainMenu(this.player);
 	}
 	
-	
-
-	/**
+	/*
 	 * Launch the application.
 	 */
 	public static void main(String[] args)
@@ -180,14 +205,14 @@ public class PlayerTeam {
 		PlayerTeam.launchTeamViewer(player);
 	}
 
-	
-	
-	/**
-	 * Create the application.
+	/*
+	 * Creates the player team GUI.
+	 * 
+	 * @param player The player
 	 */
-	public PlayerTeam(Player fighter) 
+	public PlayerTeam(Player player) 
 	{
-		this.player = fighter;
+		this.player = player;
 		initialize();
 	}
 

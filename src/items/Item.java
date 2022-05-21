@@ -4,13 +4,31 @@ import java.util.Random;
 
 import monsters.Monster;
 
+/*
+ * Creates the items in the game and sets their effects and various attributes.
+ */
 public class Item {
-	
+
+	/*
+	 * The name of the item.
+	 */
 	private String itemName;
+	/*
+	 * The effect of the item.
+	 */
 	private String itemEffect;
+	/*
+	 * The price of the item.
+	 */
 	private int price;
 	
-
+	/*
+	 * Creates an item.
+	 * 
+	 * @param itemName The name of the item.
+	 * @param itemEffect The effect of the item.
+	 * @param price The price of the item.
+	 */
 	public Item(String itemName, String itemEffect, int price)
 	{
 		this.setItemName(itemName);
@@ -19,43 +37,76 @@ public class Item {
 		
 	}
 
-
+	/*
+	 * Gets the item name.
+	 * 
+	 * @return Returns the item name.
+	 */
 	public String getItemName() {
 		return itemName;
 	}
 
-
+	/*
+	 * Sets the item name.
+	 * 
+	 * @param itenName The item name.
+	 */
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-
-
+	
+	
+	/*
+	 * Gets the items effect.
+	 * 
+	 * @return Returns the items effect.
+	 */
 	public String getItemEffect() {
 		return itemEffect;
 	}
 
-
+	/*
+	 * Sets the items effect.
+	 * 
+	 * @param itemEffect The items effect.
+	 */
 	public void setItemEffect(String itemEffect) {
 		this.itemEffect = itemEffect;
 	}
 
-
+	/*
+	 * Gets the price of the item.
+	 * 
+	 * @return Returns the price.
+	 */
 	public int getPrice() {
 		return price;
 	}
 
-
+	/*
+	 * Sets the price of the item.
+	 * 
+	 * @param price The price.
+	 */
 	public void setPrice(int price) {
 		this.price = price;
 	}
 	
-	public int getResalePrice()
+	/*
+	 * Gets the resell price.
+	 * 
+	 * @return Returns the resell price.
+	 */
+	public int getResellPrice()
 	{
 		return this.price - 20;
 	}
 	
-	
-	
+	/*
+	 * Gets the image of the item.
+	 * 
+	 * @return Returns the image (the URL of it to be precise).
+	 */
 	public String getItemImage()
 	{
 		String itemImage;
@@ -81,9 +132,12 @@ public class Item {
 		return itemImage;
 	}
 	
-	
-	
-
+	/*
+	 * Uses the item.
+	 * 
+	 * @param item The item.
+	 * @param monster The monster the item is being used on.
+	 */
 	public void useItem(Item item, Monster monster)
 	{
 		String item_name = item.getItemName();

@@ -154,7 +154,7 @@ public class PlayerTeam {
 			if (i == buttonIndex)
 			{
 				this.player.sellMonster(monster);
-				this.player.setLastUpdate( "Monster sold!\n%s has been removed from the team.\n%d Gold has been given to you.\n".formatted(monster.pickMonsterName(), monster.getResalePrice()));
+				this.player.setLastUpdate( "Monster sold!\n%s has been removed from the team.\n%d Gold has been given to you.\n".formatted(monster.pickMonsterName(), monster.getResellPrice()));
 				this.teamViewer.dispose();
 				PlayerTeam.launchTeamViewer(this.player);
 				break;
@@ -799,7 +799,7 @@ public class PlayerTeam {
 			Monster monster = this.player.getPlayerMonsters().get(i);
 			labelList[i].setIcon(new ImageIcon(monster.getMonsterImage()));
 			paneList[i].setText(monster.pickMonsterName());
-			prices[i].setText("Resale Price (Gold: %d)".formatted(monster.getResalePrice()));
+			prices[i].setText("Resale Price (Gold: %d)".formatted(monster.getResellPrice()));
 			setHealthBar(monster, barList[i]);
 			i += 1;
 		}

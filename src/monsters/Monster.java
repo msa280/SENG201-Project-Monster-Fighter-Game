@@ -150,7 +150,7 @@ public class Monster {
 	
 	
 	
-	public int getResalePrice()
+	public int getResellPrice()
 	{
 		return this.price - 100;
 	}

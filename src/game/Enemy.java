@@ -112,6 +112,7 @@ public class Enemy
 		this.alreadyFought = alreadyFought;
 	}
 	
+	
 	/*
 	 * Gets whether or not the enemy has already been fought. If they have,
 	 * returns true, else false.
@@ -195,22 +196,7 @@ public class Enemy
 		return imageLink;
 	}
 	
-	/*
-	 * Checks if the enemy has any monsters alive in their team. 
-	 * 
-	 * @return Returns true if the enemy has any monsters alive, false otherwise.
-	 */
-	public boolean checkAnyMonsterAlive()
-	{
-		for (Monster monster: this.enemyTeam)
-		{
-			if (monster.isFaint() == false)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+
 	
 	/*
 	 * Generates the enemy monsters used to create their teams.

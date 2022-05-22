@@ -72,7 +72,6 @@ public class MainMenu
 		this.player = player;
 		this.player.getBattle().setPlayer(this.player);
 		initialize();
-		this.backgroundAudio.playSoundLoop("MainMenu.wav");
 	}
 	
 	/*
@@ -142,7 +141,6 @@ public class MainMenu
 	 */
 	public void openTeamViewer()
 	{
-		this.backgroundAudio.stopSound();
 		this.frmMainMenu.dispose();
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 		PlayerTeam.launchTeamViewer(this.player);
@@ -153,7 +151,6 @@ public class MainMenu
 	 */
 	public void openInventoryViewer()
 	{
-		this.backgroundAudio.stopSound();
 		this.frmMainMenu.dispose();
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 		PlayerInventory.launchInventoryViewer(this.player);
@@ -164,7 +161,6 @@ public class MainMenu
 	 */
 	public void openShop()
 	{
-		this.backgroundAudio.stopSound();
 		this.frmMainMenu.dispose();
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 		BuyShop.launchBuySection(player);
@@ -175,7 +171,6 @@ public class MainMenu
 	 */
 	public void openBattles()
 	{
-		this.backgroundAudio.stopSound();
 		this.frmMainMenu.dispose();
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 		ChooseBattle.launchChooseBattle(this.player);
@@ -186,7 +181,6 @@ public class MainMenu
 	 */
 	public void quitGame()
 	{
-		this.backgroundAudio.stopSound();
 		this.frmMainMenu.dispose();
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 	}
@@ -197,7 +191,6 @@ public class MainMenu
 	public void gameOver()
 	{
 		this.frmMainMenu.dispose();
-		this.backgroundAudio.stopSound();
 		GameOver.launchGameOver(this.player);
 	}
 	
@@ -366,7 +359,6 @@ public class MainMenu
 		sleepButton.setBackground(Color.CYAN);
 		sleepButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sleepTimer();
 				sleep();	
 			}
 		});

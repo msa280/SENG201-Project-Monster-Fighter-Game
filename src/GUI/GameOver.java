@@ -36,16 +36,23 @@ public class GameOver {
 	 * The button audio.
 	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
+
+	/** private AudioPlayer background = new AudioPlayer(); */
+	
 	/*
 	 * The backgroundAudio audio.
 	 */
 	private AudioPlayer backgroundAudio = new AudioPlayer();
+
 	
 	/*
 	 * Exits the game.
 	 */
 	public void quitGame()
 	{
+
+		/** this.background.stopSound(); */
+
 		this.backgroundAudio.stopSound();
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 		this.frmGameOver.dispose();
@@ -87,7 +94,11 @@ public class GameOver {
 		this.player = player;
 		initialize();
 		this.buttonAudio.playSoundOnce("GameOver.wav");
+
+		/** this.background.playSoundLoop("credits.wav"); */
+
 		this.backgroundAudio.playSoundLoop("credits.wav");
+
 	}
 
 	/*
@@ -129,7 +140,8 @@ public class GameOver {
 		
 		JButton btnNewButton = new JButton("Exit Game");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				quitGame();
 			}
 		});

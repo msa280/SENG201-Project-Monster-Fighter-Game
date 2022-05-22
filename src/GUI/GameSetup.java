@@ -155,6 +155,23 @@ public class GameSetup {
 		MainMenu.launchMainMenu(this.player);
 	}
 	
+	
+
+	
+	
+	/*
+	 * Starts the game.
+	 */
+	public void startGame()
+	{
+		
+	
+		
+	} 
+	
+	
+	
+	
 	/*
 	 * Launches the game setup screen.
 	 * 

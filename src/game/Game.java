@@ -10,8 +10,6 @@ package game;
 import java.util.regex.Matcher; 
 import java.util.regex.Pattern;
 
-import javax.swing.JTextPane;
-
 import GUI.Intro;
 import monsters.Monster;
 
@@ -227,21 +225,25 @@ public class Game
 	 * 
 	 * @param difficulty The value of difficulty.
 	 */
-	public void setGameDifficulty(String difficulty)
+	public void chooseGameDifficulty(String difficulty)
 	{
 		if (difficulty == "Easy")
 		{
 			this.gameDifficulty = 0.5;
-		} else if (difficulty == "Normal")
+		} 
+		else if (difficulty == "Normal")
 		{
 			this.gameDifficulty = 1.0;
-		} else if (difficulty == "Classic") 
+		} 
+		else if (difficulty == "Classic") 
 		{
 			this.gameDifficulty = 1.5;
-		} else if (difficulty == "Hard") 
+		} 
+		else if (difficulty == "Hard") 
 		{
 			this.gameDifficulty = 2.0;
-		} else 
+		} 
+		else
 		{
 			this.gameDifficulty = 3.0;
 		}
@@ -261,26 +263,10 @@ public class Game
 		}
 	
 		this.gameLength = gameLength;
-		this.setGameDifficulty(difficulty);
+		this.chooseGameDifficulty(difficulty);
 		this.setSetupComplete(true);
 	}
 	
-	/*
-	 * Whether the name setup was successful or not.
-	 * 
-	 * @param enterName The players input for a name
-	 * 
-	 * @return Returns an error if the player had not selected a monster, else
-	 * returns an empty string.
-	 */
-	public String setupSuccessful(JTextPane enterName)
-	{
-		if (this.selectedMonster == null) {
-			return "Please select a monster.";
-		} else {
-			return "";
-		}
-	}
 	
 	/*
 	 * Displays the games basic settings.
@@ -297,6 +283,9 @@ public class Game
 		String display = line1 + line2 +line3 + line4 + line5;
 		return display;
 	}
+	
+	
+	
 	
 	/*
 	 * Starts the main game.

@@ -19,22 +19,48 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/*
+ * Ends the game.
+ */
 public class GameOver {
-
+	
+	/*
+	 * The game over frame.
+	 */
 	private JFrame frmGameOver;
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/*
+	 * The button audio.
+	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
+
 	/** private AudioPlayer background = new AudioPlayer(); */
 	
+	/*
+	 * The backgroundAudio audio.
+	 */
+	private AudioPlayer backgroundAudio = new AudioPlayer();
+
 	
+	/*
+	 * Exits the game.
+	 */
 	public void quitGame()
 	{
+
 		/** this.background.stopSound(); */
+
+		this.backgroundAudio.stopSound();
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 		this.frmGameOver.dispose();
 	}
 	
-	
+	/*
+	 * Launches the game over GUI.
+	 */
 	public static void launchGameOver(Player player)
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -50,7 +76,7 @@ public class GameOver {
 	}
 	
 
-	/**
+	/*
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -59,17 +85,23 @@ public class GameOver {
 		
 	}
 
-	/**
-	 * Create the application.
+	/*
+	 * Creates the game over GUI.
+	 * 
+	 * @param player The player.
 	 */
 	public GameOver(Player player) {
 		this.player = player;
 		initialize();
 		this.buttonAudio.playSoundOnce("GameOver.wav");
+
 		/** this.background.playSoundLoop("credits.wav"); */
+
+		this.backgroundAudio.playSoundLoop("credits.wav");
+
 	}
 
-	/**
+	/*
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize()

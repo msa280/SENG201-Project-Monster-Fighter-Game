@@ -62,8 +62,9 @@ public class BattleScreen {
 	 * form of a string.
 	 */
 	private String lastUpdate = "";
-	
-	
+	/*
+	 * The button audio.
+	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
 	
 	
@@ -418,7 +419,7 @@ public class BattleScreen {
 			updateArea.setText(lastUpdate);
 			this.player.setTotalGoldGained(this.player.getTotalGoldGained() + this.battle.getBattleGold());
 			this.player.setPlayerGold(this.player.getPlayerGold() + this.battle.getBattleGold());
-			this.player.setXpPoints(this.player.getXpPoints() + this.battle.getExperiencePoints());
+			this.player.setExperiencePoints(this.player.getExperiencePoints() + this.battle.getExperiencePoints());
 			attackButton.setVisible(false);
 			specialAttackButton.setVisible(false);
 			leaveArena.setVisible(true);

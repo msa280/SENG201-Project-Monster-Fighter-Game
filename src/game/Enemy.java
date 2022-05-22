@@ -12,10 +12,8 @@ import monsters.Venomhound;
 /*
  * Generates enemies, and their monster teams.
  */
-
 public class Enemy 
-{
-	
+{	
 	/*
 	 *  The name of the Enemy.
 	 */
@@ -44,14 +42,14 @@ public class Enemy
 	
 	
 	/*
-	 * Sets the difficulty of game so Enemy can use it to create monsters
+	 * Sets the difficulty of game.
 	 * 
-	 * @param difficutly 
+	 * @param difficulty The difficulty.
 	 * 
 	 */
-	public void setDifficulty(double difficutly)
+	public void setDifficulty(double difficulty)
 	{
-		this.difficulty = difficutly;
+		this.difficulty = difficulty;
 	}
 	
 	/*

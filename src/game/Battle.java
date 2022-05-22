@@ -21,7 +21,7 @@ public class Battle
 	private Player player;
 	
 	/*
-	 *  The enemy
+	 * The enemy.
 	 */
 	private Enemy enemy;
 	/*
@@ -46,34 +46,34 @@ public class Battle
 	 */
 	private int experiencePoints = 0;
     /*
-     *  The amount of hits taken
+     * The amount of hits taken.
      */
 	private int hitsTaken = 0;
 	
 	/*
-     *  The amount of hits given
+     * The amount of hits given.
      */
 	private int hitsGiven = 0;
 	
 	/*
-     *  The amount of damage taken by the player
+     * The amount of damage taken by the player.
      */
 	private int totalDamageTaken = 0;
 	
 	/*
-     *  The amount of damage done by the player
+     * The amount of damage done by the player.
      */
 	private int totalDamageDone = 0;
 	
 	/*
-     *  The day on which the battle is being done
+     * The day on which the battle is being done.
      */
 	private int currentDay;
 	
 	/*
-     *  This is the battle difficutly
+     * This is the battle difficulty.
      */
-	private double difficutly;
+	private double difficulty;
 	
 
 	/*
@@ -122,7 +122,7 @@ public class Battle
 	/*
 	 * Gets the gold gained from the battle.
 	 * 
-	 * @return battleGold The amount of gold.
+	 * @return The amount of gold.
 	 */
 	public int getBattleGold()
 	{
@@ -144,7 +144,7 @@ public class Battle
 	 * Gets the amount of experience points gained
 	 * from the battle. 1 gained per enemy monster defeated.
 	 * 
-	 * @return experiencePoints Returns the number of experience points gained total over the battle.
+	 * @return Returns the number of experience points gained total over the battle.
 	 */
 	public int getExperiencePoints()
 	{
@@ -165,6 +165,8 @@ public class Battle
 
 	/*
 	 * Gets the new update message from the battle.
+	 * 
+	 * @return The update to give to the player.
 	 */
 	public String getBattleUpdate() 
 	{
@@ -174,6 +176,8 @@ public class Battle
 	
 	/*
 	 * Sets the new update message for the battle.
+	 * 
+	 * @param battleUpdate The update to give to the player.
 	 */
 	public void setBattleUpdate(String battleUpdate)
 	{
@@ -183,7 +187,7 @@ public class Battle
 	/*
 	 * Gets the last player attack update.
 	 * 
-	 * @return lastUpdate Returns the value of last update.
+	 * @return Returns the value of last update.
 	 */
 	public String getLastUpdate()
 	{
@@ -202,7 +206,9 @@ public class Battle
 	}
     
 	/*
-	 * Gets the battle enemy
+	 * Gets the battle enemy.
+	 * 
+	 * @return Returns enemy.
 	 */
 	public Enemy getEnemy() 
 	{
@@ -210,9 +216,9 @@ public class Battle
 	}
 
 	/*
-	 * Sets the battle enemy
+	 * Sets the battle enemy.
 	 * 
-	 * @param enemy
+	 * @param enemy The enemy.
 	 */
 	public void setEnemy(Enemy enemy) 
 	{
@@ -220,11 +226,13 @@ public class Battle
 	}
 	
 	/*
-	 * Gets the battle player
+	 * Gets the player.
+	 * 
+	 * @return Returns the player.
 	 */
 	public Player getPlayer()
 	{
-		return this.player;
+		return player;
 	}
 
 	/*
@@ -238,7 +246,7 @@ public class Battle
 	/*
 	 * Sets the current day.
 	 * 
-	 * @params currentDay
+	 * @param currentDay The current day in game.
 	 */
 	public void setCurrentDay(int currentDay) 
 	{
@@ -246,21 +254,24 @@ public class Battle
 	}
 
 	/*
-	 * Gets the difficutly.
+	 * Gets the difficulty.
+	 * 
+	 * 
+	 * @return Returns the difficulty.
 	 */
-	public double getDifficutly() 
+	public double getDifficulty() 
 	{
-		return difficutly;
+		return difficulty;
 	}
 
 	/*
 	 * Sets the difficulty
 	 * 
-	 * @params difficutly
+	 * @param difficulty The difficulty.
 	 */
-	public void setDifficutly(double difficutly)
+	public void setDifficutly(double difficulty)
 	{
-		this.difficutly = difficutly;
+		this.difficulty = difficulty;
 	}
 
 
@@ -346,7 +357,7 @@ public class Battle
 				}
 				selectedNames.add(enemyName);
 				newEnemy.setEnemyName(enemyName);
-				newEnemy.setDifficulty(this.difficutly);
+				newEnemy.setDifficulty(this.difficulty);
 				newEnemy.generateEnemyTeam();
 				this.battles.add(newEnemy);
 			}
@@ -391,14 +402,16 @@ public class Battle
 
 	
 	/*
-	 * Allows the player to have their turn.
+	 * Makes the player attack.
 	 * 
-	 * @param enemy An instance of Enemy.
+	 * @param playerMonster The monster to attack.
+	 * @param enemyMonster The monster that is being attacked.
+	 * @param attackType The attack that the monster is using.
 	 */
 	public void playerAttack(Monster playerMonster, Monster enemyMonster, String attackType)
 	{
 		this.battleUpdate = "";
-		double difficulty = this.difficutly;
+		double difficulty = this.difficulty;
 		String update = "";
 			
 		if (attackType == "Attack")
@@ -449,14 +462,15 @@ public class Battle
 	
 	
 	/*
-	 * Simulates the enemy turn
+	 * Simulates the enemy attack turn.
 	 * 
-	 * @param enemy An instance of Enemy.
+	 * @param playerMonster The monster the enemy is attacking.
+	 * @param enemyMonster The monster attacking.
 	 */
 	public void enemyAttack(Monster playerMonster, Monster enemyMonster)
 	{
 	
-		double difficulty = this.difficutly;
+		double difficulty = this.difficulty;
 		String update = "";
 		
 		if (enemyMonster.getSpecialAttackAvailable() == true)
@@ -500,9 +514,7 @@ public class Battle
 	
 	
 	/*
-	 * 
-	 * Gives the battle stats after the battle has concluded.
-	 * 
+	 * Gives the battle statistics after the battle has concluded.
 	 */
 	public String getBattleStats()
 	{
@@ -528,11 +540,4 @@ public class Battle
 		
 		return (a1 + a + b + c + d + e + f + g);
 	}
-	
-	
-	
-	
-	
-
-	
 }

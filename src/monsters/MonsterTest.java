@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import game.AudioPlayer;
 
+/*
+ * Tests the monster audio.
+ */
 class MonsterTest {
 	
 	

@@ -36,11 +36,11 @@ public class MainMenu
 	/*
 	 * The background audio.
 	 */
-	AudioPlayer backgroundAudio = new AudioPlayer();
+	private AudioPlayer backgroundAudio = new AudioPlayer();
 	/*
 	 * The button audio.
 	 */
-	AudioPlayer buttonAudio = new AudioPlayer();
+	private AudioPlayer buttonAudio = new AudioPlayer();
 	
 	
 	/*
@@ -185,18 +185,14 @@ public class MainMenu
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 	}
 	
-	
+	/*
+	 * Ends the game by launching the game over screen.
+	 */
 	public void gameOver()
 	{
 		this.frmMainMenu.dispose();
 		GameOver.launchGameOver(this.player);
-		
-		
 	}
-	
-	
-
-	
 	
 	/*
 	 * Initializes the contents of the frame.

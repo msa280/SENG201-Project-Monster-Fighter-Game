@@ -34,10 +34,15 @@ public class GoodMorningGUI {
 	 * The player.
 	 */
 	private Player player;
+	/*
+	 * The button audio.
+	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
 	
 	
-
+	/*
+	 * Plays the button audio.
+	 */
 	public void okay()
 	{
 		buttonAudio.playSoundOnce("buttonA.wav");

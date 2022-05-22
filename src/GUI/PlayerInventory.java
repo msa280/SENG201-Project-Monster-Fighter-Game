@@ -32,22 +32,43 @@ import java.awt.event.MouseEvent;
 
 public class PlayerInventory
 {
-
+	/*
+	 * The inventory viewer frame.
+	 */
 	private JFrame inventoryViewer;
+	/*
+	 * The player.
+	 */
 	private Player player;
+	/*
+	 * The button audio.
+	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
-	private JTextField gold;;
+	/*
+	 * The text field that displays the players gold.
+	 */
+	private JTextField gold;
 
-	
-	public void setHealthBar(Monster monster, JProgressBar progressbar) 
+	/*
+	 * Sets the health bar of the monster.
+	 * 
+	 * @param monster The monster.
+	 * @param progressBar The health bar.
+	 */
+	public void setHealthBar(Monster monster, JProgressBar progressBar) 
 	{
-		progressbar.setMinimum(0);
-		progressbar.setMaximum(monster.getMaxHealth());
-		progressbar.setValue(monster.getCurrentHealth());
+		progressBar.setMinimum(0);
+		progressBar.setMaximum(monster.getMaxHealth());
+		progressBar.setValue(monster.getCurrentHealth());
 	}
 	
 	
-	
+	/*
+	 * Views the items statistics
+	 * 
+	 * @param buttonIndex The index of the button chosen.
+	 * @param errorField Sets a text pane to show an error message.
+	 */
 	public void viewItemStat(int buttonIndex, JTextPane errorField)
 	{
 		if (buttonIndex > this.player.getPlayerInventory().size())
@@ -71,9 +92,11 @@ public class PlayerInventory
 		}
 	}
 	
-	
-	
-	
+	/*
+	 * Launches the inventory viewer.
+	 * 
+	 * @param player The player.
+	 */
 	public static void launchInventoryViewer(Player player)
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -88,8 +111,9 @@ public class PlayerInventory
 		});
 	}
 	
-	
-	
+	/*
+	 * Goes back to the main menu.
+	 */
 	public void goBack()
 	{
 		buttonAudio.playSoundOnce("buttonA.wav");
@@ -97,8 +121,11 @@ public class PlayerInventory
 		MainMenu.launchMainMenu(this.player);
 	}
 	
-	
-	
+	/*
+	 * Sells an item.
+	 * 
+	 * @param buttonIndex The index of the chosen button.
+	 */
 	public void sellItem(int buttonIndex)
 	{
 		int i = 0;
@@ -118,9 +145,16 @@ public class PlayerInventory
 		PlayerInventory.launchInventoryViewer(this.player);
 	}
 	
-	
-	
-	
+	/*
+	 * Uses an item.
+	 * 
+	 * @param buttonPosition The position of the button.
+	 * @param chosenMonsterName The name of the chosen monster.
+	 * @param quantityLeftDisplay The quantity of the item left.
+	 * @param itemImage The image of the item.
+	 * 
+	 * @return Returns nothing, the function just does its job and finishes.
+	 */
 	public Item UseItem(int buttonPosition, String chosenMonsterName, JTextField quantityLeftDisplay, JLabel itemImage)
 	{
 		Item selected_item;
@@ -148,10 +182,8 @@ public class PlayerInventory
 		return null;
 	}
 	
-	
-	
-	/**
-	 * Launch the application.
+	/*
+	 * Launches the application.
 	 */
 	public static void main(String[] args) 
 	{
@@ -164,8 +196,10 @@ public class PlayerInventory
 
 	
 	
-	/**
-	 * Create the application.
+	/*
+	 * Creates the player inventory GUI.
+	 * 
+	 * @param player The player.
 	 */
 	public PlayerInventory(Player player) 
 	{
@@ -173,8 +207,8 @@ public class PlayerInventory
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * Initializes the contents of the frame.
 	 */
 	private void initialize() {
 		
@@ -683,7 +717,7 @@ public class PlayerInventory
 			labelList[i].setIcon(new ImageIcon(myItem.getItemImage()));
 			paneList[i].setText(myItem.getItemName());
 			quantities[i].setText("Quantity: " + Integer.toString(amount));
-			sellButtons[i].setText("Sell (+%d Gold)".formatted(myItem.getResalePrice()));
+			sellButtons[i].setText("Sell (+%d Gold)".formatted(myItem.getResellPrice()));
 			i += 1;
 		}
 		

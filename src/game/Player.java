@@ -57,7 +57,7 @@ public class Player
 	/*
 	 * The experience points earned by the player
 	 */
-	private int xpPoints;
+	private int experiencePoints;
 	/*
 	 * The total gold earned by the player.
 	 */
@@ -113,10 +113,6 @@ public class Player
 	
 	/* 
 	 * Sets the amount of days remaining.
-	 * 
-	 * @param currentDay The current day.
-	 * @game An instance of the Game class.
-	 * 
 	 */
 	public void setDaysRemaining() 
 	{
@@ -175,7 +171,7 @@ public class Player
 	/*
 	 * Gets the current instance of the Shop class.
 	 * 
-	 * @return Returns the current instance of shop.
+	 * @return Returns the current instance of Shop.
 	 */
 	public Shop getShop()
 	{
@@ -305,21 +301,23 @@ public class Player
 	
 	
 	 /*
-     * Sets the xp points of the player
+     * Sets the experience points of the player
      * 
-     *@param xpPoints
+     * @param experiencePoints 
      */
-	public void setXpPoints(int xpPoints)
+	public void setExperiencePoints(int experiencePoints)
 	{
-		this.xpPoints = xpPoints;
+		this.experiencePoints = experiencePoints;
 	}
 
 	/*
-	 * Gets the xp points of the player
+	 * Gets the experience points of the player
+	 * 
+	 * @return Returns the experience points given.
 	 */
-	public int getXpPoints()
+	public int getExperiencePoints()
 	{
-		return this.xpPoints;
+		return this.experiencePoints;
 	}
 
 
@@ -334,7 +332,9 @@ public class Player
 	}
 
 	/*
-	 * Gets the total gold gained by the player
+	 * Gets the total gold gained by the player.
+	 * 
+	 * @return Returns total gold gained.
 	 */
 	public int getTotalGoldGained() 
 	{
@@ -343,6 +343,8 @@ public class Player
 
 	/*
 	 * Gets the battles won during that day
+	 * 
+	 * @return Returns the number of battles won.
 	 */
 	public int getBattlesWon() 
 	{
@@ -521,7 +523,7 @@ public class Player
 		String update = "";
 		update += ("%s sold!\n".formatted(item.getItemName()));
 		
-		this.playerGold += item.getResalePrice();
+		this.playerGold += item.getResellPrice();
 		
 		if (this.playerInventory.get(item) == 1)
 		{
@@ -534,7 +536,7 @@ public class Player
 			update += ("You have sold 1 %s.\n".formatted(item.getItemName()));
 		}
 		
-		update += ("%d Gold has been given to you.\n".formatted(item.getResalePrice()));
+		update += ("%d Gold has been given to you.\n".formatted(item.getResellPrice()));
 		this.lastUpdate = update;
 	}
 	
@@ -547,7 +549,7 @@ public class Player
 	 */
 	public void sellMonster(Monster monster)
 	{
-		this.playerGold += monster.getResalePrice();
+		this.playerGold += monster.getResellPrice();
 		this.playersTeam.remove(monster);
 	}
 	
@@ -649,7 +651,7 @@ public class Player
 	
 	/*
 	 * It controls the chances of a monster leaving overnight. The chances are low 
-	 * and are affected by wether the monster fainted that day or not.
+	 * and are affected by whether the monster fainted that day or not.
 	 * 
 	 */
 	public String monsterLeaveOvernight()
@@ -752,8 +754,10 @@ public class Player
 	
 	
 	/*
-	 * Control the chances of a monster leveling up overnight.
+	 * Control the chances of a monster levelling up overnight.
 	 * The chances of a monster levelling up increases with the battles won during that day.
+	 * 
+	 * @return Returns the update.
 	 */
 	public String monsterLevelUpOvernight()
 	{
@@ -832,7 +836,7 @@ public class Player
 		String a = "Player Name: %s\n".formatted(this.game.getPlayerName());
 		String b = "Game Duration: %d\n".formatted(this.game.getGameLength());
 		String c = "Gold Gained: %d\n".formatted(this.totalGoldGained);
-		String d = "XP Points Earned: %d\n".formatted(this.xpPoints);
+		String d = "XP Points Earned: %d\n".formatted(this.experiencePoints);
 		return (a + b + c + d);
 	}
 }

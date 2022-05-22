@@ -44,7 +44,7 @@ public class PlayerTeam {
 	/*
 	 * The player update text pane.
 	 */
-	JTextPane update = new JTextPane();
+	private JTextPane update = new JTextPane();
 	/*
 	 * The players gold.
 	 */

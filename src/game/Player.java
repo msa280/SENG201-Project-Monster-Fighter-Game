@@ -27,10 +27,6 @@ public class Player
 	 */
 	private Map<Item, Integer> playerInventory = new HashMap<Item, Integer>();
 	/* 
-	 * Players items.
-	 */
-	private ArrayList<Item> playersItems = new ArrayList<Item>();
-	/* 
 	 * Players team of monsters.
 	 */
 	private ArrayList<Monster> playersTeam = new ArrayList<Monster>();
@@ -175,15 +171,6 @@ public class Player
 		this.shop = newShop;
 	}
 	
-	/* 
-	 * Gets the players current items.
-	 * 
-	 * @return Returns an ArrayList of the players items.
-	 */
-	public ArrayList<Item> getPlayerItems()
-	{
-		return this.playersItems;
-	}	
 	
 	/*
 	 * Gets the current instance of the Shop class.
@@ -275,15 +262,7 @@ public class Player
 		this.readyForBattle = readyForBattle;
 	}
 	
-	/*
-	 * Creates the player instance, and sets and outputs their gold.
-	 */
-	public static void main(String[] args)
-	{
-		Player player = new Player();
-		player.setPlayerGold(1);
-		System.out.print(player.getPlayerGold());
-	}
+	
 	/*
 	 * Gets the last update for the player.
 	 * 
@@ -499,6 +478,7 @@ public class Player
 		}
 	}
 	
+	
 	/*
 	 * Purchases an item from the store.
 	 * 
@@ -509,10 +489,12 @@ public class Player
 	 */
 	public boolean buyItem(Item item)
 	{
-		if (this.playerGold < item.getPrice()) {
+		if (this.playerGold < item.getPrice()) 
+		{
 			return false;
 		}
-		else {
+		else 
+		{
 			this.playerGold -= item.getPrice();
 			if (this.playerInventory.containsKey(item)) 
 			{
@@ -520,7 +502,8 @@ public class Player
 				this.playerInventory.remove(item);
 				this.playerInventory.put(item, newValue);
 				System.out.print(this.playerInventory);
-			} else 
+			} 
+			else 
 			{
 				this.playerInventory.put(item, 1);
 			}

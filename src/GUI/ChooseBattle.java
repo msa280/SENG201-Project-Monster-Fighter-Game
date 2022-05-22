@@ -274,8 +274,6 @@ public class ChooseBattle {
 				goBack.setFont(new Font("Tahoma", Font.BOLD, 14));
 				goBack.setBackground(Color.BLACK);
 				goBack.setForeground(Color.YELLOW);
-				frmEnemySelection.dispose();
-				MainMenu.launchMainMenu(player);
 			}
 		});
 		goBack.setBackground(Color.BLACK);

@@ -52,7 +52,7 @@ public class GameSetup {
 	/*
 	 * Whether or not the setup process has successfully been completed.
 	 */
-	boolean setupComplete = false;
+	public boolean setupComplete = false;
 	/*
 	 * An instance of the AudioPlayer class.
 	 */

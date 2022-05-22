@@ -36,11 +36,11 @@ public class MainMenu
 	/*
 	 * The background audio.
 	 */
-	AudioPlayer backgroundAudio = new AudioPlayer();
+	private AudioPlayer backgroundAudio = new AudioPlayer();
 	/*
 	 * The button audio.
 	 */
-	AudioPlayer buttonAudio = new AudioPlayer();
+	private AudioPlayer buttonAudio = new AudioPlayer();
 	
 	
 	/*

@@ -184,19 +184,6 @@ public class Item {
 			System.out.printf("%s's special attack has increased by 10.\n", monster.getMonsterName());
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 	
 

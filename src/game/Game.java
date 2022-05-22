@@ -10,7 +10,7 @@ package game;
 import java.util.regex.Matcher; 
 import java.util.regex.Pattern;
 
-import GUI.Intro;
+import gui.Intro;
 import monsters.Monster;
 
 

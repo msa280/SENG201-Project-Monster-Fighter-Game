@@ -144,14 +144,28 @@ public class Item {
 
 		if  (item_name == "Blood Broth")
 		{
-			monster.setCurrentHealth(monster.getCurrentHealth() + 50);
-			System.out.printf("%s's health has increased by 50.\n", monster.getMonsterName());
+			if (monster.getCurrentHealth() >= monster.getMaxHealth())
+			{
+				return;
+			}
+		    else if (monster.getCurrentHealth() <= 0)
+			{
+				monster.setFaint(false);
+				monster.setCurrentHealth(50);
+			}
+		    else if (monster.getCurrentHealth() + 50 > monster.getMaxHealth())
+			{
+				monster.setCurrentHealth(monster.getMaxHealth());
+			}
+			else
+			{
+				monster.setCurrentHealth(monster.getCurrentHealth() + 50);
+			}
 		}
 		
 		else if (item_name == "Energizer Bone")
 		{
 			monster.setDamage(monster.getDamage() + 5);
-			System.out.printf("%s's basic attack has increased by 50.\n", monster.getMonsterName());
 		}
 		
 		else if (item_name == "Cursed Skull")
@@ -160,28 +174,31 @@ public class Item {
 			int upperbound = 3;
 			int deciding_num = randNum.nextInt(upperbound);
 			
-			if (deciding_num <= 1)
+			if (deciding_num <= 1) // 2/3 chance
 			{
 				monster.setMaxHealth(monster.getMaxHealth() + 30);
-				System.out.printf("Lucky! %s's max health has increased by 30.\n", monster.getMonsterName());
 			}
-			else
+			else // 1/3 chance
 			{
-				monster.setMaxHealth(monster.getMaxHealth() + 30);
-				System.out.printf("Unlucky! %s's max health has decreased by 30.\n", monster.getMonsterName());
+				if (monster.getMaxHealth() > 30)
+				{
+					monster.setMaxHealth(monster.getMaxHealth() - 30);
+				}
+				else
+				{
+					monster.setMaxHealth(0);
+				}
 			}
 		}
 		
 		else if (item_name == "Guardian Arch")
 		{
 			monster.setHealAmount(monster.getHealAmount() + 20);
-			System.out.printf("%s's heal amount has increased by 10.\n", monster.getMonsterName());
 		}
 		
 		else if (item_name == "Virility Gem")
 		{
 			monster.setSpecialDamage(monster.getSpecialDamage() + 10);
-			System.out.printf("%s's special attack has increased by 10.\n", monster.getMonsterName());
 		}
 	}
 }

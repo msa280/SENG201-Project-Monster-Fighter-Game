@@ -1,8 +1,5 @@
 package game;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.awt.Color;
 import java.util.Map.Entry;
 
 import org.junit.jupiter.api.Test;
@@ -15,7 +12,6 @@ import monsters.Venomhound;
 
 class PlayerTest
 {
-	private static final Item CursedSkull = null;
 	Player player = new Player();
 
 	@Test

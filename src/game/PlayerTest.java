@@ -65,10 +65,7 @@ class PlayerTest
 		
 		player.setSelectedAvatar("something");
 		player.getSelectedAvatar();
-		
-		player.setXpPoints(100);
-		player.getXpPoints();
-		
+
 		player.setTotalGoldGained(1000);
 		player.getTotalGoldGained();
 		

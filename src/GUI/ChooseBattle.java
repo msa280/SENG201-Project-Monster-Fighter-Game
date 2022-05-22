@@ -35,7 +35,10 @@ public class ChooseBattle {
 	 */
 	private ArrayList<Enemy> battles;
 
-	JTextPane updateArea = new JTextPane();
+	/*
+	 * A text pane that updates the player.
+	 */
+	private JTextPane updateArea = new JTextPane();
 
 	/*
 	 * The player.
@@ -45,6 +48,9 @@ public class ChooseBattle {
 	 * A button.
 	 */
 	private JButton b1;
+	/*
+	 * The button audio.
+	 */
 	private AudioPlayer buttonAudio = new AudioPlayer();
 	
 	/*

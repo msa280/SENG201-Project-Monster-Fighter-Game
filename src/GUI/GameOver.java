@@ -52,8 +52,6 @@ public class GameOver {
 	{
 
 		/** this.background.stopSound(); */
-
-		this.backgroundAudio.stopSound();
 		this.buttonAudio.playSoundOnce("buttonA.wav");
 		this.frmGameOver.dispose();
 	}
@@ -96,8 +94,6 @@ public class GameOver {
 		this.buttonAudio.playSoundOnce("GameOver.wav");
 
 		/** this.background.playSoundLoop("credits.wav"); */
-
-		this.backgroundAudio.playSoundLoop("credits.wav");
 
 	}
 

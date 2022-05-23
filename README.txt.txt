@@ -133,7 +133,7 @@ GOOD LUCK!
 __________________________________________________________________________________________________________
 
 Monster Fighter (Version 1.0)
-* Will be updated in future bug fixes and improvements *
+* Will be updated in future for bug fixes and improvements *
 Authors: Haider & Jakib
 
 
